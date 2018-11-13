@@ -1,0 +1,10 @@
+<h2><%= t('pages.proposal_comments.noise.title') %></h2>
+<% if @proposal.contributes.noise.count > 0 %>
+    <% @proposal.contributes.noise.each do |contribute| %>
+        <div class="noise_element" data-id="<%= contribute.id %>">
+          <%= parsed_content(contribute, @proposal.is_anonima?) %>
+        </div>
+    <% end %>
+<% else %>
+    <%= t('pages.proposal_comments.noise.no_contributes') %>
+<% end %>

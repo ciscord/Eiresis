@@ -1,0 +1,24 @@
+<ul class="breadcrumbs">
+  <li><%= link_to t('pages.groups.administration_panel.forum'), group_frm_admin_root_url(@group) %></li>
+  <li class="current"><%= t("frm.admin.category.index") %></li>
+</ul>
+
+<table id='forums' class='forums table-striped table' cellspacing='0'>
+  <thead>
+  <tr>
+
+    <th><%= t('category', scope: 'frm.admin.categories') %></th>
+    <th><%= t('edit', scope: 'frm.admin.categories') %></th>
+    <th><%= t('delete', scope: 'frm.admin.categories') %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <%= render partial: 'categories' %>
+  </tbody>
+</table>
+<%= link_to t("frm.admin.category.new_link"), new_group_frm_admin_category_url(@group), class: "btn blue", remote: true, data:{disable_with: t('loading')} %><br>
+
+
+<%= content_for :left_panel do %>
+    <%= render partial: 'groups/administration_panel' %>
+<% end %>

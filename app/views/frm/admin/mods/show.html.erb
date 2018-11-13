@@ -1,0 +1,25 @@
+<ul class="breadcrumbs">
+  <li><%= link_to t('pages.groups.administration_panel.forum'), group_frm_admin_root_url(@group) %></li>
+  <li><%= link_to t('frm.admin.group.index'), group_frm_admin_mods_url(@group) %></li>
+  <li class="current"><%= @frm_mod.name %></li>
+</ul>
+
+<div class="card">
+  <div class="row add-member-form">
+    <%= render 'frm/admin/mods/add_form'%>
+  </div>
+</div>
+<div class="card">
+  <div id="group_members_container">
+    <%= render 'group_members' %>
+  </div>
+</div>
+
+<script type="text/javascript">
+    ModsShow.autocompleteUrl = '<%=j group_user_autocomplete_url(@group) %>';
+</script>
+
+
+<%= content_for :left_panel do %>
+    <%= render 'groups/administration_panel' %>
+<% end %>

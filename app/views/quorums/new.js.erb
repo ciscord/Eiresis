@@ -1,0 +1,12 @@
+var container_ = $('<div id="quorum_container" class="reveal-modal medium" data-reveal></div>');
+container_.html("<%= j (render(partial: 'quorums/form', locals: {button_name: t('buttons.create')}))%>");
+$('body').append(container_);
+
+eiresis_reveal(container_);
+
+container_.find('a.cancel').click(function() {
+    container_.foundation('reveal', 'close');
+    return false;
+});
+
+new eiresisFormValidation(container_.find('form'));

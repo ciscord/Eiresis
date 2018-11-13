@@ -1,0 +1,5 @@
+var container_ = $('<div id="area_role_container" class="reveal-modal" data-reveal></div>');
+container_.html("<%=j render(partial: 'area_roles/form', locals: {button_name: t('buttons.edit'), remote: true})%>");
+$('body').append(container_);
+eiresis_reveal($('#area_role_container'));
+new eiresisFormValidation(container_.find('form'));

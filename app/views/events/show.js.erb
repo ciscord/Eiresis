@@ -1,0 +1,8 @@
+$('#eventCommentsContainer').append("<%= j render 'events/comments'%>");
+<%if @event_comments.total_pages > @event_comments.current_page%>
+  checkScroll();
+  checkActive = true;
+<%else%>
+  $('#loading_results').hide();
+<%end%>
+disegnaCountdown();

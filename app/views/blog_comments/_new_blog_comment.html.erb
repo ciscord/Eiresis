@@ -1,0 +1,19 @@
+<%= simple_form_for [@blog_post.blog, @blog_post, blog_comment], remote: true do |f| %>
+    <%= f.error_notification %>
+    <%= f.input :body, label: t('pages.proposals.show.add_comment'), html_input: {class: 'blogNewCommentField', rows: 5, cols: 70} %>
+    <%= f.submit t('pages.blog_comments.new.insert_comment'), data: {disable_with: t('loading')}, class: 'btn green' %>
+<% end %>
+
+<script type="text/javascript">
+    $(function () {
+        var comment_input = $('#blog_comment_body');
+        comment_input.charCount({
+            allowed: <%=CONTRIBUTE_MAX_LENGTH%>,
+            warning: 100,
+            counterText: '<%=t('pages.proposals.show.characters_left')%> '
+        });
+        comment_input.elastic();
+        comment_input.attr('data-initialized', 1);
+    });
+    disegnaCountdown();
+</script>

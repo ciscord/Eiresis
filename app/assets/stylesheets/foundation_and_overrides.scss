@@ -1,0 +1,2939 @@
+$base-font-size: 13px !default;
+
+$rem-base: $base-font-size;
+
+@import "foundation/functions";
+
+$base-line-height: 1.28em;
+
+$body-font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+
+$default-float: left;
+
+$primary-color: #008CBA;
+
+// Media Query Ranges
+$small-range: (0em, 40em);
+// $medium-range: (40.063em, 64em);
+// $large-range: (64.063em, 90em);
+// $xlarge-range: (90.063em, 120em);
+// $xxlarge-range: (120.063em);
+
+$screen: "only screen";
+
+// $landscape: "#{$screen} and (orientation: landscape)";
+// $portrait: "#{$screen} and (orientation: portrait)";
+
+//$small-up: $screen;
+//$small-only: "#{$screen} and (max-width: #{upper-bound($small-range)})";
+
+// $medium-up: "#{$screen} and (min-width:#{lower-bound($medium-range)})";
+// $medium-only: "#{$screen} and (min-width:#{lower-bound($medium-range)}) and (max-width:#{upper-bound($medium-range)})";
+
+// $large-up: "#{$screen} and (min-width:#{lower-bound($large-range)})";
+// $large-only: "#{$screen} and (min-width:#{lower-bound($large-range)}) and (max-width:#{upper-bound($large-range)})";
+
+// $xlarge-up: "#{$screen} and (min-width:#{lower-bound($xlarge-range)})";
+// $xlarge-only: "#{$screen} and (min-width:#{lower-bound($xlarge-range)}) and (max-width:#{upper-bound($xlarge-range)})";
+
+// $xxlarge-up: "#{$screen} and (min-width:#{lower-bound($xxlarge-range)})";
+// $xxlarge-only: "#{$screen} and (min-width:#{lower-bound($xxlarge-range)}) and (max-width:#{upper-bound($xxlarge-range)})";
+
+// Legacy
+// $small: $medium-up;
+// $medium: $medium-up;
+// $large: $large-up;
+
+//We use this as cursors values for enabling the option of having custom cursors in the whole site's stylesheet
+// $cursor-crosshair-value: crosshair;
+// $cursor-default-value: default;
+// $cursor-pointer-value: pointer;
+// $cursor-help-value: help;
+// $cursor-text-value: text;
+
+// Accordion
+
+// $include-html-accordion-classes: $include-html-classes;
+
+// $accordion-navigation-padding: rem-calc(16);
+// $accordion-navigation-bg-color: #efefef  ;
+// $accordion-navigation-hover-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -5%);
+// $accordion-navigation-active-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -3%);
+// $accordion-navigation-font-color: #222;
+// $accordion-navigation-font-size: rem-calc(16);
+// $accordion-navigation-font-family: $body-font-family;
+
+// $accordion-content-padding: $column-gutter/2;
+// $accordion-content-active-bg-color: #fff;
+
+// Alert Boxes
+
+// $include-html-alert-classes: $include-html-classes;
+
+// We use this to control alert padding.
+// $alert-padding-top: rem-calc(14);
+// $alert-padding-default-float: $alert-padding-top;
+// $alert-padding-opposite-direction: $alert-padding-top + rem-calc(10);
+// $alert-padding-bottom: $alert-padding-top;
+
+// We use these to control text style.
+// $alert-font-weight: normal;
+// $alert-font-size: rem-calc(13);
+// $alert-font-color: #fff;
+// $alert-font-color-alt: scale-color($secondary-color, $lightness: -66%);
+
+// We use this for close hover effect.
+// $alert-function-factor: -14%;
+
+//$h1-font-size: rem-calc(36);
+//$h2-font-size: rem-calc(29);
+//$h3-font-size: rem-calc(19);
+//$h4-font-size: rem-calc(15);
+// $alert-border-color: scale-color($primary-color, $lightness: $alert-function-factor);
+// $alert-bottom-margin: rem-calc(20);
+
+// We use these to style the close buttons
+// $alert-close-color: #333;
+// $alert-close-top: 50%;
+// $alert-close-position: rem-calc(5);
+// $alert-close-font-size: rem-calc(22);
+// $alert-close-opacity: 0.3;
+// $alert-close-opacity-hover: 0.5;
+// $alert-close-padding: 9px 6px 4px;
+
+// We use this to control border radius
+// $alert-radius: $global-radius;
+
+// Block Grid
+
+// $include-html-grid-classes: $include-html-classes;
+
+// We use this to control the maximum number of block grid elements per row
+// $block-grid-elements: 12;
+// $block-grid-default-spacing: rem-calc(20);
+
+// Enables media queries for block-grid classes. Set to false if writing semantic HTML.
+// $block-grid-media-queries: true;
+
+// Breadcrumbs
+
+// $include-html-nav-classes: $include-html-classes;
+
+// We use this to set the background color for the breadcrumb container.
+// $crumb-bg: scale-color($secondary-color, $lightness: 55%);
+
+// We use these to set the padding around the breadcrumbs.
+// $crumb-padding: rem-calc(9 14 9);
+// $crumb-side-padding: rem-calc(12);
+
+// We use these to control border styles.
+// $crumb-function-factor: -10%;
+// $crumb-border-size: 1px;
+// $crumb-border-style: solid;
+// $crumb-border-color: scale-color($crumb-bg, $lightness: $crumb-function-factor);
+// $crumb-radius: $global-radius;
+
+// We use these to set various text styles for breadcrumbs.
+// $crumb-font-size: rem-calc(11);
+// $crumb-font-color: $primary-color;
+// $crumb-font-color-current: #333;
+// $crumb-font-color-unavailable: #999;
+// $crumb-font-transform: uppercase;
+// $crumb-link-decor: underline;
+
+// We use these to control the slash between breadcrumbs
+// $crumb-slash-color: #aaa;
+// $crumb-slash: "/";
+
+//
+// BUTTONS
+//
+
+// $include-html-button-classes: $include-html-classes;
+
+// We use these to build padding for buttons.
+// $button-tny: rem-calc(10);
+// $button-sml: rem-calc(14);
+// $button-med: rem-calc(16);
+// $button-lrg: rem-calc(18);
+
+// We use this to control the display property.
+// $button-display: inline-block;
+// $button-margin-bottom: rem-calc(20);
+
+// We use these to control button text styles.
+// $button-font-family: $body-font-family;
+// $button-font-color: #fff;
+// $button-font-color-alt: #333;
+// $button-font-tny: rem-calc(11);
+// $button-font-sml: rem-calc(13);
+// $button-font-med: rem-calc(16);
+// $button-font-lrg: rem-calc(20);
+// $button-font-weight: normal;
+// $button-font-align: center;
+
+// We use these to control various hover effects.
+// $button-function-factor: 5%;
+
+// We use these to control button border styles.
+// $button-border-width: 1px;
+// $button-border-style: solid;
+
+// We use this to set the default radius used throughout the core.
+// $button-radius: $global-radius;
+// $button-round: $global-rounded;
+
+// We use this to set default opacity for disabled buttons.
+// $button-disabled-opacity: 0.7;
+
+// Button Groups
+
+// $include-html-button-classes: $include-html-classes;
+$include-html-button-classes: true;
+
+// Sets the margin for the right side by default, and the left margin if right-to-left direction is used
+// $button-bar-margin-opposite: rem-calc(10);
+// $button-group-border-width: 1px;
+
+// Clearing
+
+// $include-html-clearing-classes: $include-html-classes;
+
+// We use these to set the background colors for parts of Clearing.
+// $clearing-bg: #333;
+// $clearing-caption-bg: $clearing-bg;
+// $clearing-carousel-bg: rgba (51,51,51,0.8);
+// $clearing-img-bg: $clearing-bg;
+
+// We use these to style the close button
+// $clearing-close-color: #ccc;
+// $clearing-close-size: 30px;
+
+// We use these to style the arrows
+// $clearing-arrow-size: 12px;
+// $clearing-arrow-color: $clearing-close-color;
+
+// We use these to style captions
+// $clearing-caption-font-color: #ccc;
+// $clearing-caption-font-size: 0.875em;
+// $clearing-caption-padding: 10px 30px 20px;
+
+// We use these to make the image and carousel height and style
+// $clearing-active-img-height: 85%;
+// $clearing-carousel-height: 120px;
+// $clearing-carousel-thumb-width: 120px;
+// $clearing-carousel-thumb-active-border: 1px solid rgb(255,255,255);
+
+// Dropdown
+
+// $include-html-dropdown-classes: $include-html-classes;
+
+// We use these to controls height and width styles.
+// $f-dropdown-max-width: 200px;
+// $f-dropdown-height: auto;
+//$f-dropdown-max-height: 80%;
+// $f-dropdown-margin-top: 2px;
+//.f-dropdown {
+//  overflow-y: auto;
+//}
+// We use this to control the background color
+// $f-dropdown-bg: #fff;
+
+// We use this to set the border styles for dropdowns.
+$f-dropdown-border-style: solid;
+$f-dropdown-border-width: 1px;
+$f-dropdown-border-color: #ccc;
+$f-dropdown-box-shadow: 0 2px 10px rgba(0, 0, 0, .2);
+
+$off-canvas-overlay-background: rgba(#FFF, 0.5) !default;
+// We use these to style the triangle pip.
+// $f-dropdown-triangle-size: 6px;
+// $f-dropdown-triangle-color: #fff;
+// $f-dropdown-triangle-side-offset: 10px;
+
+// We use these to control styles for the list elements.
+// $f-dropdown-list-style: none;
+// $f-dropdown-font-color: #555;
+// $f-dropdown-font-size: rem-calc(14);
+// $f-dropdown-list-padding: rem-calc(5, 10);
+// $f-dropdown-line-height: rem-calc(18);
+// $f-dropdown-list-hover-bg: #eeeeee  ;
+// $dropdown-mobile-default-float: 0;
+
+// We use this to control the styles for when the dropdown has custom content.
+// $f-dropdown-content-padding: rem-calc(20);
+
+// Dropdown Buttons
+
+// $include-html-button-classes: $include-html-classes;
+
+// We use these to set the color of the pip in dropdown buttons
+// $dropdown-button-pip-color: #fff;
+// $dropdown-button-pip-color-alt: #333;
+
+// $button-pip-tny: rem-calc(6);
+// $button-pip-sml: rem-calc(7);
+// $button-pip-med: rem-calc(9);
+// $button-pip-lrg: rem-calc(11);
+
+// We use these to style tiny dropdown buttons
+// $dropdown-button-padding-tny: $button-pip-tny * 7;
+// $dropdown-button-pip-size-tny: $button-pip-tny;
+// $dropdown-button-pip-opposite-tny: $button-pip-tny * 3;
+// $dropdown-button-pip-top-tny: -$button-pip-tny / 2 + rem-calc(1);
+
+// We use these to style small dropdown buttons
+// $dropdown-button-padding-sml: $button-pip-sml * 7;
+// $dropdown-button-pip-size-sml: $button-pip-sml;
+// $dropdown-button-pip-opposite-sml: $button-pip-sml * 3;
+// $dropdown-button-pip-top-sml: -$button-pip-sml / 2 + rem-calc(1);
+
+// We use these to style medium dropdown buttons
+// $dropdown-button-padding-med: $button-pip-med * 6 + rem-calc(3);
+// $dropdown-button-pip-size-med: $button-pip-med - rem-calc(3);
+// $dropdown-button-pip-opposite-med: $button-pip-med * 2.5;
+// $dropdown-button-pip-top-med: -$button-pip-med / 2 + rem-calc(2);
+
+// We use these to style large dropdown buttons
+// $dropdown-button-padding-lrg: $button-pip-lrg * 5 + rem-calc(3);
+// $dropdown-button-pip-size-lrg: $button-pip-lrg - rem-calc(6);
+// $dropdown-button-pip-opposite-lrg: $button-pip-lrg * 2.5;
+// $dropdown-button-pip-top-lrg: -$button-pip-lrg / 2 + rem-calc(3);
+
+// Flex Video
+
+// $include-html-media-classes: $include-html-classes;
+
+// We use these to control video container padding and margins
+// $flex-video-padding-top: rem-calc(25);
+// $flex-video-padding-bottom: 67.5%;
+// $flex-video-margin-bottom: rem-calc(16);
+
+// We use this to control widescreen bottom padding
+// $flex-video-widescreen-padding-bottom: 57.25%;
+
+// Forms
+
+// $include-html-form-classes: $include-html-classes;
+
+// We use this to set the base for lots of form spacing and positioning styles
+// $form-spacing: rem-calc(16);
+
+// We use these to style the labels in different ways
+// $form-label-pointer: pointer;
+// $form-label-font-size: rem-calc(14);
+$form-label-font-weight: bold;
+// $form-label-font-color: scale-color(#000, $lightness: 30%);
+// $form-label-bottom-margin: rem-calc(8);
+// $input-font-family: inherit;
+// $input-font-color: rgba(0,0,0,0.75);
+// $input-font-size: rem-calc(14);
+// $input-bg-color: #fff;
+// $input-focus-bg-color: scale-color(#fff, $lightness: -2%);
+// $input-border-color: scale-color(#fff, $lightness: -20%);
+// $input-focus-border-color: scale-color(#fff, $lightness: -40%);
+// $input-border-style: solid;
+// $input-border-width: 1px;
+// $input-disabled-bg: #ddd;
+// $input-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+// $input-include-glowing-effect: true;
+
+// We use these to style the fieldset border and spacing.
+// $fieldset-border-style: solid;
+// $fieldset-border-width: 1px;
+// $fieldset-border-color: #ddd;
+// $fieldset-padding: rem-calc(20);
+// $fieldset-margin: rem-calc(18 0);
+
+// We use these to style the legends when you use them
+// $legend-bg: #fff;
+// $legend-font-weight: bold;
+// $legend-padding: rem-calc(0 3);
+
+// We use these to style the prefix and postfix input elements
+// $input-prefix-bg: scale-color(#fff, $lightness: -5%);
+// $input-prefix-border-color: scale-color(#fff, $lightness: -20%);
+// $input-prefix-border-size: 1px;
+// $input-prefix-border-type: solid;
+// $input-prefix-overflow: hidden;
+// $input-prefix-font-color: #333;
+// $input-prefix-font-color-alt: #fff;
+
+// We use these to style the error states for inputs and labels
+// $input-error-message-padding: rem-calc(6 9 9);
+// $input-error-message-top: -1px;
+// $input-error-message-font-size: rem-calc(12);
+// $input-error-message-font-weight: normal;
+// $input-error-message-font-style: italic;
+// $input-error-message-font-color: #fff;
+// $input-error-message-font-color-alt: #333;
+
+// We use this to style the glowing effect of inputs when focused
+// $glowing-effect-fade-time: 0.45s;
+// $glowing-effect-color: $input-focus-border-color;
+
+// Select variables
+// $select-bg-color: #fafafa;
+
+// Inline Lists
+
+// $include-html-inline-list-classes: $include-html-classes;
+
+// We use this to control the margins and padding of the inline list.
+// $inline-list-top-margin: 0;
+// $inline-list-opposite-margin: 0;
+// $inline-list-bottom-margin: rem-calc(17);
+// $inline-list-default-float-margin: rem-calc(-22);
+
+// $inline-list-padding: 0;
+
+// We use this to control the overflow of the inline list.
+// $inline-list-overflow: hidden;
+
+// We use this to control the list items
+// $inline-list-display: block;
+
+// We use this to control any elments within list items
+// $inline-list-children-display: block;
+
+// Joyride
+
+// $include-html-joyride-classes: $include-html-classes;
+
+// Controlling default Joyride styles
+// $joyride-tip-bg: #333;
+// $joyride-tip-default-width: 300px;
+// $joyride-tip-padding: rem-calc(18 20 24);
+// $joyride-tip-border: solid 1px #555;
+// $joyride-tip-radius: 4px;
+// $joyride-tip-position-offset: 22px;
+
+// Here, we're setting the tip dont styles
+// $joyride-tip-font-color: #fff;
+// $joyride-tip-font-size: rem-calc(14);
+// $joyride-tip-header-weight: bold;
+
+// This changes the nub size
+// $joyride-tip-nub-size: 10px;
+
+// This adjusts the styles for the timer when its enabled
+// $joyride-tip-timer-width: 50px;
+// $joyride-tip-timer-height: 3px;
+// $joyride-tip-timer-color: #666;
+
+// This changes up the styles for the close button
+// $joyride-tip-close-color: #777;
+// $joyride-tip-close-size: 24px;
+// $joyride-tip-close-weight: normal;
+
+// When Joyride is filling the screen, we use this style for the bg
+// $joyride-screenfill: rgba(0,0,0,0.5);
+
+// Keystrokes
+
+// $include-html-type-classes: $include-html-classes;
+
+// We use these to control text styles.
+// $keystroke-font: "Consolas", "Menlo", "Courier", monospace;
+// $keystroke-font-size: rem-calc(14);
+// $keystroke-font-color: #222;
+// $keystroke-font-color-alt: #fff;
+// $keystroke-function-factor: -7%;
+
+// We use this to control keystroke padding.
+// $keystroke-padding: rem-calc(2 4 0);
+
+// We use these to control background and border styles.
+// $keystroke-bg: scale-color(#fff, $lightness: $keystroke-function-factor);
+// $keystroke-border-style: solid;
+// $keystroke-border-width: 1px;
+// $keystroke-border-color: scale-color($keystroke-bg, $lightness: $keystroke-function-factor);
+// $keystroke-radius: $global-radius;
+
+// Labels
+
+// $include-html-label-classes: $include-html-classes;
+
+// We use these to style the labels
+// $label-padding: rem-calc(4 8 6);
+// $label-radius: $global-radius;
+
+// We use these to style the label text
+// $label-font-sizing: rem-calc(11);
+// $label-font-weight: normal;
+// $label-font-color: #333;
+// $label-font-color-alt: #fff;
+// $label-font-family: $body-font-family;
+
+// Magellan
+
+// $include-html-magellan-classes: $include-html-classes;
+
+// $magellan-bg: #fff;
+// $magellan-padding: 10px;
+
+// Off-canvas
+
+// $tabbar-bg: #333;
+// $tabbar-height: rem-calc(45);
+// $tabbar-line-height: $tabbar-height;
+// $tabbar-color: #FFF;
+// $tabbar-middle-padding: 0 rem-calc(10);
+
+// Off Canvas Divider Styles
+// $tabbar-right-section-border: solid 1px scale-color($tabbar-bg, $lightness: 13%);
+// $tabbar-left-section-border: solid 1px scale-color($tabbar-bg, $lightness: -50%);
+
+// Off Canvas Tab Bar Headers
+// $tabbar-header-color: #FFF;
+// $tabbar-header-weight: bold;
+// $tabbar-header-line-height: $tabbar-height;
+// $tabbar-header-margin: 0;
+
+// Off Canvas Menu Variables
+// $off-canvas-width: 250px;
+// $off-canvas-bg: #333;
+
+// Off Canvas Menu List Variables
+// $off-canvas-label-padding: 0.3rem rem-calc(15);
+// $off-canvas-label-color: #999;
+// $off-canvas-label-text-transform: uppercase;
+// $off-canvas-label-font-weight: bold;
+// $off-canvas-label-bg: #444;
+// $off-canvas-label-border-top: 1px solid scale-color(#444, $lightness: 14%);
+// $off-canvas-label-border-bottom: none;
+// $off-canvas-label-margin:0;
+// $off-canvas-link-padding: rem-calc(10, 15);
+// $off-canvas-link-color: rgba(#FFF, 0.7);
+// $off-canvas-link-border-bottom: 1px solid scale-color($off-canvas-bg, $lightness: -25%);
+
+// Off Canvas Menu Icon Variables
+// $tabbar-menu-icon-color: #FFF;
+// $tabbar-menu-icon-hover: scale-color($tabbar-menu-icon-color, $lightness: -30%);
+
+// $tabbar-menu-icon-text-indent: rem-calc(35);
+// $tabbar-menu-icon-width: $tabbar-height;
+// $tabbar-menu-icon-height: $tabbar-height;
+// $tabbar-menu-icon-line-height: rem-calc(33);
+// $tabbar-menu-icon-padding: 0;
+
+// $tabbar-hamburger-icon-width: rem-calc(16);
+// $tabbar-hamburger-icon-left: rem-calc(13);
+// $tabbar-hamburger-icon-top: rem-calc(5);
+
+// Off Canvas Back-Link Overlay
+// $off-canvas-overlay-transition: background 300ms ease;
+// $off-canvas-overlay-cursor: pointer;
+// $off-canvas-overlay-box-shadow: -4px 0 4px rgba(#000, 0.5), 4px 0 4px rgba(#000, 0.5);
+// $off-canvas-overlay-background: rgba(#FFF, 0.2);
+// $off-canvas-overlay-background-hover: rgba(#FFF, 0.05);
+
+// Transition Variables
+// $menu-slide: "transform 500ms ease";
+
+// Orbit
+
+// $include-html-orbit-classes: $include-html-classes;
+
+// We use these to control the caption styles
+// $orbit-container-bg: none;
+// $orbit-caption-bg: rgba(51,51,51, 0.8);
+// $orbit-caption-font-color: #fff;
+// $orbit-caption-font-size: rem-calc(14);
+// $orbit-caption-position: "bottom"; // Supported values: "bottom", "under"
+// $orbit-caption-padding: rem-calc(10 14);
+// $orbit-caption-height: auto;
+
+// We use these to control the left/right nav styles
+// $orbit-nav-bg: none;
+// $orbit-nav-bg-hover: rgba(0,0,0,0.3);
+// $orbit-nav-arrow-color: #fff;
+// $orbit-nav-arrow-color-hover: #fff;
+
+// We use these to control the timer styles
+// $orbit-timer-bg: rgba(255,255,255,0.3);
+// $orbit-timer-show-progress-bar: true;
+
+// We use these to control the bullet nav styles
+// $orbit-bullet-nav-color: #ccc;
+// $orbit-bullet-nav-color-active: #999;
+// $orbit-bullet-radius: rem-calc(9);
+
+// We use these to controls the style of slide numbers
+// $orbit-slide-number-bg: rgba(0,0,0,0);
+// $orbit-slide-number-font-color: #fff;
+// $orbit-slide-number-padding: rem-calc(5);
+
+// Graceful Loading Wrapper and preloader
+// $wrapper-class: "slideshow-wrapper";
+// $preloader-class: "preloader";
+
+// Pagination
+
+// $include-html-nav-classes: $include-html-classes;
+
+// We use these to control the pagination container
+// $pagination-height: rem-calc(24);
+// $pagination-margin: rem-calc(-5);
+
+// We use these to set the list-item properties
+// $pagination-li-float: $default-float;
+// $pagination-li-height: rem-calc(24);
+// $pagination-li-font-color: #222;
+// $pagination-li-font-size: rem-calc(14);
+// $pagination-li-margin: rem-calc(5);
+
+// We use these for the pagination anchor links
+// $pagination-link-pad: rem-calc(1 10 1);
+// $pagination-link-font-color: #999;
+// $pagination-link-active-bg: scale-color(#fff, $lightness: -10%);
+
+// We use these for disabled anchor links
+// $pagination-link-unavailable-cursor: default;
+// $pagination-link-unavailable-font-color: #999;
+// $pagination-link-unavailable-bg-active: transparent;
+
+// We use these for currently selected anchor links
+// $pagination-link-current-background: $primary-color;
+// $pagination-link-current-font-color: #fff;
+// $pagination-link-current-font-weight: bold;
+// $pagination-link-current-cursor: default;
+// $pagination-link-current-active-bg: $primary-color;
+
+// Panels
+
+// $include-html-panel-classes: $include-html-classes;
+
+// We use these to control the background and border styles
+// $panel-bg: scale-color(#fff, $lightness: -5%);
+// $panel-border-style: solid;
+// $panel-border-size: 1px;
+
+// We use this % to control how much we darken things on hover
+// $panel-function-factor: -11%;
+// $panel-border-color: scale-color($panel-bg, $lightness: $panel-function-factor);
+
+// We use these to set default inner padding and bottom margin
+// $panel-margin-bottom: rem-calc(20);
+$panel-padding: rem-calc(10);
+
+// We use these to set default font colors
+// $panel-font-color: #333;
+// $panel-font-color-alt: #fff;
+
+// $panel-header-adjust: true;
+// $callout-panel-link-color: $primary-color;
+
+// Pricing Tables
+
+// $include-html-pricing-classes: $include-html-classes;
+
+// We use this to control the border color
+// $price-table-border: solid 1px #ddd;
+
+// We use this to control the bottom margin of the pricing table
+// $price-table-margin-bottom: rem-calc(20);
+
+// We use these to control the title styles
+// $price-title-bg: #333;
+// $price-title-padding: rem-calc(15 20);
+// $price-title-align: center;
+// $price-title-color: #eee;
+// $price-title-weight: normal;
+// $price-title-size: rem-calc(16);
+// $price-title-font-family: $body-font-family;
+
+// We use these to control the price styles
+// $price-money-bg: #f6f6f6  ;
+// $price-money-padding: rem-calc(15 20);
+// $price-money-align: center;
+// $price-money-color: #333;
+// $price-money-weight: normal;
+// $price-money-size: rem-calc(32);
+// $price-money-font-family: $body-font-family;
+
+// We use these to control the description styles
+// $price-bg: #fff;
+// $price-desc-color: #777;
+// $price-desc-padding: rem-calc(15);
+// $price-desc-align: center;
+// $price-desc-font-size: rem-calc(12);
+// $price-desc-weight: normal;
+// $price-desc-line-height: 1.4;
+// $price-desc-bottom-border: dotted 1px #ddd;
+
+// We use these to control the list item styles
+// $price-item-color: #333;
+// $price-item-padding: rem-calc(15);
+// $price-item-align: center;
+// $price-item-font-size: rem-calc(14);
+// $price-item-weight: normal;
+// $price-item-bottom-border: dotted 1px #ddd;
+
+// We use these to control the CTA area styles
+// $price-cta-bg: #fff;
+// $price-cta-align: center;
+// $price-cta-padding: rem-calc(20 20 0);
+
+// Progress Meters
+
+// $include-html-media-classes: $include-html-classes;
+
+// We use this to se the prog bar height
+// $progress-bar-height: rem-calc(25);
+// $progress-bar-color: #f6f6f6  ;
+
+// We use these to control the border styles
+// $progress-bar-border-color: scale-color(#fff, $lightness: -20%);
+// $progress-bar-border-size: 1px;
+// $progress-bar-border-style: solid;
+// $progress-bar-border-radius: $global-radius;
+
+// We use these to control the margin & padding
+// $progress-bar-pad: rem-calc(2);
+// $progress-bar-margin-bottom: rem-calc(10);
+
+// We use these to set the meter colors
+// $progress-meter-color: $primary-color;
+// $progress-meter-secondary-color: $secondary-color;
+// $progress-meter-success-color: $success-color;
+// $progress-meter-alert-color: $alert-color;
+
+// Reveal
+
+// $include-html-reveal-classes: $include-html-classes;
+
+// We use these to control the style of the reveal overlay.
+// $reveal-overlay-bg: rgba(#000, .45);
+// $reveal-overlay-bg-old: #000;
+
+// We use these to control the style of the modal itself.
+// $reveal-modal-bg: #fff;
+// $reveal-position-top: 50px;
+// $reveal-default-width: 80%;
+// $reveal-modal-padding: rem-calc(20);
+// $reveal-box-shadow: 0 0 10px rgba(#000,.4);
+
+// We use these to style the reveal close button
+// $reveal-close-font-size: rem-calc(22);
+// $reveal-close-top: rem-calc(8);
+// $reveal-close-side: rem-calc(11);
+// $reveal-close-color: #aaa;
+// $reveal-close-weight: bold;
+
+// We use these to control the modal border
+// $reveal-border-style: solid;
+// $reveal-border-width: 1px;
+// $reveal-border-color: #666;
+
+// $reveal-modal-class: "reveal-modal";
+// $close-reveal-modal-class: "close-reveal-modal";
+
+// Side Nav
+
+// $include-html-nav-classes: $include-html-classes;
+
+// We use this to control padding.
+// $side-nav-padding: rem-calc(14 0);
+
+// We use these to control list styles.
+// $side-nav-list-type: none;
+// $side-nav-list-position: inside;
+// $side-nav-list-margin: rem-calc(0 0 7 0);
+
+// We use these to control link styles.
+// $side-nav-link-color: $primary-color;
+// $side-nav-link-color-active: scale-color(#000, $lightness: 30%);
+// $side-nav-font-size: rem-calc(14);
+// $side-nav-font-weight: normal;
+// $side-nav-font-family: $body-font-family;
+// $side-nav-active-font-family: $side-nav-font-family;
+
+// We use these to control border styles
+// $side-nav-divider-size: 1px;
+// $side-nav-divider-style: solid;
+// $side-nav-divider-color: scale-color(#fff, $lightness: -10%);
+
+// Split Buttons
+
+// $include-html-button-classes: $include-html-classes;
+
+// We use these to control different shared styles for Split Buttons
+// $split-button-function-factor: 10%;
+// $split-button-pip-color: #fff;
+// $split-button-pip-color-alt: #333;
+// $split-button-active-bg-tint: rgba(0,0,0,0.1);
+
+// We use these to control tiny split buttons
+// $split-button-padding-tny: $button-pip-tny * 10;
+// $split-button-span-width-tny: $button-pip-tny * 6;
+// $split-button-pip-size-tny: $button-pip-tny;
+// $split-button-pip-top-tny: $button-pip-tny * 2;
+// $split-button-pip-default-float-tny: rem-calc(-6);
+
+// We use these to control small split buttons
+// $split-button-padding-sml: $button-pip-sml * 10;
+// $split-button-span-width-sml: $button-pip-sml * 6;
+// $split-button-pip-size-sml: $button-pip-sml;
+// $split-button-pip-top-sml: $button-pip-sml * 1.5;
+// $split-button-pip-default-float-sml: rem-calc(-6);
+
+// We use these to control medium split buttons
+// $split-button-padding-med: $button-pip-med * 9;
+// $split-button-span-width-med: $button-pip-med * 5.5;
+// $split-button-pip-size-med: $button-pip-med - rem-calc(3);
+// $split-button-pip-top-med: $button-pip-med * 1.5;
+// $split-button-pip-default-float-med: rem-calc(-6);
+
+// We use these to control large split buttons
+// $split-button-padding-lrg: $button-pip-lrg * 8;
+// $split-button-span-width-lrg: $button-pip-lrg * 5;
+// $split-button-pip-size-lrg: $button-pip-lrg - rem-calc(6);
+// $split-button-pip-top-lrg: $button-pip-lrg + rem-calc(5);
+// $split-button-pip-default-float-lrg: rem-calc(-6);
+
+// Sub Nav
+
+// $include-html-nav-classes: $include-html-classes;
+
+// We use these to control margin and padding
+// $sub-nav-list-margin: rem-calc(-4 0 18);
+// $sub-nav-list-padding-top: rem-calc(4);
+
+// We use this to control the definition
+// $sub-nav-font-family: $body-font-family;
+// $sub-nav-font-size: rem-calc(14);
+$sub-nav-font-color: #333;
+// $sub-nav-font-weight: normal;
+// $sub-nav-text-decoration: none;
+// $sub-nav-border-radius: 3px;
+// $sub-nav-font-color-hover: scale-color($sub-nav-font-color, $lightness: -25%);
+
+// We use these to control the active item styles
+
+// $sub-nav-active-font-weight: normal;
+// $sub-nav-active-bg: $primary-color;
+// $sub-nav-active-bg-hover: scale-color($sub-nav-active-bg, $lightness: -14%);
+// $sub-nav-active-color: #fff;
+// $sub-nav-active-padding: rem-calc(3 16);
+// $sub-nav-active-cursor: default;
+
+// $sub-nav-item-divider: "";
+// $sub-nav-item-divider-margin: rem-calc(12);
+
+//
+// SWITCH
+//
+
+// $include-html-form-classes: $include-html-classes;
+
+// Controlling border styles and background colors for the switch container
+// $switch-border-color: scale-color(#fff, $lightness: -20%);
+// $switch-border-style: solid;
+// $switch-border-width: 1px;
+// $switch-bg: #fff;
+
+// We use these to control the switch heights for our default classes
+// $switch-height-tny: 22px;
+// $switch-height-sml: 28px;
+// $switch-height-med: 36px;
+// $switch-height-lrg: 44px;
+// $switch-bottom-margin: rem-calc(20);
+
+// We use these to control default font sizes for our classes.
+// $switch-font-size-tny: 11px;
+// $switch-font-size-sml: 12px;
+// $switch-font-size-med: 14px;
+// $switch-font-size-lrg: 17px;
+// $switch-label-side-padding: 6px;
+
+// We use these to style the switch-paddle
+// $switch-paddle-bg: #fff;
+// $switch-paddle-fade-to-color: scale-color($switch-paddle-bg, $lightness: -10%);
+// $switch-paddle-border-color: scale-color($switch-paddle-bg, $lightness: -35%);
+// $switch-paddle-border-width: 1px;
+// $switch-paddle-border-style: solid;
+// $switch-paddle-transition-speed: .1s;
+// $switch-paddle-transition-ease: ease-out;
+// $switch-positive-color: scale-color($success-color, $lightness: 94%);
+// $switch-negative-color: #f5f5f5;
+
+// Outline Style for tabbing through switches
+// $switch-label-outline: 1px dotted #888;
+
+// Tables
+
+// $include-html-table-classes: $include-html-classes;
+
+// These control the background color for the table and even rows
+// $table-bg: #fff;
+// $table-even-row-bg: #f9f9f9  ;
+
+// These control the table cell border style
+
+$table-border-style: none;
+// $table-border-size: 1px;
+// $table-border-color: #ddd;
+
+// These control the table head styles
+// $table-head-bg: #f5f5f5  ;
+// $table-head-font-size: rem-calc(14);
+// $table-head-font-color: #222;
+// $table-head-font-weight: bold;
+// $table-head-padding: rem-calc(8 10 10);
+
+// These control the row padding and font styles
+// $table-row-padding: rem-calc(9 10);
+// $table-row-font-size: rem-calc(14);
+// $table-row-font-color: #222;
+// $table-line-height: rem-calc(18);
+
+// These are for controlling the display and margin of tables
+// $table-display: table-cell;
+// $table-margin-bottom: rem-calc(20);
+
+//
+// TABS
+//
+
+// $include-html-tabs-classes: $include-html-classes;
+
+$tabs-navigation-padding: rem-calc(10);
+$tabs-navigation-bg-color: #ccc;
+//$tabs-navigation-active-bg-color: #bbb;
+$tabs-navigation-hover-bg-color: scale-color($tabs-navigation-bg-color, $lightness: -6%);
+// $tabs-navigation-font-color: #222;
+$tabs-navigation-font-size: rem-calc(14);
+// $tabs-navigation-font-family: $body-font-family;
+
+$tabs-content-margin-bottom: rem-calc(0);
+// $tabs-content-padding: $column-gutter/2;
+
+// $tabs-vertical-navigation-margin-bottom: 1.25rem;
+
+//
+// THUMBNAILS
+//
+
+// $include-html-media-classes: $include-html-classes;
+
+// We use these to control border styles
+// $thumb-border-style: solid;
+// $thumb-border-width: 4px;
+// $thumb-border-color: #fff;
+// $thumb-box-shadow: 0 0 0 1px rgba(#000,.2);
+// $thumb-box-shadow-hover: 0 0 6px 1px rgba($primary-color,0.5);
+
+// Radius and transition speed for thumbs
+// $thumb-radius: $global-radius;
+// $thumb-transition-speed: 200ms;
+
+//
+// TOOLTIPS
+//
+
+// $include-html-tooltip-classes: $include-html-classes;
+
+// $has-tip-border-bottom: dotted 1px #ccc;
+// $has-tip-font-weight: bold;
+// $has-tip-font-color: #333;
+// $has-tip-border-bottom-hover: dotted 1px scale-color($primary-color, $lightness: -55%);
+// $has-tip-font-color-hover: $primary-color;
+// $has-tip-cursor-type: help;
+
+// $tooltip-padding: rem-calc(12);
+// $tooltip-bg: #333;
+// $tooltip-font-size: rem-calc(14);
+// $tooltip-font-weight: normal;
+// $tooltip-font-color: #fff;
+// $tooltip-line-height: 1.3;
+// $tooltip-close-font-size: rem-calc(10);
+// $tooltip-close-font-weight: normal;
+// $tooltip-close-font-color: #777;
+// $tooltip-font-size-sml: rem-calc(14);
+// $tooltip-radius: $global-radius;
+// $tooltip-pip-size: 5px;
+
+//
+// TOP BAR
+//
+
+// $include-html-top-bar-classes: $include-html-classes;
+
+// Background color for the top bar
+$topbar-bg-color: #33b5e5;
+$topbar-bg: $topbar-bg-color;
+
+// Height and margin
+$topbar-height: rem-calc(40px);
+// $topbar-margin-bottom: 0;
+
+// Controlling the styles for the title in the top bar
+// $topbar-title-weight: normal;
+// $topbar-title-font-size: rem-calc(17);
+
+// Style the top bar dropdown elements
+$topbar-dropdown-bg: $topbar-bg-color;
+$topbar-dropdown-link-color: #fff;
+//$topbar-dropdown-link-bg: $topbar-bg-color;
+// $topbar-dropdown-link-weight: normal;
+// $topbar-dropdown-toggle-size: 5px;
+$topbar-dropdown-toggle-color: #fff;
+// $topbar-dropdown-toggle-alpha: 0.4;
+
+// Set the link colors and styles for top-level nav
+$topbar-link-color: #fff;
+$topbar-link-color-hover: #fff;
+$topbar-link-color-active: #fff;
+// $topbar-link-weight: normal;
+// $topbar-link-font-size: rem-calc(13);
+// $topbar-link-hover-lightness: -10%; // Darken by 10%
+$topbar-link-bg-hover: $primary-color;
+// $topbar-link-bg-active: $primary-color;
+// $topbar-link-bg-active-hover: scale-color($primary-color, $lightness: -14%);
+// $topbar-link-font-family: $body-font-family;
+
+// $topbar-button-font-size: 0.75rem;
+
+// $topbar-dropdown-label-color: #777;
+// $topbar-dropdown-label-text-transform: uppercase;
+// $topbar-dropdown-label-font-weight: bold;
+// $topbar-dropdown-label-font-size: rem-calc(10);
+$topbar-dropdown-label-bg: $topbar-bg-color;
+
+// Top menu icon styles
+// $topbar-menu-link-transform: uppercase;
+// $topbar-menu-link-font-size: rem-calc(13);
+// $topbar-menu-link-weight: bold;
+// $topbar-menu-link-color: #fff;
+// $topbar-menu-icon-color: #fff;
+// $topbar-menu-link-color-toggled: #888;
+// $topbar-menu-icon-color-toggled: #888;
+
+// Transitions and breakpoint styles
+// $topbar-transition-speed: 300ms;
+// Using rem-calc for the below breakpoint causes issues with top bar
+// $topbar-breakpoint: #{upper-bound($medium-range)}; // Change to 9999px for always mobile layout
+// $topbar-media-query: "only screen and (min-width: #{upper-bound($medium-range)})";
+$topbar-media-query: "only screen";
+
+// Divider Styles
+// $topbar-divider-border-bottom: solid 1px  scale-color($topbar-bg-color, $lightness: 13%);
+// $topbar-divider-border-top: solid 1px scale-color($topbar-bg-color, $lightness: -50%);
+
+// Sticky Class
+// $topbar-sticky-class: ".sticky";
+// $topbar-arrows: true; //Set false to remove the triangle icon from the menu item
+
+//
+// TYPOGRAPHY
+//
+
+// $include-html-type-classes: $include-html-classes;
+// $include-open-sans: true;
+
+// We use these to control header font styles
+// $header-font-family: join("Open Sans", $body-font-family);
+// $header-font-weight: 300;
+// $header-font-style: normal;
+// $header-font-color: #222;
+// $header-line-height: 1.4;
+// $header-top-margin: .2rem;
+// $header-bottom-margin: .5rem;
+// $header-text-rendering: optimizeLegibility;
+
+// We use these to control header font sizes
+// $h1-font-size: rem-calc(44);
+// $h2-font-size: rem-calc(37);
+// $h3-font-size: rem-calc(27);
+// $h4-font-size: rem-calc(23);
+// $h5-font-size: rem-calc(18);
+// $h6-font-size: 1rem;
+
+// These control how subheaders are styled.
+// $subheader-line-height: 1.4;
+// $subheader-font-color: scale-color($header-font-color, $lightness: 35%);
+// $subheader-font-weight: 300;
+// $subheader-top-margin: .2rem;
+// $subheader-bottom-margin: .5rem;
+
+// A general <small> styling
+// $small-font-size: 60%;
+// $small-font-color: scale-color($header-font-color, $lightness: 35%);
+
+// We use these to style paragraphs
+// $paragraph-font-family: inherit;
+// $paragraph-font-weight: normal;
+// $paragraph-font-size: 1rem;
+$paragraph-line-height: 1.6;
+// $paragraph-margin-bottom: rem-calc(20);
+// $paragraph-aside-font-size: rem-calc(14);
+// $paragraph-aside-line-height: 1.35;
+// $paragraph-aside-font-style: italic;
+// $paragraph-text-rendering: optimizeLegibility;
+
+// We use these to style <code> tags
+// $code-color: scale-color($alert-color, $lightness: -27%);
+// $code-font-family: Consolas, 'Liberation Mono', Courier, monospace;
+// $code-font-weight: bold;
+
+// We use these to style anchors
+// $anchor-text-decoration: none;
+// $anchor-font-color: $primary-color;
+// $anchor-font-color-hover: scale-color($primary-color, $lightness: -14%);
+
+// We use these to style the <hr> element
+// $hr-border-width: 1px;
+// $hr-border-style: solid;
+// $hr-border-color: #ddd;
+// $hr-margin: rem-calc(20);
+
+// We use these to style lists
+// $list-style-position: outside;
+// $list-side-margin: 1.1rem;
+// $list-ordered-side-margin: 1.4rem;
+// $list-side-margin-no-bullet: 0;
+// $list-nested-margin: rem-calc(20);
+// $definition-list-header-weight: bold;
+// $definition-list-header-margin-bottom: .3rem;
+// $definition-list-margin-bottom: rem-calc(12);
+
+// We use these to style blockquotes
+// $blockquote-font-color: scale-color($header-font-color, $lightness: 35%);
+// $blockquote-padding: rem-calc(9 20 0 19);
+// $blockquote-border: 1px solid #ddd;
+// $blockquote-cite-font-size: rem-calc(13);
+// $blockquote-cite-font-color: scale-color($header-font-color, $lightness: 23%);
+// $blockquote-cite-link-color: $blockquote-cite-font-color;
+
+// Acronym styles
+// $acronym-underline: 1px dotted #ddd;
+
+// We use these to control padding and margin
+// $microformat-padding: rem-calc(10 12);
+// $microformat-margin: rem-calc(0 0 20 0);
+
+// We use these to control the border styles
+// $microformat-border-width: 1px;
+// $microformat-border-style: solid;
+// $microformat-border-color: #ddd;
+
+// We use these to control full name font styles
+// $microformat-fullname-font-weight: bold;
+// $microformat-fullname-font-size: rem-calc(15);
+
+// We use this to control the summary font styles
+// $microformat-summary-font-weight: bold;
+
+// We use this to control abbr padding
+// $microformat-abbr-padding: rem-calc(0 1);
+
+// We use this to control abbr font styles
+// $microformat-abbr-font-weight: bold;
+// $microformat-abbr-font-decoration: none;
+
+//
+// VISIBILITY CLASSES
+//
+
+// $include-html-visibility-classes: $include-html-classes;
+
+$namespace: false;
+
+@import 'foundation';
+
+//eiresis specific
+$page-min-width: em-calc(320);
+$left-menu-width: rem-calc(250);
+
+$sectionbar-height-large: rem-calc(40px);
+$sectionbar-height-small: $sectionbar-height-large + rem-calc(20);
+$sectionbar-bg-color: #808080;
+
+$footer-height-large: 31px;
+$footer-height-small: 48px;
+
+$top-small: $topbar-height + $sectionbar-height-small;
+$top-large: $topbar-height + $sectionbar-height-large;
+
+.medium-bar {
+  background: none;
+}
+
+.homepageButton {
+  font-size: 1.8em;
+  @media #{$large-up} {
+    font-size: 2.4em;
+  }
+}
+
+@media #{$medium-up} {
+  #menu-top a.show-for-medium-up {
+    display: inline !important;
+  }
+}
+
+@media #{$small-only} {
+  #menu-top a.show-for-small {
+    display: inline !important;
+  }
+
+  .top-bar-section .has-form {
+    padding: 0 0;
+  }
+}
+
+.top-bar-section li:not(.has-form) a:not(.button) {
+  line-height: inherit;
+}
+
+#main-copy.application {
+  padding-top: 90px;
+}
+
+a {
+  color: #3B5998;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.breadcrumbs {
+  margin-bottom: 30px;
+  a {
+    color: #3B5998;
+  }
+}
+
+ul, ol {
+  margin-left: 20px;
+  margin-bottom: 0;
+}
+
+.label {
+  background-color: #2ba6cb;
+  a {
+    color: #fff;
+  }
+
+  &.tag {
+    margin: 5px;
+    max-width: 200px;
+    overflow: hidden;
+  }
+}
+
+/*menu che si incolla in alto*/
+.sticky {
+  padding: 0.5ex;
+
+}
+
+.sticky.stick {
+  position: fixed;
+  top: 90px;
+  z-index: 10000;
+  border-radius: 0 0 0.5em 0.5em;
+}
+
+#tolr img {
+  height: 28px;
+}
+
+.active {
+  background: none;
+  border: none;
+}
+
+.slide {
+  padding: 10px;
+  position: relative;
+  background: white;
+  img.presentation {
+    border-radius: 50%;
+    border: 0.9em solid #ccc;
+    background-color: #fff;
+  }
+
+  &.blue {
+    background-color: #E2F4FB;
+    img.presentation {
+      border-color: #00bfff
+    }
+  }
+  &.violet {
+    background-color: #F5EAFA;
+    img.presentation {
+      border-color: #9370DB
+    }
+  }
+  &.green {
+    background-color: #F0F8DB;
+    img.presentation {
+      border-color: #9FC41C;
+    }
+  }
+  &.yellow {
+    background-color: #FFF6DF;
+    img.presentation {
+      border-color: #FFA500;
+    }
+  }
+  &.red {
+    background-color: #FFE4E4;
+    img.presentation {
+      border-color: #FF0000;
+    }
+  }
+}
+
+.fake_anchor {
+  position: absolute;
+  top: -$top-small;
+  @media #{$medium-up} {
+    top: -$top-large;
+  }
+}
+
+.full-width {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+#menu-top {
+  min-width: $page-min-width;
+  height: $sectionbar-height-small;
+  background-color: $sectionbar-bg-color;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  z-index: 9;
+  top: inherit;
+  a {
+    color: white;
+    text-decoration: none;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .topimage {
+    position: absolute;
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  .topmenu {
+    position: absolute;
+    margin-left: 40px;
+    .topmenu-text {
+      display: inline;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+
+  @media #{$medium-up} {
+    height: $sectionbar-height-large;
+  }
+
+  @media #{$small-only} {
+    .topmenu.noleft {
+      margin-left: 0;
+    }
+  }
+}
+
+@media #{$medium-up} {
+  .move-right > .inner-wrap {
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    transform: none;
+  }
+}
+
+#menu-group {
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 4px $topbar-link-padding;
+
+  img {
+    &.certification {
+      height: auto;
+      width: auto;
+    }
+  }
+  .tit {
+    font-size: 1.2rem;
+    margin-right: 15px;
+    line-height: 2.2rem;
+    @media #{$medium-up} {
+      display: inline-block;
+    }
+  }
+
+  .submenu {
+    color: white;
+    font-weight: bolder;
+    font-size: 0.8em;
+    margin-top: -1px;
+    line-height: 1.3rem;
+    vertical-align: middle;
+    a {
+      display: inline-block;
+      border-radius: 20px;
+      padding: 3px 10px 3px 10px;
+      &.sel {
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+      .fa {
+        font-size: 1.3rem;
+      }
+    }
+    @media #{$medium-up} {
+      margin-left: 0;
+      display: inline-block;
+    }
+  }
+}
+
+.left-off-canvas-menu {
+  height: calc(100vh - #{$sectionbar-height-small} - 88px);
+}
+
+#main, .left-off-canvas-menu {
+  margin-top: $sectionbar-height-small;
+  @media #{$medium-up} {
+    margin-top: $sectionbar-height-large;
+  }
+}
+
+#main-copy {
+  position: relative;
+  min-height: 100%;
+  -webkit-backface-visibility: hidden;
+}
+
+footer {
+  position: relative !important;
+  height: $footer-height-small;
+  @media #{$medium-up} {
+    height: $footer-height-large;
+  }
+}
+
+body {
+  height: 100%;
+  line-height: 1.38em;
+}
+
+.row.centered {
+  width: 1000px;
+  max-width: 100%;
+  margin: 0 auto;
+  &.two-cols {
+    width: 80%;
+  }
+}
+
+@media #{$small-only} {
+  .row.centered {
+    width: auto;
+    min-width: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media #{$medium-up} {
+  span.show-for-medium-up {
+    display: inline !important;
+  }
+}
+
+.logo1mini {
+  height: 80px;
+}
+
+.off-canvas-wrap {
+  background-color: rgba(0, 0, 0, 0.1);
+  min-height: calc(100% - #{$footer-height-small});
+  @media #{$medium-up} {
+    min-height: calc(100% - #{$footer-height-large});
+  }
+  &.move-right {
+    height: calc(100vh - 88px);
+    min-height: inherit;
+  }
+}
+
+.inner-wrap {
+  min-height: 100%;
+}
+
+#main {
+  min-height: calc(100% - #{$sectionbar-height-small});
+  @media #{$medium-up} {
+    min-height: calc(100% - #{$sectionbar-height-large});
+  }
+}
+
+.row.top-bar {
+  background: rgb(254, 255, 255); /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(254, 255, 255, 1) 0%, rgba(227, 237, 238, 1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(254, 255, 255, 1)), color-stop(100%, rgba(227, 237, 238, 1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(254, 255, 255, 1) 0%, rgba(227, 237, 238, 1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(254, 255, 255, 1) 0%, rgba(227, 237, 238, 1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, rgba(254, 255, 255, 1) 0%, rgba(227, 237, 238, 1) 100%); /* IE10+ */
+  background: linear-gradient(to bottom, rgba(254, 255, 255, 1) 0%, rgba(227, 237, 238, 1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#feffff', endColorstr='#e3edee', GradientType=0); /* IE6-9 */
+}
+
+.row.sub-bar {
+  background: rgb(192, 246, 184); /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(192, 246, 184, 1) 0%, rgba(146, 221, 152, 1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(192, 246, 184, 1)), color-stop(100%, rgba(146, 221, 152, 1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(192, 246, 184, 1) 0%, rgba(146, 221, 152, 1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(192, 246, 184, 1) 0%, rgba(146, 221, 152, 1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, rgba(192, 246, 184, 1) 0%, rgba(146, 221, 152, 1) 100%); /* IE10+ */
+  background: linear-gradient(to bottom, rgba(192, 246, 184, 1) 0%, rgba(146, 221, 152, 1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c0f6b8', endColorstr='#92dd98', GradientType=0); /* IE6-9 */
+}
+
+.row.last-bar {
+  margin-top: 20px;
+  margin-bottom: rem-calc(5);
+}
+
+.homepageButton {
+  font-weight: bold;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #5A7BC1;
+  color: #fff;
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#5A7BC1', endColorstr='#4B6EB7', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+  border-color: #ccc;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  &:hover {
+    text-decoration: none;
+    color: #fff;
+    background-color: #4B6EB7;
+  }
+}
+
+.topbar-menu-icon {
+  background: no-repeat asset_url('top-menu.png');
+}
+
+.mycont {
+  .row {
+    margin: 4px 0;
+    .columns img {
+      max-width: none;
+    }
+  }
+}
+
+select.resize {
+  width: auto;
+}
+
+.dataTables_length select {
+  width: auto;
+}
+
+input.ui-spinner-input {
+  border: none;
+  margin: 0;
+  width: 45px;
+  padding: 0.3em;
+  height: 2em;
+}
+
+a.homepageButton {
+  line-height: 1.6em
+}
+
+a.zocial:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.reveal-modal-bg {
+  z-index: 1001;
+}
+
+.reveal-modal {
+  z-index: 1002;
+  [data-back] {
+    display: none;
+  }
+}
+
+.close-reveal-modal, a[data-reveal-close] {
+  display: none;
+  .reveal-modal & {
+    display: inline-block;
+
+  }
+}
+
+.tabs-content > .content.active {
+  width: 100%;
+}
+
+.section-container.tabs > section.active > .title {
+  border-bottom: 1px solid rgb(204, 204, 204);
+}
+
+.progress.success .meter {
+  font-weight: bold;
+  padding-left: 2em;
+}
+
+.section-container.tabs section .content {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+.section-container.tabs > section.active > .title {
+  border-bottom: 1px solid rgb(204, 204, 204);
+}
+
+.progress.success .meter {
+  font-weight: bold;
+  padding-left: 2em;
+}
+
+.top-bar {
+  min-width: $page-min-width;
+  div {
+    &[class^="icon-"], &[class*=" icon-"] {
+      margin: 0px 10px;
+      color: white;
+    }
+  }
+  a:hover {
+    text-decoration: none;
+  }
+  input {
+    @media #{$medium-up} {
+      top: 0;
+    }
+  }
+}
+
+$logo-width: 100px;
+
+.logo-wrapper {
+  @media #{$medium-up} {
+    position: relative;
+    .logo {
+      width: $logo-width;
+      position: absolute;
+      left: 50%;
+      right: 50%;
+      top: -2px;
+      margin-left: -($logo-width/2);
+    }
+  }
+  @media #{$small-only} {
+    float: left;
+  }
+}
+
+@media #{$medium-up} {
+  footer {
+    .text-right-medium-up {
+      text-align: right;
+    }
+  }
+}
+
+#footer, footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 7px;
+  background-color: #33b5e5;
+  color: white;
+  box-shadow: 0px -1px 1px #333;
+  font-size: 0.9em;
+  z-index: 998;
+  a {
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .language.footer {
+    height: 15px;
+  }
+  @media #{$small-only} {
+    text-align: center;
+    .language.footer {
+      max-width: 50%;
+    }
+    .columns {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+.centerpanelextended {
+  &:not(.nomargin) {
+    padding-top: 10px;
+    padding-left: $topbar-link-padding;
+    padding-right: $topbar-link-padding;
+  }
+  @media #{$small-only} {
+    &.contributes_shown {
+      .centerfloat {
+        display: none;
+      }
+    }
+  }
+  @media #{$medium-up} {
+    &.contributes_shown {
+      max-width: 50%;
+    }
+    &:not(.nomargin) {
+
+    }
+    &:not(.noleft) {
+      margin-left: $left-menu-width - $topbar-link-padding + 1;
+    }
+  }
+}
+
+.suggestion_right {
+  @media #{$small-only} {
+    width: 100%;
+  }
+  @media #{$medium-up} {
+    &.contributes_shown {
+      left: 50%;
+      margin-left: 10px;
+    }
+    top: $top-large;
+    position: fixed;
+    top: $top-small;
+    right: 10px;
+    overflow: auto;
+    height: 100%;
+    border-left: 1px solid #ccc;
+    padding: 0.4rem;
+  }
+}
+
+.suggestion_right::-webkit-scrollbar {
+  width: 8px;
+}
+
+.suggestion_right::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 0px rgb(0, 0, 0);
+  border-radius: 10px;
+}
+
+.suggestion_right::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0);
+}
+
+.menu-left {
+  float: left;
+  width: $left-menu-width;
+  display: none;
+  opacity: 1;
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out;
+  @media #{$small-up} {
+    display: block;
+  }
+  @media #{$small-only} {
+    &.small-show {
+      display: block !important;
+      background-color: #333;
+      position: absolute;
+      z-index: 1;
+      min-height: 100%;
+    }
+  }
+  &.contributes_shown {
+    opacity: 0.6;
+    &.editing {
+      opacity: 1;
+    }
+  }
+}
+
+.centerfloat {
+  opacity: 1;
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out;
+}
+
+.contributes_shown {
+  .centerfloat {
+    opacity: 0.6;
+  }
+  &.editing {
+    .centerfloat {
+      opacity: 1;
+    }
+  }
+}
+
+@media #{$medium-only} {
+  .menu-left {
+    &.contributes_shown {
+      margin-left: -300px;
+    }
+  }
+  .centerpanelextended {
+    &.contributes_shown {
+      margin-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+@media #{$large-only} {
+  .centerpanelextended {
+    &.contributes_shown {
+      max-width: 40%;
+      padding-right: 0;
+    }
+  }
+  .suggestion_right {
+    &.contributes_shown {
+      left: 40%;
+      margin-left: $left-menu-width;
+    }
+  }
+}
+
+@media #{$xlarge-up} {
+  .centerpanelextended {
+    &.contributes_shown {
+      max-width: none;
+    }
+  }
+  .suggestion_right {
+    &.contributes_shown {
+      left: 1064px;
+    }
+  }
+}
+
+#logo-but {
+  span {
+    @media #{$large-up} {
+      display: inline !important;
+      vertical-align: text-bottom;
+    }
+  }
+}
+
+html, body {
+  height: 100%;
+  min-width: $page-min-width;
+}
+
+#toast-container {
+  right: 0;
+  top: 100px;
+  z-index: 10000 !important;
+  &.sticky:hover {
+    cursor: default;
+  }
+  @media #{$large-up} {
+    right: 100px;
+  }
+}
+
+.gray {
+  background-color: #e5e5e5;
+}
+
+.f-dropdown {
+  box-shadow: $f-dropdown-box-shadow;
+
+  &.gray {
+    &:before {
+      border-color: transparent transparent #e5e5e5 transparent;
+    }
+
+    li:hover, li:focus {
+      background: #fff;
+    }
+  }
+  li a {
+    &:hover {
+      text-decoration: none;
+    }
+    padding: 0.9rem 0.5rem;
+  }
+}
+
+input.warning {
+  margin-bottom: 0;
+}
+
+small.warning {
+  display: block;
+  padding: 0.46154rem 0.69231rem 0.69231rem;
+  margin-top: -1px;
+  margin-bottom: 1.23077rem;
+  font-size: 0.92308rem;
+  font-weight: normal;
+  font-style: italic;
+  background-color: #f08a24;
+  border-color: #de770f;
+  color: #fff;
+}
+
+.menu-left-inner {
+  margin-bottom: 10px;
+  margin-right: $topbar-link-padding;
+  margin-left: $topbar-link-padding;
+  padding: 0px;
+  border: 0px;
+  padding-top: 10px;
+  h4 {
+    padding: 0px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    color: black;
+    font-size: 1.125em;
+  }
+  .mycont {
+    padding-top: 10px;
+    word-break: break-word;
+  }
+}
+
+@import "foundation/functions";
+@include exports("global") {
+}
+
+@import "foundation/components/global";
+
+#pulldown .menu-left {
+  width: 0px;
+  height: 0px;
+  padding-top: 0px;
+}
+
+#logo-eiresis {
+  float: left;
+  cursor: pointer;
+}
+
+.group_tag_fade {
+  background-image: asset_url('vertical_blue_line.png');
+  height: 20px;
+  position: absolute;
+  width: 20px;
+  right: -3px;
+  top: 0;
+}
+
+#tolr {
+  position: absolute;
+  right: 100px;
+  top: 24px;
+  &.not_logged {
+    right: 10px;
+    top: 10px;
+  }
+  img {
+    height: 15px;
+    margin-left: 2px;
+    padding: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+  }
+}
+
+#inlog {
+  position: absolute;
+  top: 37px;
+  right: 0;
+  width: 200px;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: right;
+}
+
+#account, #account-small {
+  cursor: pointer;
+  color: white;
+
+  img {
+    height: 48px;
+    margin-left: 8px;
+    margin-top: 10px;
+    border-radius: 28px;
+
+    &.triangle {
+      width: 10px;
+      height: 10px;
+      border: none;
+      position: absolute;
+      top: 14px;
+      margin-left: 4px;
+      &:hover {
+        box-shadow: none;
+      }
+    }
+
+  }
+
+}
+
+#mybox {
+  margin-top: 20px;
+}
+
+#menu-right.slim .box {
+  position: relative;
+  height: 70px;
+  border: 0;
+  margin: 8px;
+  margin-right: 5px;
+
+}
+
+#menu-right .box .logo {
+  position: absolute;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+  margin-right: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.alert.notify {
+  padding: 2px;
+  background-color: rgba(255, 0, 0, 0.9);
+  border-radius: 2px;
+  color: white;
+  font-weight: bold;
+  font-size: 10px;
+  box-shadow: -1px 1px 1px #000;
+  border: 0;
+  z-index: 998;
+  min-width: 18px;
+  &:hover {
+    text-decoration: none;
+  }
+  &.boxed {
+    position: absolute;
+    right: 15px;
+    top: 3px;
+    height: 20px;
+  }
+}
+
+#menu-right img:hover,
+#menu-right .box .logo:hover {
+  box-shadow: 0px 0px 2px #000;
+}
+
+#menu-top .group-cont .tag.sel span {
+  background-color: #fff;
+  padding: 6px;
+  color: gray;
+  border-radius: 20px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.qtip.qtip-login {
+  border-radius: 5px;
+  box-shadow: 0 0 5px #333;
+  color: black;
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 400px;
+  padding-top: 5px;
+}
+
+.qtip-login .box {
+  padding: 5px;
+  background-color: white;
+  border: 1px dotted gray;
+  margin-bottom: 10px;
+}
+
+.qtip.qtip-avatar {
+  width: 800px;
+  max-width: 800px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.qtip-avatar .personal_cont .text-right {
+  text-align: right;
+}
+
+.qtip-avatar h2 {
+  font-size: 20px;
+  padding: 10px;
+  margin-left: -10px;
+  margin-right: -10px;
+  margin-top: -5px;
+  background-color: transparent;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.sep {
+  border-bottom: 1px dotted #000;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.qtip-avatar li {
+  list-style: none;
+  padding: 5px 0px 5px 0px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.qtip-avatar a {
+  text-decoration: none;
+}
+
+.qtip.qtip-yellow {
+  background-color: #E2F0B6;
+  color: #000;
+  font-size: 0.9em;
+  line-height: 1.2em;
+}
+
+.mybox {
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 0.9em;
+  position: relative;
+  box-sizing: border-box;
+
+  &.socialnetwork {
+    padding: 6px;
+  }
+
+  .mybox_button {
+    position: absolute;
+    right: 9px;
+    top: 13px;
+    width: 16px;
+    height: 16px;
+    background-image: asset_url('menu_open.png');
+    cursor: pointer;
+    &.close {
+      background-image: asset_url('menu_close.png');
+    }
+  }
+  .separator {
+    width: 100%;
+    border-top: 1px solid #bebebe;
+    display: block;
+  }
+}
+
+#create_proposal_container {
+  h4 {
+    padding: 0;
+    margin: 0;
+    margin: 5px;
+    margin-bottom: 10px;
+    color: #808080;
+    font-size: 0.9em;
+  }
+}
+
+#language {
+  a {
+    text-align: center;
+    font-size: 1.5em;
+    line-height: 1.5em;
+  }
+  li {
+    text-align: center;
+  }
+}
+
+.centerfloat {
+  float: left;
+  max-width: 800px;
+  width: 100%;
+  position: relative;
+}
+
+.clearboth {
+  clear: both;
+}
+
+.extended {
+  width: 100%;
+  max-width: none;
+}
+
+.qtip-right {
+  border-radius: 3px;
+  padding-bottom: 9px;
+  margin-top: 10px;
+}
+
+/*  ---------------------------------------  BUTTON  */
+
+/* The Magnificent CLEARFIX */
+.buttons:before, .buttons:after {
+  content: "\0020";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+.buttons:after {
+  clear: both;
+}
+
+.buttons {
+  zoom: 1;
+}
+
+/* ------------------------ */
+
+/*------------------------------------*\
+    $BUTTON
+\*------------------------------------*/
+
+.menu-left-inner {
+  .btn {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    &.little {
+      width: 40%;
+      margin-right: 10px;
+    }
+  }
+}
+
+.btn {
+  margin: 5px auto;
+  text-decoration: none;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+  font: bold 11px Arial, sans-serif;
+  color: #444;
+  line-height: 17px;
+  display: inline-block;
+  padding: 8px 14px !important;
+  background: #F3F3F3;
+  border: solid 1px #D9D9D9;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-transition: border-color .20s;
+  -moz-transition: border-color .20s;
+  -o-transition: border-color .20s;
+  transition: border-color .20s;
+  cursor: pointer;
+  position: relative;
+  &.btn-participation {
+    display: inline-block;
+  }
+  &[disabled] {
+    background-color: #F3F3F3;
+    border-color: #D9D9D9;
+    color: #444;
+    opacity: 0.5;
+  }
+}
+
+.btn:hover {
+  background: #f8f8f8;
+  border-color: #c6c6c6;
+  color: #333;
+  text-decoration: none;
+}
+
+.btn:active {
+  box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.btn:focus {
+  border: 1px solid #4D90FE;
+  outline: medium none;
+}
+
+.btn:disabled, a[disabled=disabled], .btn.disabled {
+  opacity: 0.5;
+}
+
+.btn.blue {
+  border: 1px solid #3079ED !important;
+  background: #4d90fe;
+  background: -webkit-linear-gradient(top, #4d90fe, #4787ED);
+  background: -moz-linear-gradient(top, #4d90fe, #4787ED);
+  background: -ms-linear-gradient(top, #4d90fe, #4787ED);
+  background: -o-linear-gradient(top, #4d90fe, #4787ED);
+  -webkit-transition: border .20s;
+  -moz-transition: border .20s;
+  -o-transition: border .20s;
+  transition: border .20s;
+  color: #FFF !important;
+  text-shadow: none;
+}
+
+.btn.blue:hover {
+  border: 1px solid #2F5BB7 !important;
+  background: #3F83F1;
+  background: -webkit-linear-gradient(top, #4D90FE, #357AE8);
+  background: -moz-linear-gradient(top, #4D90FE, #357AE8);
+  background: -ms-linear-gradient(top, #4D90FE, #357AE8);
+  background: -o-linear-gradient(top, #4D90FE, #357AE8);
+}
+
+.btn.blue:active {
+  border-color: #2F5BB7 !important;
+  background: #357ae8;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 1);
+}
+
+.btn.green {
+  color: #fff;
+  border: 1px solid #29691D !important;
+  background: #3D9400;
+  background: -webkit-linear-gradient(top, #3D9400, #398A00);
+  background: -moz-linear-gradient(top, #3D9400, #398A00);
+  background: -ms-linear-gradient(top, #3D9400, #398A00);
+  background: -o-linear-gradient(top, #3D9400, #398A00);
+  -webkit-transition: border .20s;
+  -moz-transition: border .20s;
+  -o-transition: border .20s;
+  transition: border .20s;
+}
+
+.btn.green:hover {
+  border: 1px solid #368200 !important;
+  background: #2D6200;
+  background: -webkit-linear-gradient(top, #3D9400, #368200);
+  background: -moz-linear-gradient(top, #3D9400, #368200);
+  background: -ms-linear-gradient(top, #3D9400, #368200);
+  background: -o-linear-gradient(top, #3D9400, #368200);
+}
+
+.btn.green:focus {
+  border: 1px solid transparent;
+  box-shadow: 0 0 0 1px #FFFFFF inset;
+  outline: 0 none transparent;
+}
+
+.btn.blue:focus {
+  border: 1px solid transparent;
+  box-shadow: 0 0 0 1px #FFFFFF inset;
+  outline: 0 none transparent;
+}
+
+.btn.red:focus {
+  border: 1px solid transparent;
+  box-shadow: 0 0 0 1px #FFFFFF inset;
+  outline: 0 none transparent;
+}
+
+.btn.red {
+  color: #fff;
+  border: 1px solid #D14836 !important;
+  background: #D64937;
+  background: -webkit-linear-gradient(top, #DC4A38, #D14836);
+  background: -moz-linear-gradient(top, #DC4A38, #D14836);
+  background: -ms-linear-gradient(top, #DC4A38, #D14836);
+  background: -o-linear-gradient(top, #DC4A38, #D14836);
+  -webkit-transition: border .20s;
+  -moz-transition: border .20s;
+  -o-transition: border .20s;
+  transition: border .20s;
+}
+
+.btn.red:hover {
+  border: 1px solid #B0281A !important;
+  background: #D14130;
+  background: -webkit-linear-gradient(top, #DC4A38, #C53727);
+  background: -moz-linear-gradient(top, #DC4A38, #C53727);
+  background: -ms-linear-gradient(top, #DC4A38, #C53727);
+  background: -o-linear-gradient(top, #DC4A38, #C53727);
+}
+
+.btn.action:hover {
+  -moz-box-shadow: 0 1px 0px #DDD;
+  -webkit-box-shadow: 0 1px 0px #DDD;
+  box-shadow: iset 0 1px 0px #DDD;
+}
+
+.btn.action:active {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border-color: #C6C6C6 !important;
+}
+
+.btn.green:active {
+  border-color: #2D6200 !important;
+}
+
+.btn.red:active {
+  border-color: #B0281A !important;
+}
+
+/*------------------------------------*\
+    $BUTTON LABEL UNUSED ACTUALLY
+\*------------------------------------*/
+.btn span.label {
+  display: inline-block;
+  float: left;
+  line-height: 17px;
+  height: 18px;
+  padding: 0 1px;
+  overflow: hidden;
+  color: #444;
+  -webkit-transition: color .20s;
+  -moz-transition: color .20s;
+  -o-transition: color .20s;
+  transition: color .20s;
+}
+
+.btn span.label {
+  line-height: 15px !important;
+}
+
+.btn:hover .label.blue {
+  color: #7090C8;
+}
+
+.btn:hover .label.green {
+  color: #42B449;
+}
+
+.btn:hover .label.yellow {
+  color: #F7CB38;
+}
+
+.btn.green .label {
+  color: #FFF !important;
+  text-shadow: 0 1px 0 #2D6200 !important;
+}
+
+.btn.red .label {
+  color: #FFF !important;
+  text-shadow: 0 1px 0 #B0281A !important;
+}
+
+.btn.action .label {
+  padding: 0 17px !important;
+}
+
+.btn.action:active .label {
+  color: #333 !important;
+}
+
+.btn.blue:active .label, .btn.green:active .label, .btn.red:active .label {
+  color: #FFF !important;
+}
+
+.btn .hidden {
+  display: none;
+}
+
+.btn img {
+  height: 18px;
+  margin: 0;
+  margin-bottom: -6px;
+  margin-left: 5px;
+  margin-right: -5px;
+}
+
+.btn .ui-icon {
+  background-image: asset_url('icons_444.png');
+  position: absolute;
+  left: 6px;
+}
+
+.btn.blue .ui-icon, .btn.red .ui-icon, .btn.green .ui-icon {
+  background-image: asset_url('icons_fff.png');
+}
+
+.btn {
+  &.little {
+    font-size: 0.8em;
+    padding: 0.2em 0.8em !important;
+    font-weight: normal;
+  }
+
+  .text {
+    margin-left: 14px;
+  }
+}
+
+#menu-top.introjs-fixParent {
+  z-index: 1 !important;
+  position: absolute;
+}
+
+input[type=file] {
+  @include form-element;
+}
+
+.cke.cke_chrome {
+  margin: 0 0 $form-spacing 0;
+  .error & {
+    margin: 0;
+  }
+}
+
+.fa.fv-control-feedback {
+  top: 26px;
+  right: 0;
+}
+
+.fv-has-success {
+  .fa.fv-control-feedback {
+    color: green;
+  }
+}
+
+.fa.fa-arrow-right {
+  margin-left: 5px;
+  margin-right: 0px;
+}
+
+.top-bar.expanded {
+  background: #33b5e5;
+}
+
+.top-bar-section {
+  ul {
+    &.left {
+      width: auto;
+      @media #{$small-only} {
+        width: 50%;
+        input {
+          width: 110px;
+        }
+      }
+      li {
+        float: left;
+      }
+      .has-form {
+        float: left;
+        padding: 0.44rem 0;
+      }
+    }
+    &.right {
+      width: auto;
+      @media #{$small-only} {
+      width: 50%;
+      }
+      li {
+        float: left;
+        a {
+          padding: 0 1.02564rem;
+        }
+      }
+    }
+    li {
+      a.button {
+        background-color: transparent;
+        top: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        &:hover {
+          background-color: #008cba;
+        }
+
+        &.account {
+          line-height: 40px;
+          height: $topbar-height;
+        }
+        &#logo-but {
+          height: $topbar-height;
+          span {
+            line-height: 1.9rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+//enable xlarge and xxlarge block grids
+@media only screen and (min-width: 90.063em) {
+  .xlarge-block-grid-1 > li {
+    width: 100%;
+    list-style: none;
+  }
+  .xlarge-block-grid-1 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xlarge-block-grid-1 > li:nth-of-type(1n+1) {
+    clear: both;
+  }
+
+  .xlarge-block-grid-2 > li {
+    width: 50%;
+    list-style: none;
+  }
+  .xlarge-block-grid-2 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xlarge-block-grid-2 > li:nth-of-type(2n+1) {
+    clear: both;
+  }
+
+  .xlarge-block-grid-3 > li {
+    width: 33.33333%;
+    list-style: none;
+  }
+  .xlarge-block-grid-3 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xlarge-block-grid-3 > li:nth-of-type(3n+1) {
+    clear: both;
+  }
+
+  .xlarge-block-grid-4 > li {
+    width: 25%;
+    list-style: none;
+  }
+  .xlarge-block-grid-4 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xlarge-block-grid-4 > li:nth-of-type(4n+1) {
+    clear: both;
+  }
+
+  .xlarge-block-grid-5 > li {
+    width: 20%;
+    list-style: none;
+  }
+  .xlarge-block-grid-5 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xlarge-block-grid-5 > li:nth-of-type(5n+1) {
+    clear: both;
+  }
+
+  .xlarge-block-grid-6 > li {
+    width: 16.66667%;
+    list-style: none;
+  }
+  .xlarge-block-grid-6 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xlarge-block-grid-6 > li:nth-of-type(6n+1) {
+    clear: both;
+  }
+
+  .xlarge-block-grid-7 > li {
+    width: 14.28571%;
+    list-style: none;
+  }
+  .xlarge-block-grid-7 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xlarge-block-grid-7 > li:nth-of-type(7n+1) {
+    clear: both;
+  }
+
+  .xlarge-block-grid-8 > li {
+    width: 12.5%;
+    list-style: none;
+  }
+  .xlarge-block-grid-8 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xlarge-block-grid-8 > li:nth-of-type(8n+1) {
+    clear: both;
+  }
+
+  .xlarge-block-grid-9 > li {
+    width: 11.11111%;
+    list-style: none;
+  }
+  .xlarge-block-grid-9 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xlarge-block-grid-9 > li:nth-of-type(9n+1) {
+    clear: both;
+  }
+
+  .xlarge-block-grid-10 > li {
+    width: 10%;
+    list-style: none;
+  }
+  .xlarge-block-grid-10 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xlarge-block-grid-10 > li:nth-of-type(10n+1) {
+    clear: both;
+  }
+
+  .xlarge-block-grid-11 > li {
+    width: 9.09091%;
+    list-style: none;
+  }
+  .xlarge-block-grid-11 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xlarge-block-grid-11 > li:nth-of-type(11n+1) {
+    clear: both;
+  }
+
+  .xlarge-block-grid-12 > li {
+    width: 8.33333%;
+    list-style: none;
+  }
+  .xlarge-block-grid-12 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xlarge-block-grid-12 > li:nth-of-type(12n+1) {
+    clear: both;
+  }
+}
+
+@media only screen and (min-width: 120.063em) {
+  .xxlarge-block-grid-1 > li {
+    width: 100%;
+    list-style: none;
+  }
+  .xxlarge-block-grid-1 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xxlarge-block-grid-1 > li:nth-of-type(1n+1) {
+    clear: both;
+  }
+
+  .xxlarge-block-grid-2 > li {
+    width: 50%;
+    list-style: none;
+  }
+  .xxlarge-block-grid-2 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xxlarge-block-grid-2 > li:nth-of-type(2n+1) {
+    clear: both;
+  }
+
+  .xxlarge-block-grid-3 > li {
+    width: 33.33333%;
+    list-style: none;
+  }
+  .xxlarge-block-grid-3 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xxlarge-block-grid-3 > li:nth-of-type(3n+1) {
+    clear: both;
+  }
+
+  .xxlarge-block-grid-4 > li {
+    width: 25%;
+    list-style: none;
+  }
+  .xxlarge-block-grid-4 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xxlarge-block-grid-4 > li:nth-of-type(4n+1) {
+    clear: both;
+  }
+
+  .xxlarge-block-grid-5 > li {
+    width: 20%;
+    list-style: none;
+  }
+  .xxlarge-block-grid-5 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xxlarge-block-grid-5 > li:nth-of-type(5n+1) {
+    clear: both;
+  }
+
+  .xxlarge-block-grid-6 > li {
+    width: 16.66667%;
+    list-style: none;
+  }
+  .xxlarge-block-grid-6 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xxlarge-block-grid-6 > li:nth-of-type(6n+1) {
+    clear: both;
+  }
+
+  .xxlarge-block-grid-7 > li {
+    width: 14.28571%;
+    list-style: none;
+  }
+  .xxlarge-block-grid-7 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xxlarge-block-grid-7 > li:nth-of-type(7n+1) {
+    clear: both;
+  }
+
+  .xxlarge-block-grid-8 > li {
+    width: 12.5%;
+    list-style: none;
+  }
+  .xxlarge-block-grid-8 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xxlarge-block-grid-8 > li:nth-of-type(8n+1) {
+    clear: both;
+  }
+
+  .xxlarge-block-grid-9 > li {
+    width: 11.11111%;
+    list-style: none;
+  }
+  .xxlarge-block-grid-9 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xxlarge-block-grid-9 > li:nth-of-type(9n+1) {
+    clear: both;
+  }
+
+  .xxlarge-block-grid-10 > li {
+    width: 10%;
+    list-style: none;
+  }
+  .xxlarge-block-grid-10 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xxlarge-block-grid-10 > li:nth-of-type(10n+1) {
+    clear: both;
+  }
+
+  .xxlarge-block-grid-11 > li {
+    width: 9.09091%;
+    list-style: none;
+  }
+  .xxlarge-block-grid-11 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xxlarge-block-grid-11 > li:nth-of-type(11n+1) {
+    clear: both;
+  }
+
+  .xxlarge-block-grid-12 > li {
+    width: 8.33333%;
+    list-style: none;
+  }
+  .xxlarge-block-grid-12 > li:nth-of-type(n) {
+    clear: none;
+  }
+  .xxlarge-block-grid-12 > li:nth-of-type(12n+1) {
+    clear: both;
+  }
+}
+
+.card.cool {
+  padding: 0;
+  width: 100%;
+  .image {
+    &:before {
+      content: "";
+      display: block;
+      padding-top: 80%; /* initial ratio of 1:1*/
+    }
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+  }
+  .info {
+    padding: 0.4rem;
+    .name {
+      font-size: 1.1rem;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow-x: hidden;
+      margin: 5px 0 5px 0;
+    }
+  }
+  .bottom {
+    padding: 0.4rem;
+  }
+}
+
+//overrides
+.proposal-alert-box {
+  @extend .alert-box;
+}
+
+.introjs-button {
+  @extend .btn;
+}
+
+.introjs-disabled {
+  @extend .disabled;
+}
+
+.introjs-helperNumberLayer {
+  padding: 0;
+  font-size: 11px;
+  line-height: 17px;
+  border: 2px solid white;
+}
+
+ul.social-network {
+  li {
+    padding: 0 0 1rem;
+    .zocial {
+      margin: 8px 0;
+    }
+  }
+}
+
+@media #{$small-only} {
+  .button-group.stack-for-small > li {
+    width: 100%;
+  }
+}
+
+h1 .label {
+  font-size: $h1-font-size;
+}
+
+.calendar_container .fc-button {
+  @extend .btn;
+  border-radius: 0;
+  height: auto;
+}

@@ -1,0 +1,48 @@
+.alerts_link {
+	float:right;
+    padding: 0px;
+    width: 32px;
+    height: 30px;
+    /*margin-top: 3px;*/
+    border-top: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    cursor: pointer;    
+    text-align: center;
+	position: relative;
+	background: url(<%=asset_path "chat_speak.png"%>);
+}
+
+.alerts_link.active {    
+    border-top: 1px solid #CCCCCC;
+    border-left: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    background: url(<%=asset_path "chat_speak_white.png"%>);
+}
+
+
+.alerts_link.to_read {	
+	background: url(<%=asset_path "chat_speak_yellow.png"%>);
+}
+
+.alerts_link.active.to_read {    
+    background: url(<%=asset_path "chat_speak_white_yellow.png"%>);
+}
+
+
+.alerts_link .number {
+	margin-top: 4px;
+	color: white;
+}
+
+.alerts_link.to_read .number {
+	margin-top: 6px;
+	color: #333;
+}
+
+
+.alerts_link img {
+	position: absolute;
+	width:30px;
+	height:30px;
+}

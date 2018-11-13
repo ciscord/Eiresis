@@ -1,0 +1,35 @@
+eiresis:
+  build: .
+  command: "bundle exec rails s -b 0.0.0.0 --pid=/tmp/server.pid"
+  environment:
+    - DATABASE_URL=postgresql://db/
+    - REDIS_URL=redis://redis:6379
+  volumes:
+    - ./:/usr/src/app
+  links:
+    - db
+    - redis
+  ports:
+    - 3000:3000
+
+db:
+  image: postgres
+  volumes:
+    - eiresisDB:/var/lib/postgresql/data
+  ports:
+    - 5433:5432
+
+redis:
+  image: redis
+
+sidekiq:
+  image: eiresis_eiresis
+  command: "bundle exec sidekiq"
+  environment:
+    - DATABASE_URL=postgresql://db/eiresis_development
+    - REDIS_URL=redis://redis:6379
+  links:
+    - db
+    - redis
+  volumes_from:
+    - eiresis

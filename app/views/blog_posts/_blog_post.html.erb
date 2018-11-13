@@ -1,0 +1,54 @@
+<div class="blogPost card" id="blogPost<%= blog_post.id %>">
+  <% if can? :update, blog_post %>
+      <div class="hidden_link" data-dropdown="drop<%= blog_post.id %>">
+      </div>
+      <ul id="drop<%= blog_post.id %>" class="f-dropdown small" data-dropdown-content>
+        <li><%= link_to t('pages.blog_posts.edit_button'), edit_blog_blog_post_path(blog_post.blog, blog_post), class: 'menu_item' %></li>
+        <li><%= link_to t('pages.blog_posts.delete_button'), blog_blog_post_path(blog_post.blog, blog_post), method: :delete, class: 'menu_item', data: {confirm: "Sei sicuro di voler cancellare il post '#{blog_post.title}'. Esso scomparirà sia dall bacheca del gruppo che dal tuo blog personale e non sarà più possibile recuperarlo."} %></li>
+      </ul>
+  <% end %>
+
+  <h3 class="blogPostTitle">
+    <%= blog_post_label blog_post %>
+    <%= link_to(h(blog_post.title), [blog_post.blog, blog_post]) %>
+  </h3>
+
+  <div class="blogPostBody">
+    <%= sanitize truncate_html(blog_post.body, length: 800, omission: "...(#{link_to t('keep_reading'), [blog_post.blog, blog_post]})") %>
+  </div>
+
+  <div class="blogPostFooter">
+    <div class="blogPostPostedAt">
+      <%- name = link_to((avatar(blog_post.user, size: 15, cert: false) + blog_post.user.fullname), blog_post.user) %>
+      <%= raw t('pages.blog_posts.list_elements.inserted', name: name, date: (l blog_post.created_at)) %>
+      |
+      <span class="blogComments">
+
+      <%= link_to t('pages.blog_posts.view.comments', count: blog_post.blog_comments_count), blog_blog_post_url(blog_post.blog, blog_post) %>
+      </span>
+    </div>
+    <% if ::Configuration::socialnetwork_active %>
+        <div class="post_buttons">
+          <g:plusone size="medium" href="<%= blog_blog_post_url(blog_post.blog, blog_post) %>"></g:plusone>
+          |
+          <a href="https://twitter.com/share"
+             class="twitter-share-button"
+             data-lang="en"
+             data-text="<%= t('twitter.share.blog_post', app: ENV['APP_SHORT_NAME'], tags: blog_post.tags.for_twitter) %>"
+             data-url="<%= blog_blog_post_url(blog_post.blog, blog_post) %>">Tweet</a>
+          |
+          <div class="fb-like" data-href="<%= blog_blog_post_url(blog_post.blog, blog_post) %>" data-width="450" data-layout="button_count" data-show-faces="true" data-send="true"></div>
+
+        </div>
+    <% end %>
+
+    <% unless blog_post.tags.blank? %>
+        <div class="blogPostTags">
+          <span class="tag_label">Tags: </span>
+          <span class="tags_list"><%= raw blog_post.tags_with_links %></span>
+        </div>
+    <% end %>
+  </div>
+
+  <div style="clear: both;"></div>
+</div>

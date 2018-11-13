@@ -1,0 +1,9 @@
+$('#suggestions').empty();
+
+<%if @proposals.empty?%>
+  ProposalsNew.skippedSuggestionStep = true;
+  $('#new_proposal').steps('next');
+<%else%>
+  ProposalsNew.skippedSuggestionStep = false;
+  $('#suggestions').html("<%= j render 'similar'%>");
+<%end%>

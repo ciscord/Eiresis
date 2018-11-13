@@ -1,0 +1,226 @@
+<% @extend = true %>
+<% javascript 'endless_page' %>
+<h1><%= t('pages.groups.participations.list_participations') %></h1>
+<% if can? :create, SearchParticipant %>
+    <div class="row full-width">
+      <div class="row">
+        <div class="column small-12 large-6">
+          <div class="card">
+            <h2><%= t('pages.groups.participations.search') %></h2>
+
+            <%= simple_form_for !in_subdomain? ? [@group, @search_participant] : @search_participant, remote: true do |f| %>
+                <div class="row">
+                  <div class="large-8 columns">
+                    <%= f.input :keywords %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="large-8 columns">
+                    <%= f.label :role_id %>
+                    <%= f.select :role_id, options_from_collection_for_select([OpenStruct.new({ id: ParticipationRole.admin.id, name: @group.admin_title || t('pages.groups.default_admin_title') })] + @group.participation_roles, :id, :name, (params[:search_participant][:role_id] if params[:search_participant])), include_blank: t('pages.groups.participations.anything') %>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="large-8 columns">
+                    <%= f.label :status_id %>
+                    <%= f.select :status_id, options_from_collection_for_select(GroupParticipationRequestStatus.active, :id, :description, (params[:search_participant][:status_id] if params[:search_participant])), include_blank: t('pages.groups.participations.anything') %>
+                  </div>
+                </div>
+
+                <%= f.button :submit, t('pages.groups.participations.filter'), class: 'btn blue', data: { disable_with: t('loading') } %>
+            <% end %>
+
+          </div>
+        </div>
+        <% if can? :update, @group %>
+            <div class="column small-12 large-6">
+              <div class="card">
+                <h2><%= t('pages.groups.participations.operations_on_user') %></h2>
+                <%= link_to '#', class: 'btn invite-button', data: { 'reveal-id' => 'email_panel' } do %>
+                    <i class="fa fa-envelope-o"></i>
+                    <%= t('pages.groups.participations.send_email') %>
+                <% end %>
+
+                <div id="email_panel" class="reveal-modal small" data-reveal>
+                  <h2><%= t('pages.users.send_message.massive_email') %></h2>
+                  <%= simple_form_for 'message', url: send_email_group_group_participations_path(@group),
+                                      remote: true, method: :post do |e| %>
+                      <%= e.input 'subject', label: t('pages.users.send_message.subject_label') %>
+
+                      <%= e.input 'body', as: :text, label: t('pages.users.send_message.body_label'), input_html: { rows: 10 } %>
+
+                      <%= e.hidden_field 'receiver_ids', value: @unscoped_group_participations.map { |p| p.user_id }.join(',') %>
+
+                      <a href="#" class="btn" onclick="$('#email_panel').foundation('reveal','close');return false;"><%= t('buttons.cancel') %></a>
+                      <%= e.submit t('buttons.send'), class: 'btn blue', data: { disable_with: t('sending') } %>
+                  <% end %>
+                  <a class="close-reveal-modal">&#215;</a>
+                </div>
+                <%= form_for 'destroy', url: destroy_all_group_group_participations_path(@group), remote: true, method: :post, html: { style: 'display:inline;' } do |e| %>
+
+                    <%= e.hidden_field 'ids', value: @unscoped_group_participations.map { |p| p.id }.join(',') %>
+
+                    <%= link_to '#', class: 'btn', id: 'remove_all' do %>
+                        <i class="fa fa-trash-o"></i>
+                        <%= t('pages.groups.participations.remove_all') %>
+                    <% end %>
+                <% end %>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+
+<div class="row full-width">
+  <ul id="results_container" class="small-block-grid-2 medium-block-grid-3 large-block-grid-4 xlarge-block-grid-5 xxlarge-block-grid-6">
+    <%= render partial: 'group_participation_results' %>
+  </ul>
+</div>
+
+<% if @group_participations.size > GroupParticipation::PER_PAGE %>
+    <div id="loading_results" class="participant_results">
+      <span><%= t('pages.blogs.show.more_participants') %></span>
+    </div>
+<% end %>
+
+<%= content_for :left_panel do %>
+    <% if can? :update, @group %>
+        <%= render partial: 'groups/administration_panel' %>
+    <% end %>
+    <div class="mybox">
+      <%= link_to group_group_participations_url(@group, format: :csv), class: "btn disable" do %>
+          <i class="fa fa-print"></i>
+          <%= t('pages.groups.show.print_all_participants') %>
+      <% end %>
+    </div>
+<% end %>
+
+
+<script type="text/javascript">
+    var everPushedSomething = false;
+    var initialUrl = location.href;
+    var confirmation_message_1 = '<%=j raw t('pages.groups.edit_permissions.confirm_delete_1', count: @unscoped_group_participations.count)%>';
+    var confirmation_message_2 = '<%=j raw t('pages.groups.edit_permissions.confirm_delete_2', count: @unscoped_group_participations.count)%>';
+    var total_count = <%=@unscoped_group_participations.count %>;
+
+    $(function () {
+        $(window).bind('popstate', function (event) {
+            var onloadPop = !everPushedSomething && location.href == initialUrl;
+            everPushedSomething = true;
+            if (onloadPop) {
+                return;
+            }
+            $.getScript(addQueryParam(location.href, 'back', 'true'));
+        });
+
+        $(document).on('focus', '.user_role_changer', function (event) {
+            $(this).data("prev-id", $(this).val());
+            $(this).data("prev-text", $('option:selected', this).text());
+        });
+
+        $(document).on('change', '.user_role_changer', function (event) {
+            var select = $(this);
+            var username = select.data('fullname');
+            var group_participation_id = select.data("id");
+            //memorizzo il ruolo di ciascun utente
+            var previousValue = select.data('prev-id');
+            var previousLabel = select.data('prev-text');
+            var currentValue = select.val();
+            var currentLabel = $('option:selected', $(this)).text();
+            if (confirm('<%=j raw t('pages.groups.edit_permissions.confirm_role_change1')%> ' + username + ' <%=t('pages.groups.edit_permissions.confirm_role_change2')%> ' + previousLabel + ' <%=t('pages.groups.edit_permissions.confirm_role_change3')%> ' + currentLabel + '. <%=t('pages.groups.edit_permissions.confirm_role_change4')%>')) {
+                $(this).data("prev-id", currentValue);
+                $(this).data("prev-text", currentLabel);
+                select.disabled = true;
+                $.ajax({
+                    data: {
+                        participation_role_id: currentValue
+                    },
+                    url: "/groups/<%=@group.id%>/group_participations/" + group_participation_id + "/change_user_permission/",
+                    dataType: 'script',
+                    type: 'post'
+                });
+                return true;
+            }
+            else {
+                select.val(previousValue);
+                return false;
+            }
+        });
+
+        $('#remove_all').click(function (e) {
+            if (confirm(confirmation_message_1)) {
+                if (total_count > 10) {
+                    if (confirmation_message_2) {
+                        $(this).closest("form").submit();
+                    }
+                }
+                else {
+                    $(this).closest("form").submit();
+                }
+            }
+            return false;
+        });
+
+        $(document).on('mouseover', '.areas_button', function (event) {
+            var _this = $(this);
+            var _areas_list = _this.next('.areas_list');
+            _areas_list.show().position({
+                at: "left bottom",
+                my: "left bottom",
+                of: _this
+            });
+        });
+        $(document).on('mouseout', '.areas_button', function (event) {
+            var _this = $(this);
+            var _areas_list = _this.next('.areas_list');
+            setTimeout(function () {
+                if (_areas_list.is(':hover') || _this.is(':hover')) {
+
+                }
+                else {
+                    _areas_list.hide();
+                }
+            }, 200);
+        });
+        $(document).on('mouseout', '.areas_list', function (event) {
+            var _this = $(this);
+            var _areas_button = _this.prev('.areas_button');
+            setTimeout(function () {
+                if (_areas_button.is(':hover') || _this.is(':hover')) {
+
+                }
+                else {
+                    _this.hide();
+                }
+            }, 200);
+        });
+        $(document).on('click', '[data-change-area-participation]', function (event) {
+            var group_area_id = $(this).data('group_area_id');
+            var user_id = $(this).data('user_id');
+            var area_participation_id = $(this).data('area_participation_id');
+            var checked_ = this.checked;
+            if (checked_) {
+                $.ajax({
+                    data: {
+                        "area_participation[user_id]": user_id
+                    },
+                    url: "/groups/<%=@group.id%>/group_areas/" + group_area_id + "/area_participations",
+                    dataType: 'script',
+                    type: 'POST'
+                });
+            }
+            else {
+                $.ajax({
+                    data: {
+                        "area_participation[user_id]": user_id
+                    },
+                    url: "/groups/<%=@group.id%>/group_areas/" + group_area_id + "/area_participations/-1",
+                    dataType: 'script',
+                    type: 'DELETE'
+                });
+
+            }
+        });
+    });
+</script>

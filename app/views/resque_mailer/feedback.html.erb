@@ -1,0 +1,6 @@
+<h1>Nuovo feedback ricevuto</h1>
+<%= link_to 'Visualizza immagine', @feedback.image.url if @feedback.image.exists? %>
+<h1>Messaggio:</h1>
+<%= @feedback.message %>
+<h1>Dati aggiuntivi:</h1>
+<%= @feedback.stack %>

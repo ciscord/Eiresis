@@ -1,0 +1,136 @@
+<div class="history">
+  <table>
+    <thead>
+    <th><%= t('pages.proposal_histories.revision') %></th>
+    <th><%= t('pages.proposal_histories.date_and_time') %></th>
+    </thead>
+    <tbody>
+    <% if @proposal.proposal_lives.count > 0 #if we have more life cycles    %>
+        <% unless  @proposal.abandoned? %>
+            <tr>
+              <td colspan="2" style="font-weight: bold"><%= t('pages.proposal_histories.present_life_cycle') %></td>
+              <td>
+              </td>
+            </tr>
+        <% end %>
+
+        <% lives = @proposal.proposal_lives.order('seq desc') %>
+
+        <% unless  @proposal.abandoned? %>
+            <% revisions = @proposal.proposal_revisions.where('created_at > ?', lives.first.created_at) #revisions in current life cycle   %>
+            <% if (@last_cycle_count = revisions.count) > 0 %>
+                <% revisions.order(created_at: :desc).each_with_index do |revision, i| %>
+                    <tr>
+                      <td><%= revision.seq %></td>
+                      <td>
+                        <%= l revision.created_at %>
+                      </td>
+                      <td><input type="radio" name="new" value="<%= revision.id %>"
+                                 <% if i == 0 %>checked="checked"
+                                 <% end %>/></td>
+                    </tr>
+                <% end %>
+            <% else %>
+                <tr>
+                  <td colspan=3><%= t('pages.proposal_histories.no_revision') %></td>
+                </tr>
+            <% end %>
+        <% end %>
+        <% lives.each_with_index do |life, i| %>
+            <tr>
+              <td colspan="2" style="font-weight: bold"><%= t('pages.proposal_histories.life_cycle') %> <%= life.seq %></td>
+              <td>
+                <input type="radio" name="new" value="<%= life.id %>" data-life_id="<%= life.id %>" data-is_life="true">
+              </td>
+            </tr>
+            <% revisions = @proposal.proposal_revisions.where(['created_at <= ?', life.created_at]) %>
+            <% if (i < (@proposal.proposal_lives.count - 1)) %>
+                <% revisions = revisions.where('created_at > ?', lives[i+1].created_at) %>
+            <% end %>
+            <% if revisions.count > 0 %>
+                <% revisions.order("created_at DESC").each_with_index do |revision, i| %>
+                    <tr>
+                      <td><%= revision.seq %></td>
+                      <td>
+                        <%= l revision.created_at %>
+                      </td>
+                      <td><input type="radio" name="new" value="<%= revision.id %>"
+                                 <% if (i == 0) && ((revisions.count == 0) || ([0, nil].include? @last_cycle_count)) %>checked="checked"
+                                 <% end %>/></td>
+                    </tr>
+                <% end %>
+            <% else %>
+                <tr>
+                  <td colspan=3><%= t('pages.proposal_histories.no_revision') %></td>
+                </tr>
+            <% end %>
+        <% end %>
+    <% else %>
+
+        <% @proposal.proposal_revisions.order("created_at DESC").each_with_index do |revision, i| %>
+            <tr>
+              <td><%= revision.seq %></td>
+              <td>
+                <%= l revision.created_at %>
+              </td>
+              <td><input type="radio" name="new" value="<%= revision.id %>"
+                         <% if i == 0 %>checked="checked"
+                         <% end %>/></td>
+            </tr>
+        <% end %>
+    <% end %>
+    <td></td>
+    </tbody>
+  </table>
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('input:radio')[0].checked = true;
+        $("input:radio").change(executeDiff);
+        executeDiff();
+    });
+
+    function executeDiff() {
+        var newel = $("input[name='new']:checked");
+        var newval = newel.val();
+        if (newval) {
+            if (newel.attr('data-is_life') == 'true') {
+                $.ajax({
+                    cache: true,
+                    url: '/proposals/<%=@proposal.id%>/proposal_lives/' + newval,
+                    method: 'get',
+                    dataType: 'script',
+                    beforeSend: function (msg) {
+                        $('.diffview .diffcontainer').hide();
+                        $('.diffview .loading').show();
+
+                    },
+                    success: function (msg) {
+                        $('.diffview .diffcontainer').show();
+                        $('.diffview .loading').hide();
+                    }
+                });
+            }
+            else {
+                $.ajax({
+                    cache: true,
+                    url: '/proposals/<%=@proposal.id%>/proposal_revisions/' + newval,
+                    method: 'get',
+                    dataType: 'script',
+                    beforeSend: function (msg) {
+                        $('.diffview .diffcontainer').hide();
+                        $('.diffview .loading').show();
+
+                    },
+                    success: function (msg) {
+                        $('.diffview .diffcontainer').show();
+                        $('.diffview .loading').hide();
+                    }
+                });
+            }
+        }
+    }
+
+</script>

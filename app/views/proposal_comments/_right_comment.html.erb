@@ -1,0 +1,52 @@
+<i class="fa fa-times close-right-section" data-close-section-id="<%=section.id%>"></i>
+<h2><%= t('pages.proposals.show.contributes_list', section: section.title) %></h2>
+
+<%= form_for [@proposal, ProposalComment.new(section_id: section.id)], remote: true do |f| %>
+    <div class="comment-form-comment">
+      <%= f.text_area :content, class: 'blogNewCommentField', rows: 5, cols: 70 %>
+      <%= f.hidden_field :section_id %>
+      <%= hidden_field 'right', true %>
+    </div>
+    <%= f.submit t('pages.proposals.show.send_contribute_button'), class: 'btn green', data: {disable_with: t('sending')}, style: "width: 100px;height:35px;" %>
+<% end %>
+
+<script type="text/javascript">
+    $(function () {
+        $('.blogNewCommentField').each(function () {
+            if ($(this).attr('data-initialized') != 1) {
+                $(this).textntags({
+                    triggers: {'@': {uniqueTags: false}},
+                    onDataRequest: function (mode, query, triggerChar, callback) {
+                        var data = ProposalsShow.nicknames;
+
+                        query = query.toLowerCase();
+                        var found = _.filter(data, function (item) {
+                            return item.name.toLowerCase().indexOf(query) > -1;
+                        });
+
+                        callback.call(this, found);
+                    }
+                });
+                $(this).focus(function () {
+                    $(this).parent().parent().toggleClass("active");
+                }).focusout(function () {
+                    $(this).parent().parent().toggleClass("active");
+                });
+                $(this).attr('data-initialized', 1);
+                $(this).charCount({
+                    allowed: <%=CONTRIBUTE_MAX_LENGTH%>,
+                    warning: 100,
+                    counterText: '<%=t('pages.proposals.show.characters_left')%> '
+                });
+            }
+        });
+
+    });
+
+    $(document).ajaxError(function (e, XHR, options) {
+        if (XHR.status == 401) {
+            window.location.replace("<%= new_user_session_path %>");
+        }
+    });
+</script>
+

@@ -1,0 +1,31 @@
+<%if params[:page] %>
+$('#groups_list').append("<%=j (render partial: "group_tag", collection: @groups, as: 'group')%>");
+
+<%else%>
+$('#groups_list').fadeOut('slow', function () {
+    <% if @groups.count > 0 %>
+    $('#groups_list').html("<%=j (render partial: "group_tag", collection: @groups, as: 'group')%>");
+
+    <% else %>
+    $('#groups_list').html("<h2><%=j t('pages.groups.index.no_results') %></h2>");
+    <% end %>
+    $('#groups_list').fadeIn();
+})
+<%end%>
+$('#more_groups_container').html("<%=j (render partial: 'more_groups')%>");
+
+<%if params[:back] %>
+    $('#search').val('<%=params[:search]%>');
+    $("#area").switchButton({
+        checked: <%=params[:area] == 'on' %>
+    });
+<%else%>
+    window.history.pushState(null,"",'<%=j raw request.url + '&_ajax=true'%>');
+    GroupsIndex.everPushedSomething = 'pushed it real good';
+<%end%>
+
+if (window.innerWidth <= 1000) {
+    $('html, body').animate({
+        scrollTop: $('#groups_list').offset().top - (10 + (window.innerWidth < 1000 ? 0 : 90))
+    }, 2000);
+}

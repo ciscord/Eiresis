@@ -1,0 +1,16 @@
+<div id="available_quorums" class="help">
+	<%= render partial: 'help_menu' %>
+	<%= render partial: 'help_content' %>
+	<div style="clear: both;"></div>	
+</div>
+
+<script type="text/javascript">
+	function showSection(id) {
+		$('.quorum_section').hide();
+		$('#'+id).fadeIn();
+	}
+	$(function() {
+		$('.quorum_section').hide();
+		$('#whatis').fadeIn();
+	})	
+</script>

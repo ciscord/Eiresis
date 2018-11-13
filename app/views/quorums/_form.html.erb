@@ -1,0 +1,228 @@
+<h2><%= @page_title %></h2>
+<% if ['edit', 'update'].include? params[:action] %>
+    <div class='panel callout'><p><%= t('pages.groups.edit_quorums.edit_quorum_warning') %></p></div>
+<% end %>
+
+<%= simple_form_for !in_subdomain? ? [@group, @quorum] : @quorum, validate: true, remote: request.xhr? do |e| %>
+    <div class="row">
+      <div class="columns small-12">
+        <%= e.input :name %>
+      </div>
+      <div class="columns small-12">
+        <%= e.input :description, as: :text, input_html: { rows: 2, class: 'elastic' } %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns large-6">
+        <fieldset>
+          <legend><%= 'Debate' %></legend>
+          <%= e.label :minutes %>
+
+          <div class="row collapse">
+            <div class="small-4 columns">
+              <div class="row collapse postfix-radius">
+                <div class="small-6 columns">
+                  <%= e.number_field :days_m, class: "days", min: 0, data: { fv_excluded: true } %>
+                </div>
+                <div class="small-6 columns">
+                  <span class="postfix">
+                    <%= (t 'activerecord.attributes.quorum.days_m') %>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="small-4 columns">
+              <div class="row collapse postfix-radius">
+                <div class="small-6 columns">
+                  <%= e.number_field :hours_m, class: "hours", min: 0, max: 23, data: { fv_excluded: true } %>
+                </div>
+                <div class="small-6 columns">
+                  <span class="postfix">
+                    <%= (t 'activerecord.attributes.quorum.hours_m') %>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="small-4 columns">
+              <div class="row collapse postfix-radius">
+                <div class="small-6 columns">
+                  <%= e.number_field :minutes_m, class: "minutes", min: 0, max: 55, step: 5, data: { fv_excluded: true } %>
+                </div>
+                <div class="small-6 columns">
+                  <span class="postfix">
+                    <%= (t 'activerecord.attributes.quorum.minutes_m') %>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <%= e.label :percentage %>
+          <div class="row">
+            <div class="small-12 columns">
+              <div class="row collapse postfix-radius">
+                <div class="small-9 columns">
+                  <%= e.input :percentage, as: :string, label: false,
+                              input_html: { class: "percentage participants",
+                                            title: t('activerecord.attributes.quorum.percentage_title'), min: 0, max: 100 } %>
+                </div>
+                <div class="small-3 columns">
+                  <span class="postfix">
+                    % + 1
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="columns small-12">
+              <%= raw t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
+                        current_number: "<span id=\"participants_number\">1</span>",
+                        total_number: @group_participations_count,
+                        average: (@group.statistic.valutations*100 / @group.scoped_participants(:participate_proposals).count).round(2)) %>
+
+            </div>
+          </div>
+
+          <%= e.label :good_score %>
+          <div class="row">
+            <div class="small-12 columns">
+              <div class="row collapse postfix-radius">
+                <div class="small-9 columns">
+                  <%= e.input :good_score, as: :string, label: false,
+                              input_html: { type: :number,
+                                            class: "percentage",
+                                            title: t('activerecord.attributes.quorum.good_score_title'),
+                                            min: 1, max: 100 } %>
+                </div>
+                <div class="small-3 columns">
+                  <span class="postfix">
+                    %
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="columns small-12">
+              <b><%= "(average value: #{@group.statistic.good_score.round(2)}%)" %></b>
+            </div>
+          </div>
+
+          <%= e.hidden_field :t_percentage, value: 's' %>
+          <%= e.hidden_field :t_minutes, value: 's' %>
+          <%= e.hidden_field :t_good_score, value: 's' %>
+
+        </fieldset>
+      </div>
+      <div class="columns large-6">
+        <fieldset>
+          <legend><%= 'Votation' %></legend>
+          <p style="display:none">
+            <%= e.label :vote_minutes %>
+            <%#= e.text_field(:vote_days_m, class: "days", readonly: true)+(t 'activerecord.attributes.quorum.days_m') %>
+            <%#= e.text_field(:vote_hours_m, class: "hours", readonly: true)+(t 'activerecord.attributes.quorum.hours_m') %>
+            <%#= e.text_field(:vote_minutes_m, class: "minutes", readonly: true)+(t 'activerecord.attributes.quorum.minutes_m') %>
+            <%= 'free' %>
+          </p>
+
+
+          <%= e.label :vote_percentage %>
+          <div class="row">
+            <div class="small-12 columns">
+              <div class="row collapse postfix-radius">
+                <div class="small-9 columns">
+                  <%= e.input :vote_percentage, as: :string, label: false,
+                              input_html: {
+                                      type: :number,
+                                      class: "percentage vote_participants",
+                                      title: t('activerecord.attributes.quorum.percentage_title'),
+                                      min: 0, max: 100 } %>
+                </div>
+                <div class="small-3 columns">
+                  <span class="postfix">
+                    % + 1
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="columns small-12">
+              <%= raw t('pages.groups.edit_quorums.new_quorum.advanced_participation_description',
+                        current_number: "<span id=\"vote_participants_number\">1</span>", total_number: @vote_participants_count, average: (@group.statistic.vote_valutations*100 / @group.scoped_participants(:vote_proposals).count).round(2)) %>
+            </div>
+          </div>
+
+          <%= e.label :vote_good_score %>
+          <div class="row">
+            <div class="small-12 columns">
+              <div class="row collapse postfix-radius">
+                <div class="small-9 columns">
+                  <%= e.input :vote_good_score, as: :string, label: false,
+                              input_html: {
+                                      class: "percentage",
+                                      title: t('activerecord.attributes.quorum.good_score_title'),
+                                      min: 0, max: 100 } %>
+                </div>
+                <div class="small-3 columns">
+                  <span class="postfix">
+                    %
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <%= e.hidden_field :t_vote_percentage, value: 's' %>
+          <%= e.hidden_field :t_vote_minutes, value: 'f' %>
+          <%= e.hidden_field :t_vote_good_score, value: 's' %>
+        </fieldset>
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns large-12">
+        <%= link_to t('buttons.cancel'), '#', class: 'btn', data: { 'reveal-close' => '' } %>
+        <%= link_to t('buttons.go_back'), :back, class: 'btn', data: { back: '' } %>
+        <%= e.button :button, class: 'btn blue' do %>
+            <i class="fa fa-save"></i>
+            <%= button_name %>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+<a class="close-reveal-modal">&#215;</a>
+<script type="text/javascript">
+
+    function update_participants(value) {
+        var calculated = Math.min(Math.floor(parseFloat(value) * 0.01 * parseFloat(<%=@group_participations_count%>)) + 1, <%=@group_participations_count%>);
+        $('#participants_number').html(calculated);
+    }
+
+    update_participants(<%=@quorum.percentage%>);
+
+    $(".participants").on('input', function (e) {
+        var num = $(this).val();
+        update_participants(num);
+    });
+
+    function update_vote_participants(value) {
+        var calculated = Math.min(Math.floor(parseFloat(value) * 0.01 * parseFloat(<%=@vote_participants_count%>)) + 1, <%=@vote_participants_count%>);
+        $('#vote_participants_number').html(calculated);
+    }
+
+    $(".vote_participants").on('input', function (e) {
+        var num = $(this).val();
+        update_vote_participants(num);
+    });
+
+    update_vote_participants(<%=@quorum.vote_percentage%>);
+
+    function closeMe() {
+        $('#quorum_container').foundation('reveal', 'close');
+    }
+    $(function () {
+        $('.advanced').hide();
+        $(".elastic").elastic();
+    });
+</script>

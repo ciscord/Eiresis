@@ -1,0 +1,32 @@
+<% if (can? :vote, @proposal) && !@proposal.is_petition? %>
+    <div class="panel callout vote_panel">
+      <h3><b><%= t('pages.proposals.vote_panel.title') %></b></h3>
+      <% if @proposal.is_schulze? %>
+          <%= render 'vote_panel_schulze' %>
+      <% else #not schulze      %>
+          <%= render 'vote_panel_standard' %>
+      <% end %>
+    </div>
+<% elsif current_user &&
+        (vote = UserVote.find_by(proposal_id: @proposal.id, user_id: current_user.id)) &&
+        !@proposal.is_petition? %>
+    <div class="panel callout vote_panel">
+      <h4><%= t('pages.proposals.vote_panel.results_time', when: (l vote.created_at)) %></h4>
+      <% if @proposal.secret_vote %>
+          <h4><%= t('pages.proposals.vote_panel.hidden_vote') %></h4>
+      <% else %>
+          <% if @proposal.is_schulze? %>
+              <h4><%= t('pages.proposals.vote_panel.preferences_order') %></h4>
+              <ol>
+                <% vote.vote_schulze.split(";").each do |s_v| %>
+                    <li>
+                      <%= s_v.split(',').map { |s_v_v| @proposal.solutions.find_by_id(s_v_v).title }.join(' o ') %>
+                    </li>
+                <% end %>
+              </ol>
+          <% else %>
+              <h4><%= t('pages.proposals.vote_panel.expressed_vote', vote: vote.vote_type.description) %></h4>
+          <% end %>
+      <% end %>
+    </div>
+<% end %>

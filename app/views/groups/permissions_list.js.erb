@@ -1,0 +1,10 @@
+var container_ = $('<div id="permissions_list_container" class="reveal-modal medium" data-reveal></div>');
+$('body').append(container_);
+container_.html("<%= j render 'permissions_list_panel'%>");
+
+eiresis_reveal(container_);
+
+container_.find('a.cancel').click(function() {
+    container_.foundation('reveal', 'close');
+    return false;
+});

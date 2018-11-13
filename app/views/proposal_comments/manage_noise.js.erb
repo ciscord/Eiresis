@@ -1,0 +1,4 @@
+var container_ = $('<div id="noise_manage_panel" class="reveal-modal medium" data-reveal></div>');
+container_.html("<%=j render 'manage_noise'%>");
+$('body').append(container_);
+eiresis_reveal(container_);

@@ -1,0 +1,7 @@
+<% if proposals.any? %>
+    <% proposals.each do |proposal| %>
+        <%= render 'proposals/proposal_list_element', proposal_list_element_for_mustache(proposal) %>
+    <%end%>
+<% else %>
+  <%= t('pages.proposals.list.no_proposals') %>
+<% end %>

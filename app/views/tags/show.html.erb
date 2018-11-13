@@ -1,0 +1,65 @@
+<% @extend=true %>
+<h1><%= @tag %></h1>
+<dl class="section-container tabs" data-tab>
+
+  <dd class="active"><a href="#proposals"><%= t('pages.tags.proposals_tab') %></a></dd>
+  <dd><a href="#posts"><%= t('pages.tags.posts_tab') %></a></dd>
+  <dd><a href="#groups"><%= t('pages.tags.groups_tab') %></a></dd>
+</dl>
+
+<div class="tabs-content">
+  <div class="content active" id="proposals">
+    <h2><%= t('pages.tags.list_proposals_with_tag') %></h2>
+    <% if @proposals.size == 0 %>
+        <div class="Proposal">
+          <p><%= t('pages.tags.no_proposals_with_tag') %></p>
+        </div>
+    <% else %>
+        <ul class="small-block-grid-1 xlarge-block-grid-2">
+          <% @proposals.each do |proposal| %>
+              <%= render 'proposals/proposal_list_element', proposal_list_element_for_mustache(proposal) %>
+          <%end%>
+        </ul>
+    <% end %>
+  </div>
+
+  <div class="content" id="posts">
+    <h2><%= t('pages.tags.list_posts_with_tag') %></h2>
+    <% if @blog_posts.size == 0 %>
+        <div class="blogPost">
+          <p><%= t('pages.tags.no_posts_with_tag') %></p>
+        </div>
+    <% else %>
+        <% @blog_posts.each do |blog_post| %>
+            <div>
+              <%= render 'blog_posts/blog_post', blog_post: blog_post %>
+            </div>
+        <% end %>
+    <% end %>
+  </div>
+
+  <div class="content" id="groups">
+    <h2><%= t('pages.tags.list_groups_with_tags') %></h2>
+    <% if @groups.size == 0 %>
+        <p><%= t('pages.tags.no_groups_with_tag') %></p>
+    <% else %>
+        <ul class="small-block-grid-1 large-block-grid-2 xlarge-block-grid-3 xxlarge-block-grid-4">
+        <%= render collection: @groups, partial: 'groups/group_tag', as: 'group' %>
+        </ul>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :left_panel do %>
+    <div class="mybox">
+      <h4><%= t('pages.tags.show.related_title') %></h4>
+
+      <div class="mycont">
+        <% @similars.each do |tag| %>
+            <div class="round label tag">
+              <a href="<%= tag_path tag.text %>"><%= tag.text %></a>
+            </div>
+        <% end %>
+      </div>
+    </div>
+<% end %>

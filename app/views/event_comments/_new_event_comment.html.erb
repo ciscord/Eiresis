@@ -1,0 +1,30 @@
+<div id="eventNewComment" class="eventNewComment">
+  <% if !user_signed_in? %>
+      <h2><%= t('pages.proposals.show.login_to_comment') %></h2>
+  <% else %>
+      <%= simple_form_for [@event, event_comment], remote: true do |f| %>
+          <%= f.input :body,
+                      as: :text,
+                      label: t('pages.proposals.show.add_comment'),
+                      input_html: { class: 'blogNewCommentField', rows: 5, cols: 70 } %>
+          <p>
+            <%= f.submit t('pages.event_comments.new.insert_comment'), data: { disable_with: t('loading') }, class: 'btn green' %>
+          </p>
+      <% end %>
+  <% end %>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#event_comment_body').each(function () {
+            if ($(this).attr('data-initialized') != 1) {
+                $(this).charCount({
+                    allowed: <%=CONTRIBUTE_MAX_LENGTH%>,
+                    warning: 100,
+                    counterText: '<%=t('pages.proposals.show.characters_left')%> '
+                });
+                $(this).elastic();
+                $(this).attr('data-initialized', 1);
+            }
+        });
+    });
+</script>

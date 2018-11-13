@@ -1,0 +1,67 @@
+<% if @group.portavoce.include? current_user %>
+    <strong><%= t('pages.users.show.admin_permissions') %></strong>
+    <ul>
+      <%= GroupAction::LIST.map { |a| "<li>#{I18n.t("db.group_actions.#{a}.description")}</li>" }.join('').html_safe %>
+    </ul>
+<% else %>
+    <% if @group.enable_areas && current_user.scoped_areas(@group).count > 0 %>
+        <dl class="tabs" data-tab id="permission-tabs">
+
+          <dd class="active">
+            <%= link_to t('pages.users.show.group_level_permission_title'), '#group_id' %>
+          </dd>
+          <% current_user.scoped_areas(@group).each do |area| %>
+              <dd><%= link_to area.name, "#area_#{area.id}" %></dd>
+          <% end %>
+        </dl>
+        <div class="tabs-content">
+          <div class="content active" id="group_id">
+            <strong><%= t('pages.users.show.what_can_i_do') %></strong>
+            <ul>
+              <li>
+                <%= GroupAction::LIST.select { |action| @participation_role[action] }.map { |a| I18n.t("db.group_actions.#{a}.description") }.join('</li><li>').html_safe %>
+              </li>
+            </ul>
+
+            <strong><%= t('pages.users.show.what_i_cant_do') %></strong>
+            <ul>
+              <li>
+                <%= GroupAction::LIST.select { |action| !@participation_role[action] }.map { |a| I18n.t("db.group_actions.#{a}.description") }.join('</li><li>').html_safe %>
+              </li>
+            </ul>
+          </div>
+          <% current_user.scoped_areas(@group).each do |area| %>
+              <% area_role = area.area_participations.find_by(user_id: current_user.id).area_role %>
+              <div class="content" id="area_<%= area.id %>">
+                <strong><%= t('pages.users.show.what_can_i_do') %></strong>
+                <ul>
+                  <li>
+                    <%= DEFAULT_AREA_ACTIONS.select { |action| area_role[action] }.map { |a| I18n.t("db.group_actions.#{a}.description") }.join('</li><li>').html_safe %>
+                  </li>
+                </ul>
+
+                <strong><%= t('pages.users.show.what_i_cant_do') %></strong>
+                <ul>
+                  <li>
+                    <%= DEFAULT_AREA_ACTIONS.select { |action| !area_role[action] }.map { |a| I18n.t("db.group_actions.#{a}.description") }.join('</li><li>').html_safe %>
+                  </li>
+                </ul>
+              </div>
+          <% end %>
+        </div>
+    <% else %>
+        <strong><%= t('pages.users.show.what_can_i_do') %></strong>
+        <ul>
+          <li>
+            <%= GroupAction::LIST.select { |action| @participation_role[action] }.map { |a| I18n.t("db.group_actions.#{a}.description") }.join('</li><li>').html_safe %>
+          </li>
+        </ul>
+
+        <strong><%= t('pages.users.show.what_i_cant_do') %></strong>
+        <ul>
+          <li>
+            <%= GroupAction::LIST.select { |action| @participation_role[action] }.map { |a| I18n.t("db.group_actions.#{a}.description") }.join('</li><li>').html_safe %>
+          </li>
+        </ul>
+    <% end %>
+<% end %>

@@ -1,0 +1,31 @@
+<h2><%=t('frm.admin.category.edit', title: @category.name)%></h2>
+<%= simple_form_for @category, url: group_frm_admin_category_url(@group,@category), remote: remote do |f| %>
+    <%= f.input :name %>
+    <%= f.input :tags_list %>
+    <%= f.input :visible_outside %>
+
+    <%= link_to t('buttons.cancel'),'#', class: 'btn', data: {'reveal-close' => ''}%>
+    <%= link_to t('buttons.go_back'), :back, class: 'btn', data: {back: ''}%>
+    <%= f.submit class: "btn blue", data:{disable_with: t('loading')} %>
+<% end %>
+
+<script type="text/javascript">
+    $(function () {
+        var input = $('#frm_category_tags_list')
+        if (input != null) {
+            input.tokenInput("<%=tags_path(format: :json )%>", {
+                theme: "facebook",
+                crossDomain: false,
+                allowFreeTagging: true,
+                minChars: 3,
+                hintText: "<%=t('digit_tags')%>",
+                searchingText: "<%=t('digit_tags')%>",
+                prePopulate: <%=raw @category.tags.map{|t| {id: t.text, name: t.text}}.to_json.to_s%>,
+                preventDuplicates: true,
+                allowTabOut: true,
+                tokenValue: "name",
+                tokenLimit: 5
+            })
+        }
+    });
+</script>

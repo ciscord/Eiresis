@@ -1,0 +1,59 @@
+<div id="proposal<%= proposal.id %>" class="proposal_list">
+  <div class="proposal_cont">
+    <div class="left_cont">
+      <div class="inner_cont">
+        <div class="category_icon">
+          <%= proposal_group_image_tag(proposal) %>
+        </div>
+      </div>
+    </div>
+    <div class="right_cont">
+      <div style="position: relative">
+        <div class="maintitle">
+          <%= user_valutation_image(current_user, proposal) if current_user %>
+          <%= link_to_proposal proposal, style: (proposal.rejected? ? 'text-decoration: line-through;' : ''), title: (proposal.rejected? ? 'Rifiutata' : nil) %>
+
+        </div>
+      </div>
+      <% if proposal.is_petition? %>
+      <% else %>
+          <% mustache_proposal = proposal_for_mustache(proposal) %>
+          <% if mustache_proposal['voting_or_voted?'] %>
+              <%= render 'proposals/new_vote_bar', mustache_proposal %>
+          <% else %>
+              <%= render 'proposals/new_rank_bar', mustache_proposal %>
+          <% end %>
+      <% end %>
+
+
+      <div class="clearboth"></div>
+
+
+      <div class="proposal_bottom">
+
+        <div class="alerts_and_vote">
+          <% if current_user %>
+              <% count = proposal.alerts_count.to_i %>
+              <%= link_to count, proposal, class: "alert notify", data: {load: true, proposal_id: proposal.id} if count > 0 %>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+
+    <% unless proposal.supporting_groups.empty? %>
+        <div class="groups">
+          <div class="title"><%= t('pages.proposals.list.support_group') %></div>
+          <% proposal.supporting_groups.each do |group| %>
+              <div class="blogUserImage" title="<%= group.name %>">
+                <%= group.group_image_tag 20 %>
+              </div>
+          <% end %>
+          <div style="clear:both;"></div>
+
+        </div>
+    <% end %>
+
+    <div class="clearboth"></div>
+  </div>
+</div>

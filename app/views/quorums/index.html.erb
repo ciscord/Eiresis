@@ -1,0 +1,64 @@
+<% @page_title = t("pages.groups.edit_proposals.title") %>
+<%= render layout: "layouts/page_title", locals: {title: t('pages.groups.edit_proposals.title')} do %>
+<% end %>
+
+<%= link_to new_group_best_quorum_url(@group), data: {remote: true, disable_with: t('loading')}, class: "btn blue disable" do %>
+    <i class="fa fa-plus"></i>
+    <%= t('pages.groups.edit_quorums.add_quorum') %>
+<% end %>
+<div id="quorum_panel_container" xmlns="http://www.w3.org/1999/html">
+  <%= render partial: 'groups/quorums_panel' %>
+</div>
+
+<table>
+  <thead>
+  <tr>
+    <td colspan="2"><%= t('pages.groups.statistics.title', date: @group.statistic.updated_at) %></td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><%= 'Debate participants' %></td>
+    <td><%= @group.statistic.valutations.round(0) %>
+      (<%= (@group.statistic.valutations*100 / @group.scoped_participants(:participate_proposals).count).round(0) %>
+      %)
+    </td>
+  </tr>
+  <tr>
+    <td><%= 'Debate maturity' %></td>
+    <td><%= @group.statistic.good_score.round(0) %>%</td>
+  </tr>
+  <tr>
+    <td><%= 'Votation participants' %></td>
+    <td><%= @group.statistic.vote_valutations.round(0) %>
+      (<%= (@group.statistic.vote_valutations*100 / @group.scoped_participants(:vote_proposals).count).round(0) %>
+      %)
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<div class="card">
+  <h2><%= t('pages.groups.edit_quorums.configure_proposal_parameters') %></h2>
+  <%= check_box :group, :default_anonima, data: {change_default_anonimity: ''} %>
+  <%= t('pages.groups.edit_quorums.default_anonymous_proposal') %><br/>
+  <%= check_box :group, :default_visible_outside, data: {change_default_visible_outside: ''} %>
+  <%= t('pages.groups.edit_quorums.default_private_proposal') %><br/>
+  <%= check_box :group, :default_secret_vote, data: {change_default_secret_vote: ''} %>
+  <%= t('pages.groups.edit_quorums.default_secret_vote') %><br/>
+  <hr>
+  <%= check_box :group, :change_advanced_options, data: {change_default_advanced_options: ''} %>
+  <%= t('pages.groups.edit_quorums.let_editor_change_settings') %><br/>
+</div>
+
+<script type="text/javascript">
+    QuorumsIndex.groupId = <%= @group.id %>;
+    QuorumsIndex.changeDefaultAnonimityUrl = "<%=change_default_anonima_group_url(@group)%>";
+    QuorumsIndex.changeDefaultVisibleOutsideUrl = "<%=change_default_visible_outside_group_url(@group)%>";
+    QuorumsIndex.changeDefaultSecretVoteUrl = "<%=change_default_secret_vote_group_url(@group)%>";
+    QuorumsIndex.changeDefaultAdvancedOptionsUrl = "<%=change_advanced_options_group_url(@group)%>";
+</script>
+
+<%= content_for :left_panel do %>
+    <%= render 'groups/administration_panel' %>
+<% end %>

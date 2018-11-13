@@ -1,0 +1,48 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+
+ *= require proposal
+ *= require users
+ *= require token-input
+ *= require groups
+ *= require fullcalendar
+ *= require event
+ *= require valutation
+ *= require tags
+ *= require tutorial
+ *= require portlet
+ *= require jquery.dataTables
+ *= require style
+ *= require notifications
+ *= require quorums
+ *= require searches
+ *= require alerts
+ *= require redmond/custom
+ *= require jqplot/jquery.jqplot
+ *= require theme
+ *= require group_areas
+ *= require blog_posts
+ *= require buttons
+ *= require jquery.qtip
+ *= require feedback
+ *= require toastr
+ *= require jquery.countdown
+ *= require jquery.switchbutton
+ *= require introjs.css
+ *= require select2
+ *= require frm
+ *= require jquery.textntags
+ *= require foundation-datetimepicker
+ *= require cookies_eu
+ *= require formValidation.min
+ *= require select2-foundation
+ *= require jquery.steps
+*/
+
+//@import 'nprogress';
+
+@import 'foundation_and_overrides';
+@import 'font-awesome';
+@import 'emoticons';

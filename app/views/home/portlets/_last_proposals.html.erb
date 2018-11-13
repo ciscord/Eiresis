@@ -1,0 +1,10 @@
+<div class="title clearfix">
+  <span class="left"><%= t('pages.home.index.last_proposals') %></span>
+  <%= link_to t('.proceed_to_proposals'), proposals_path, class: 'btn right' %>
+</div>
+
+<% unless @proposals.empty? %>
+    <div class="scrollable">
+      <%= render partial: 'proposals/mini_proposal', collection: @proposals, as: 'proposal' %>
+    </div>
+<% end %>

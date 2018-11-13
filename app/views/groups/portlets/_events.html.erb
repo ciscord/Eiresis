@@ -1,0 +1,8 @@
+<div class="title">
+  <%= t('pages.groups.show.next_events') %>
+</div>
+<% unless @next_events.empty? %>
+<div class="scrollable">
+  <%= render partial: 'events/mini_event', collection: @next_events, as: 'event' %>
+</div>
+<% end %>

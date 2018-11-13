@@ -1,0 +1,119 @@
+<% content_for :left_panel do %>
+    <% if can? :view_data, @group %>
+        <% if ::Configuration::socialnetwork_active %>
+            <div class="mybox">
+              <a href="https://twitter.com/share"
+                 class="twitter-share-button"
+                 data-lang="en"
+                 data-count="vertical"
+                 data-width="50"
+                 data-text="<%= "Look at this group on ##{APP_SHORT_NAME}" %>">Tweet</a>
+
+              <div class="g-plusone" data-size="tall"></div>
+              <div class="fb-like" data-send="false" data-width="50" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false" data-likeable_type="<%= @group.class.class_name %>" data-likeable_id="<%= @group.id %>"></div>
+              <h4><%= t('pages.groups.show.short_url').upcase %></h4>
+
+              <div class="mycont">
+                <%= link_to group_url(@group).gsub('/groups', ''), group_url(@group).gsub('/groups', '') %>
+              </div>
+            </div>
+        <% end %>
+    <% end %>
+
+    <div class="mybox">
+
+      <a href="#" data-reveal-id="rules_modal" class="btn">
+        <i class="fa fa-book"></i>
+        <%= t('pages.groups.show.rules_button') %>
+      </a>
+
+      <% if can? :view_data, @group %>
+          <% if user_signed_in? && current_user.blog %>
+              <% if can? :post_to, @group %>
+                  <%= link_to new_group_blog_post_url(@group), class: 'btn green', style: "margin-top:4px;" do %>
+                      <i class="fa fa-plus"></i>
+                      <%= t('pages.groups.show.post_button') %>
+                  <% end %>
+                  <br/>
+              <% end %>
+          <% else %>
+              <%= link_to new_blog_path, class: 'btn green', style: "margin-top:4px;" do %>
+                  <i class="fa fa-plus"></i>
+                  <%= t('pages.groups.show.blog_button') %>
+              <% end %>
+              <br/>
+          <% end %>
+      <% end %>
+    </div>
+
+    <% if can? :view_data, @group %>
+        <div class="mybox participants_container">
+          <%= render partial: 'groups/participants_panel' %>
+        </div>
+        <% unless @group.disable_participation_requests %>
+            <div class="participation_requests_container">
+              <%= render partial: 'groups/participation_requests_panel' %>
+            </div>
+        <% end %>
+
+        <% voting = @group.participation_requests.voting
+           if voting.size > 0 %>
+            <div class="mybox">
+              <p>
+              <h4><%= 'Elenco delle richieste di partecipazione in corso di votazione' %></h4>
+              </p>
+              <% voting.each do |request| %>
+                  <p>
+                    <%= link_to_user request.user, full_name: true %>
+                    <a>Vota SI</a>
+                    - <a>Vota NO</a>
+                  </p>
+              <% end %>
+            </div>
+        <% end %>
+
+        <br/>
+
+        <% @myparticipation = @group.group_participations.where(user_id: current_user.id).first if current_user %>
+        <% if @myparticipation %>
+            <div class="mybox">
+              <h4><%= t('pages.groups.show.permissions_title') %></h4>
+
+              <div id="permissions_list_container" title="<%= t('pages.groups.show.list_permissions.title') %>"></div>
+              <%= link_to permissions_list_group_path(@group), data: {remote: true, disable_with: t('loading')}, class: 'btn' do %>
+                  <i class="fa fa-info-circle"></i>
+                  <%= t('pages.groups.show.list_permissions.button') %>
+              <% end %>
+              <%= link_to group_group_participation_path(@group, @myparticipation), method: :delete, data: {disable_with: t('loading'), confirm: t('pages.users.show.get_out_of_group_confermation')}, class: 'btn' do %>
+                  <i class="fa fa-sign-out"></i>
+                  <%= t('pages.users.show.get_out_of_group_button') %>
+              <% end if can? :destroy, @myparticipation %>
+            </div>
+        <% end %>
+
+        <div class="mybox">
+          <h4><%= 'Archives' %></h4>
+
+          <div class="mycont">
+            <% if @archives.length > 0 %>
+                <% @archives.each do |rec| %>
+                    <div class="blog_comment">
+                      <%= link_to "#{t('calendar.monthNames')[rec.month.to_i - 1]} #{rec.year.to_i} (#{rec.posts})", posts_by_year_and_month_group_path(@group, month: rec.month.to_i, year: rec.year.to_i) %>
+                    </div>
+                <% end %>
+            <% else %>
+                <%= 'Nothing has ever been published in this group' %>
+            <% end %>
+          </div>
+        </div>
+    <% else %>
+        <div class="mybox">
+          <p>
+            <%= link_to ask_for_participation_group_url(@group), method: :post, class: "btn blue" do %>
+                <i class="fa fa-pencil"></i>
+                <%= t('pages.groups.show.ask_participate_button') %>
+            <% end %>
+          </p>
+        </div>
+    <% end %>
+<% end %>

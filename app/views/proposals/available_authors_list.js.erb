@@ -1,0 +1,4 @@
+var container_ = $('<div id="available_authors_list_container" class="reveal-modal" data-reveal></div>');
+container_.html("<%= j render 'available_authors_list_panel'%>");
+$('body').append(container_);
+eiresis_reveal(container_);

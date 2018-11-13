@@ -1,0 +1,23 @@
+$('#proposalCommentsContainer').append("<%= j render 'proposals/edit_comments'%>");
+
+ProposalsEdit.firstCheck = false;
+<%if @proposal_comment_search.show_more?%>
+    $('#loading_results').show();
+    if (!ProposalsEdit.firstCheck) {
+        checkScroll();
+        ProposalsEdit.firstCheck = true;
+    }
+    ProposalsEdit.checkActive = true;
+    hideLeftPanel();
+<%else%>
+    $('#loading_results').hide();
+    <%if @proposal_comment_search.proposal_comments.empty? %>
+        $('.suggestion-title').remove();
+        $('.suggestion_right').remove();
+    <%else%>
+        hideLeftPanel();
+    <%end%>
+<%end%>
+
+$('.reply_textarea').elastic();
+disegnaCountdown();

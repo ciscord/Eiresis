@@ -1,0 +1,37 @@
+Rails:
+  Enabled: true
+
+#Metrics/LineLength:
+#  Max: 120
+
+Style/Documentation:
+  Enabled: false
+
+Style/MultilineOperationIndentation:
+    EnforcedStyle: indented
+
+Style/NonNilCheck:
+  IncludeSemanticChanges: true
+
+Style/DotPosition:
+  EnforcedStyle: trailing
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+AllCops:
+  TargetRubyVersion: 2.3
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - 'uploads/**/*'
+    - 'bin/**/*'
+    - 'script/**/*'
+    - 'log/**/*'
+    - 'public/**/*'
+    - 'tmp/**/*'
+    - 'db/**/*'
+    - 'spec/**/*'
+
+inherit_from: .rubocop_todo.yml

@@ -1,0 +1,9 @@
+<div class="title">
+  <%= t('pages.home.show.proposals_now_voting') %>
+</div>
+<% @proposals_p = Proposal.votation_portlet(current_user) %>
+<% unless @proposals_p.empty? %>
+    <div class="scrollable">
+      <%= render partial: 'proposals/mini_proposal', collection: @proposals_p, as: 'proposal' %>
+    </div>
+<% end %>

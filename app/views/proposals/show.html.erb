@@ -1,0 +1,104 @@
+<%- @page_title = @proposal.title %>
+<%- @meta_description = @proposal.short_content %>
+
+<%= content_for :head do %>
+    <meta property="og:url" content="<%= current_url %>"/>
+    <meta property="og:title" content="<%= @proposal.title %>"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:image" content="<%= asset_url('logo120.png') %>"/>
+    <meta property="og:site_name" content="<%= ENV['APP_LONG_NAME'] %>"/>
+    <meta property="fb:app_id" content="<%= ENV['FACEBOOK_APP_ID'] %>"/>
+    <meta property="article:published_time" content="<%= @proposal.created_at.strftime("%Y/%m/%d") %>">
+    <meta property="article:author" content="<%= (@proposal.users.first || @proposal.proposal_lives.first.users.first).fullname %>">
+    <meta property="article:section" content="<%= @proposal.category.description %>">
+    <meta property="article:tag" content="<%= @proposal.tags_list %>">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.4.2/Sortable.min.js"></script>
+<% end %>
+
+<%= render partial: 'proposals/show_proposal' %>
+
+<% if ((can? :participate, @proposal) || (!current_user && !@proposal.private)) && (!@proposal.voting?) %>
+    <div id="proposalNewComment" class="blogNewComment">
+      <%= render partial: @proposal_comment = ProposalComment.new %>
+    </div>
+<% else %>
+    <div style="height:20px"></div>
+<% end %>
+
+
+<% if @proposal.voting? %>
+    <% unless @proposal.is_petition? %>
+        <h4><%= t('pages.proposals.show.no_contributes') %></h4>
+    <% end %>
+<% else %>
+    <div id="order_bar">
+      <%= render partial: 'proposal_comments/order_bar' %>
+    </div>
+
+    <div id="loading_contributes" style="margin:auto;text-align:center;">
+      <%= image_tag 'ajax-loader.gif' %>
+      <br/>
+      <b><%= t('pages.proposals.show.loading_contributions') %></b>
+    </div>
+    <div id="proposalCommentsContainer">
+
+    </div>
+
+    <div id="loading_results" style="display:none;">
+      <span><%= t('pages.proposals.show.previos_contributes') %></span>
+    </div>
+    <%= render partial: 'report_contribute' %>
+<% end %>
+
+<%= subscribe_to proposal_path(@proposal) if current_user %>
+
+<script type="text/javascript">
+    eiresis.show_comment_id = <%= params[:comment_id] || 'null'%>;
+    eiresis.show_section_id = <%= params[:section_id] || 'null'%>;
+    eiresis.i18n.proposals.vote = {
+        positive: <%=VoteType::POSITIVE%>,
+        neutral: <%=VoteType::NEUTRAL%>,
+        negative: <%=VoteType::NEGATIVE%>,
+        confirm_positive: '<%=j raw t('pages.votations.show.confirm_positive', name: @proposal.title) %>',
+        confirm_neutral: '<%=j raw t('pages.votations.show.confirm_neutral', name: @proposal.title) %>',
+        confirm_negative: '<%=j raw t('pages.votations.show.confirm_negative', name: @proposal.title) %>'
+    };
+    eiresis.can_participate = <%=can? :participate, @proposal%>;
+    <%if signed_in? %>
+    eiresis.image_tag = $('<%=j avatar(current_user, size: 32)%>');
+    eiresis.resource_viewable = true;
+    <%end%>
+
+    ProposalsShow.voting = <%= @proposal.voting?%>;
+    ProposalsShow.voted = <%= @proposal.voted?%>;
+    ProposalsShow.abandoned = <%= @proposal.abandoned?%>;
+    ProposalsShow.contributesUrl = '<%=j list_proposal_proposal_comments_url(@proposal) %>';
+    ProposalsShow.rightListUrl = '<%=j left_list_proposal_proposal_comments_url(@proposal) %>';
+    ProposalsShow.proposalId = <%=@proposal.id %>;
+    ProposalsShow.openShare = '<%=params[:share] %>';
+    ProposalsShow.nicknames = <%=json_nicknames @proposal %>;
+    ProposalsShow.contributeMaxLength = <%=CONTRIBUTE_MAX_LENGTH%>;
+    ProposalsShow.times = {
+        created_at: <%=@proposal.created_at.to_i%>,
+        updated_at: <%=@proposal.updated_at.to_i%>,
+        descriptions: {}
+    };
+    <%if @proposal.quorum.present? && @proposal.quorum.ends_at.present? %>
+    ProposalsShow.times.ends_at = <%=@proposal.quorum.ends_at.to_i%>;
+    ProposalsShow.times.descriptions.ends_at = '<%=j l @proposal.quorum.ends_at%>';
+    <%end%>
+    <%if @proposal.vote_period.present? %>
+    ProposalsShow.times.vote_ends_at = <%=@proposal.vote_period.endtime.to_i%>;
+    ProposalsShow.times.descriptions.vote_ends_at = '<%=j l @proposal.vote_period.endtime if @proposal.voting?%>';
+    <%end%>
+
+    $(function () {
+        <%= render partial: 'show_tooltips' %>
+    });
+</script>
+
+<% content_for :left_panel do %>
+    <%= render 'proposals/left_panel' %>
+<% end %>
+

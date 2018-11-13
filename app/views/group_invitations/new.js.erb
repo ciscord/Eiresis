@@ -1,0 +1,4 @@
+var container_ = $('<div id="invitation_container" class="reveal-modal small" data-reveal></div>');
+container_.html("<%= j render 'group_invitations/form'%>");
+$('body').append(container_);
+eiresis_reveal(container_);

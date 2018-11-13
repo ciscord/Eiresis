@@ -1,0 +1,28 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+install:
+  - docker build -t eiresis_eiresis .
+  - docker build -t eiresis_test ./spec/
+  - docker-compose -f docker-compose.yml -f docker-compose.test.yml build
+
+before_script:
+  - cp config/database.example.yml config/database.yml
+  - sed /AWS_HOST/d config/application.example.yml > config/application.yml
+  - cp config/sidekiq.example.yml config/sidekiq.yml
+  - docker-compose -f docker-compose.yml -f docker-compose.travis.yml run eiresis bundle exec rake db:setup
+
+script: docker-compose -f docker-compose.yml -f docker-compose.travis.yml run eiresis
+
+env:
+  global:
+    - DOCKER_COMPOSE_VERSION=1.5.2
+    - DISABLE_SCREENSHOTS=true

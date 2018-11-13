@@ -1,0 +1,155 @@
+<div class="fixed">
+  <nav class="top-bar" data-topbar>
+    <section class="top-bar-section">
+      <div class="logo-wrapper show-for-medium-up">
+        <div class="logo">
+          <%= link_to (image_tag 'logo_completo_white_mini.png', class: "logo1", data: ({dropdown: "eiresis_panel", options: "is_hover:false;align:center;"} unless true)), root_path, tabindex: 1 %>
+        </div>
+      </div>
+      <ul class="left">
+        <% unless in_subdomain? %>
+            <li>
+              <a id="logo-but" href="#" class="button" data-dropdown="hover1" data-options="is_hover:false">
+                <i class="fa fa-users medium"></i>
+                <span class="show-for-large-up"><%= t('pages.header.groups_title') %></span>
+              </a>
+            </li>
+        <% end %>
+        <% if current_user %>
+            <li class="has-form">
+              <%= simple_form_for Search.new, data: {remote: true, disable_form_validator: ''} do |f| %>
+                  <div class="row collapse">
+                    <div class="large-12 small-10 columns">
+                      <%= f.text_field :q, placeholder: t('placeholder.find') %>
+                    </div>
+                  </div>
+              <% end %>
+              <div id="search_box" class="card"></div>
+            </li>
+        <% end %>
+      </ul>
+
+      <ul class="right">
+        <li >
+          <%= link_to open_space_path, class: 'cur globe', title: t('open_space') do %>
+              <i class="fa fa-globe medium"></i>
+          <% end %></li>
+        <li class="hide-for-small"><%= link_to sostienici_path, class: 'cur love', title: t('pages.header.support_us') do %>
+              <i class="fa fa-heart medium"></i>
+          <% end %></li>
+        <li class="hide-for-small">
+          <%= link_to "#", onclick: "return false;", data: {dropdown: "help_panel", options: "is_hover:false"} do %>
+              <i class="fa fa-question medium cur info" title="TUTORIAL"></i>
+          <% end %>
+        </li>
+
+        <% if current_user %>
+            <li>
+              <%= link_to '#', class: 'button account show-for-large-up', data: {dropdown: "personal_menu_large", options: "is_hover:false"} do %>
+                  <%= avatar(current_user, size: 34, cert: false) %>
+                  <span><%= current_user.fullname %></span>
+              <% end %>
+              <%= link_to '#', class: 'small account hide-for-large-up', data: {dropdown: "personal_menu_small", options: "is_hover:false"} do %>
+                  <%= avatar(current_user, size: 34, cert: false) %>
+              <% end %>
+            </li>
+            <li>
+            </li>
+            <li>
+              <%= link_to "#", onclick: "return false;", id: "alerts_link", data: {dropdown: "alert_cont", options: "is_hover:false"} do %>
+                  <i class="fa fa-bell medium" title="ALERTS"></i>
+              <% end %>
+            </li>
+        <% else %>
+            <% if in_subdomain? %>
+                <li>
+                  <%= eval "#{@group.subdomain}_login" if @group %>
+                </li>
+            <% else %>
+                <li>
+                  <%= link_to t('pages.header.login'), '#', data: {reveal_id: "login-panel"}, class: "button fit-button show-for-medium-up" %>
+                  <%= link_to t('pages.header.login'), '/users/sign_in', class: "fit-button button show-for-small" %>
+                </li>
+                <li>
+                  <%= link_to t('pages.header.menu.registration_button'), new_registration_path(resource_name), class: 'fit-button button' %>
+                </li>
+            <% end %>
+        <% end %>
+      </ul>
+    </section>
+  </nav>
+
+  <%= render 'layouts/personal_menu' if user_signed_in? %>
+</div>
+
+
+<ul id="help_panel" class="f-dropdown xsmall" data-dropdown-content>
+  <li>
+
+    <%= link_to '#', title: t('pages.home.index.feedback'), onclick: "$('.feedbackBtn').click();return false;" do %>
+        <i class="fa fa-warning"></i>
+        <%= t('pages.home.index.feedback') %>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to videoguide_path, title: t('pages.home.index.videos') do %>
+        <i class="fa fa-film"></i>
+        <%= t('pages.home.index.videos') %>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to 'http://wiki.eiresis.eu/doku.php?id=en:faq', title: t('pages.home.index.FAQ'), target: '_blank' do %>
+        <i class="fa fa-book"></i>
+        <%= t('pages.home.index.FAQ') %>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to 'http://wiki.eiresis.eu/', title: t('pages.home.index.guide'), target: '_blank' do %>
+        <i class="fa fa-book"></i>
+        <%= t('pages.home.index.guide') %>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to edemocracy_path, title: t('pages.home.index.whatis') do %>
+        <i class="fa fa-info"></i>
+        <%= t('pages.home.index.whatis') %>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to chisiamo_path, title: t('pages.home.index.whowe') do %>
+        <i class="fa fa-users"></i>
+        <%= t('pages.home.index.whowe') %>
+    <% end %>
+  </li>
+</ul>
+
+<% unless in_subdomain? %>
+    <div id="hover1" class="f-dropdown medium" data-dropdown-content>
+      <% if user_signed_in? %>
+          <% if current_user.groups.empty? %>
+              <div class="group-item">
+                <h4><%= t('pages.header.no_groups_yet') %></h4>
+              </div>
+          <% else %>
+              <%= render partial: 'groups/group_menu_item', collection: current_user.groups, as: :group %>
+          <% end %>
+          <%= render 'groups/open_space_menu_item' %>
+      <% end %>
+      <div class="group-item">
+        <%= link_to new_group_url(subdomain: false), class: 'btn blue' do %>
+            <i class="fa fa-plus"></i>
+            <%= t('pages.header.open_group') %>
+        <% end %>
+        <%= link_to groups_url(subdomain: false), class: 'btn blue' do %>
+            <i class="fa fa-search"></i>
+            <%= t('pages.header.new_group') %>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+
+<%= render 'layouts/login_panel' unless signed_in? %>
+
+
+
+

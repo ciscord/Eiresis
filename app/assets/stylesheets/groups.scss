@@ -1,0 +1,220 @@
+@import "foundation/functions";
+
+@include exports("global") {
+}
+
+@import "foundation/components/global";
+
+.groupDescription {
+  .count {
+    vertical-align: middle;
+  }
+}
+
+.groupListContainer, .groupPortletListContainer {
+  .inner {
+    padding: 15px;
+    position: relative;
+  }
+  h3 {
+    font-size: 18px;
+    line-height: 20px;
+    margin: 0px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .group_tag_desc {
+    height: 60px;
+    font-size: 0.8em;
+    line-height: 1.2em;
+    text-align: justify;
+    overflow: hidden;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    position: relative;
+    .fade_out {
+      position: absolute;
+      bottom: 0px;
+      height: 30px;
+      width: 100%;
+      background: -webkit-linear-gradient(rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 1) 100%);
+      background-image: -moz-linear-gradient(rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 1) 100%);
+      background-image: -o-linear-gradient(rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 1) 100%);
+      background-image: linear-gradient(rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 1) 100%);
+      background-image: -ms-linear-gradient(rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 1) 100%);
+    }
+  }
+  .groupUserImage {
+    padding-bottom: 3px;
+    max-height: 90px;
+    overflow: hidden;
+  }
+  .groupName {
+    overflow: hidden;
+    position: relative;
+  }
+}
+
+.groupcontainer {
+  clear: both;
+  .groupImg24 {
+    cursor: pointer;
+    float: left;
+    height: 24px;
+    width: 24px;
+    margin-right: 5px;
+    margin-top: 2px;
+
+  }
+  .group {
+    cursor: pointer;
+    float: left;
+    /*width:140px;*/
+  }
+}
+
+input.days {
+  width: 35px;
+
+}
+
+input.hours {
+  width: 25px;
+
+}
+
+input.minutes {
+  width: 25px;
+}
+
+.form_float {
+  float: left;
+  padding: 5px 10px 5px 0;
+}
+
+.loading_groups {
+  background-color: #FAFAFA;
+  border-top: 1px solid #E3E3E3;
+  display: block;
+  padding: 10px 0;
+  text-align: center;
+  color: #3366CC;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.loading_groups:hover {
+  background-color: #F4F4F4;
+  text-decoration: none;
+}
+
+#groups_list {
+  margin-bottom: 10px;
+}
+
+[data-tag-cloud] {
+  padding: 0.6em;
+  text-align: center;
+}
+
+.groupDescription {
+  overflow: hidden;
+}
+
+.territoryDescription {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.group_bottom {
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+.title_fade {
+  background-image: asset_url('vertical_line.png');
+  height: 20px;
+  position: absolute;
+  width: 20px;
+  right: -3px;
+  top: 0px;
+}
+
+.territory_fade {
+  background-image: asset_url('vertical_line.png');
+  height: 20px;
+  position: absolute;
+  width: 20px;
+  right: -3px;
+  top: 0px;
+}
+
+.group_info .portlet_panel {
+  width: auto;
+  max-width: 398px;
+}
+
+.group_show_page {
+  position: relative;
+  display: table;
+}
+
+//search panel
+
+.search_words {
+  float: left;
+  margin-left: 10px;
+  margin-top: 7px;
+  width: 65px;
+}
+
+.search_borders {
+  float: left;
+  margin-left: 10px;
+  margin-top: 7px;
+  width: 65px;
+}
+
+.switch_opt {
+  width: 14px;
+  height: 14px;
+  text-align: center;
+  &.s_circle {
+    border: 3px solid #888;
+    border-radius: 50%;
+
+    .i_circle {
+      border: 2px solid #888;
+      border-radius: 50%;
+      width: 1px;
+      height: 1px;
+      margin: auto;
+      margin-top: 2px;
+      background-color: #888;
+    }
+  }
+}
+
+.on {
+  .s_circle {
+    border-color: #888;
+    .i_circle {
+      border-color: #888;
+      background-color: #888;
+    }
+  }
+}
+
+.off {
+  .s_circle {
+    border-color: #ccc;
+    .i_circle {
+      border-color: #ccc;
+      background-color: #ccc;
+    }
+  }
+}

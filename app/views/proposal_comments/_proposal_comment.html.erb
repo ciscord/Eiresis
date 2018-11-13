@@ -1,0 +1,15 @@
+<%= form_for [@proposal, proposal_comment], remote: true do |f| %>
+    <p>
+      <%= f.label :content do %>
+          <%= t('pages.proposals.show.add_contribute') %>
+          <span id="miglioricontributi">
+            <i class="fa fa-info-circle"></i>
+        </span>
+      <% end %>
+      <%= f.text_area :content, rows: 10, cols: 70, data: {contribute_area: ''} %>
+    </p>
+    <p>
+      <%= f.submit t('pages.proposals.show.send_contribute_button'), class: 'btn green', data:{disable_with: t('sending')}, style: "width: 100px;height:35px;" %>
+    </p>
+<% end %>
+

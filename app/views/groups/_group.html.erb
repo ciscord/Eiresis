@@ -1,0 +1,174 @@
+<%= simple_form_for @group, url: in_subdomain? ? '/update' : nil, validate: true, html: { multipart: true } do |f| %>
+    <%= f.error_notification %>
+    <% if @group.is_private? %>
+        <div class="panel callout">
+          <p>
+            <%= t('pages.groups.edit.private_warning_html', link: (link_to t('pages.groups.administration_panel.proposals'), group_quorums_url(@group))) %>
+          </p>
+        </div>
+    <% end %>
+
+    <%= f.input :name, placeholder: t('activerecord.attributes.group.name_placeholder'),
+                input_html: { data: { fv_remote_id: @group.id } } %>
+
+    <%= f.input :description, as: :ckeditor,
+                input_html: { row: 5,
+                              ckeditor: { toolbar: 'blog',
+                                          language: I18n.locale,
+                                          wordcount: { showCharCount: true,
+                                                       showWordCount: false,
+                                                       charLimit: 2000,
+                                                       countHTML: true } } },
+                required: true %>
+
+    <% if ['edit', 'update'].include? action_name %>
+        <%= f.label :rule_book %>
+        <%= f.cktext_area :rule_book, row: 5, ckeditor: { validateSize: 1, toolbar: 'blog', language: I18n.locale } %>
+    <% end %>
+
+    <%= f.input :tags_list, label: t('pages.groups.new.tags.title') %>
+
+
+    <%= f.input :image, input_html: { accept: "image/jpeg,image/png", data: { fv_trigger: 'change',
+                                                                              fv_file: true,
+                                                                              fv_file_maxsize: UPLOAD_LIMIT_IMAGES } } %>
+
+    <%= f.input :interest_border_tkn,
+                collection: (@group.interest_border.present? ? [[@group.interest_border.text, @group.interest_border.key]] : []),
+                selected: (@group.interest_border.present? ? @group.interest_border.key : nil),
+                as: :select,
+                required: true %>
+
+    <% if ['new', 'create'].include? action_name %>
+        <%= f.input :default_role_name, placeholder: t('activerecord.attributes.group.default_role_name_placeholder') %>
+        <a href="#" data-reveal-id="permessi"><%= t('pages.groups.new.change_permissions_button') %></a>
+
+        <div id="permessi" class="reveal-modal" data-reveal>
+          <h2><%= t('pages.groups.new.change_permissions_title') %></h2>
+
+          <div class="alert-box info">
+            <%= t('pages.groups.new.change_permissions_description') %>
+          </div>
+
+          <% GroupAction::LIST.each do |action| %>
+              <%= f.label action do %>
+                  <%= f.check_box :default_role_actions, { multiple: true }, action, nil %>
+                  <%= I18n.t("db.group_actions.#{action}.description") %>
+              <% end %>
+
+          <% end %>
+
+          <a href="#" class="btn" id="default_permissions_button">Default</a>
+          <a href="#" class="btn blue" id="change_permissions_button">Ok</a>
+        </div>
+
+        <%= f.input :admin_title, placeholder: t('activerecord.attributes.group.admin_title_placeholder') %>
+
+        <%= f.submit button_name, class: 'btn blue', data: { disable_with: t('saving') } %>
+
+    <% else %>
+        <%= f.input :admin_title, placeholder: t('activerecord.attributes.group.admin_title_placeholder') %>
+
+        <%= f.label :private, title: "Chi non è membro del gruppo può visualizzare solo il regolamento e le proposte pubbliche" do %>
+            <%= f.check_box :private %>
+            <%= t('activerecord.attributes.group.private') %>
+        <% end %>
+
+        <%= link_to t('pages.groups.edit.change_permissions'), group_participation_roles_path(@group) %>
+        <div>
+          <%= f.submit button_name, class: 'btn blue', data: { disable_with: t('updating') } %>
+
+        </div>
+        <br>
+        <br>
+        <% if can? :destroy, @group %>
+            <div data-alert class="alert-box warning">
+              <%= t('.delete_group_warning_html') %>
+              <%= link_to @group, method: :delete, data: { confirm: t('pages.groups.show.confirm_destroy') }, class: 'btn red' do %>
+                  <i class="fa fa-trash-o"></i>
+                  <%= t('pages.groups.show.destroy_button') %>
+              <% end %>
+            </div>
+        <% end %>
+    <% end %>
+<% end %>
+
+<script type="text/javascript">
+  $(function () {
+    var description_editor = CKEDITOR.instances['group_description'];
+    description_editor.on('change', function (event) {
+      description_editor.updateElement();
+      $('form').formValidation('revalidateField', 'group[description]');
+      console.log('returning true');
+      console.log('event target is', event.relatedTarget);
+      return true;
+    });
+
+    var input_interest_border = $('#group_interest_border_tkn');
+    //input_interest_border.append($('<option>hello</option>'));
+    input_interest_border.select2({
+      ajax: {
+        url: "<%=interest_borders_path%>",
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+          return {
+            q: params.term,
+            l: eiresis.i18n.locale,
+            pp: 'disable'
+          };
+        },
+        processResults: function (data, page) {
+          return {
+            results: data
+          };
+        },
+        cache: true
+      },
+      escapeMarkup: function (markup) {
+        return markup;
+      }, // let our custom formatter work
+      minimumInputLength: 1
+    }).on("select2:close", function () {
+      $('form').formValidation('revalidateField', 'group[interest_border_tkn]');
+    });
+  });
+
+
+  <%if ['new','create'].include? params[:action]%>
+
+
+  $('#change_permissions_button').click(function () {
+    $('#permessi').foundation('reveal', 'close');
+    return false;
+  });
+
+  $('#default_permissions_button').click(function () {
+    $("input[name=group\\[default_role_actions\\]\\[\\]]").prop('checked', false);
+    <%@group.default_role_actions.each do |id|%>
+    $('#group_default_role_actions_<%=id%>').prop('checked', true);
+    <%end if @group.default_role_actions%>
+    return false;
+  });
+
+  <%end%>
+
+  $(function () {
+    var input = $('#group_tags_list');
+    if (input != null) {
+      input.tokenInput("<%=tags_path(format: :json )%>", {
+        theme: "facebook",
+        crossDomain: false,
+        allowFreeTagging: true,
+        minChars: 3,
+        prePopulate: <%=raw @group.tags.map{|t| {id: t.text, name: t.text}}.to_json.to_s%>,
+        hintText: "<%=t('digit_tags')%>",
+        searchingText: "<%=t('digit_tags')%>",
+        preventDuplicates: true,
+        allowTabOut: true,
+        tokenValue: "name",
+        tokenLimit: 5
+      })
+    }
+  });
+</script>

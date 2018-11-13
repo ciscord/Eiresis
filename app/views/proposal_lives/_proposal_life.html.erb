@@ -1,0 +1,19 @@
+<h2><%= t('pages.proposal_histories.life_cycle_number', life: @life.seq)%></h2>
+<p>
+  <%= t('pages.proposal_histories.end_date') %> <b><%=l @life.created_at %></b>
+</p>
+<p>
+  <%= t('pages.proposal_histories.score_reached') %> <b><%= @life.rank %> </b> <br/>
+  <%= t('pages.proposal_histories.evaluation_reached') %> <b><%=@life.valutations %></b>
+</p>
+<p>
+  <%= t('pages.proposal_histories.quorum_used') %><br/>
+  <b><%= @life.quorum.explanation %></b>
+</p>
+
+<p>
+  <%= t('pages.proposal_histories.editors_in_life_cycle') %><br/>
+  <%@life.users.each do |user|%>
+    <%= user_tag(user) %>
+  <%end%>
+</p>

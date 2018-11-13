@@ -1,0 +1,53 @@
+<h2><%= t('.title') %></h2>
+<div class="row full-width">
+  <div class="row">
+    <div class="columns small-12">
+      <div class="panel callout"><%= t('.help') %></div>
+    </div>
+    <div class="columns small-6">
+      <h4><%= t('pages.proposals.manage_noise.available') %></h4>
+    </div>
+    <div class="columns small-6">
+      <h4><%= t('pages.proposals.manage_noise.removed') %></h4>
+    </div>
+    <div class="columns small-6">
+      <div id="active" class="noise-sortable">
+        <% @proposal.contributes.unintegrated.removable.each do |contribute| %>
+            <div class="noise_element" data-id="<%= contribute.id %>">
+              <%= parsed_content(contribute, @proposal.is_anonima?) %>
+            </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="columns small-6">
+      <div id="inactive" class="noise-sortable">
+        <% @proposal.contributes.noise.each do |contribute| %>
+            <div class="noise_element" data-id="<%= contribute.id %>">
+              <%= parsed_content(contribute, @proposal.is_anonima?) %>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= form_for 'comments', url: mark_noise_proposal_proposal_comments_path(@proposal.id), method: :post do |f| %>
+    <%= f.hidden_field 'active' %>
+    <%= f.hidden_field 'inactive' %>
+
+    <%= link_to t('buttons.cancel'), '#', class: 'btn', data: {'reveal-close' => ''} %>
+    <%= link_to t('buttons.go_back'), :back, class: 'btn', data: {back: ''} %>
+    <%= f.submit t('buttons.save'), class: 'btn blue', onclick: 'set_noise_data();', data: {disable_with: t('loading')} %>
+<% end %>
+
+
+<script type="text/javascript">
+    $(function () {
+        var oldList, newList, item;
+        $("#active, #inactive").sortable({
+            connectWith: ".noise-sortable",
+            forcePlaceholderSize: '100px'
+        }).disableSelection();
+    });
+
+</script>

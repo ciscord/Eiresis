@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= I18n.locale %>" lang="<%= I18n.locale %>" <%= yield :html_options %>>
+<head>
+  <title><%= (@page_title || t('open_space')) + ' - ' + APP_SHORT_NAME %></title>
+  <%= render partial: "layouts/head" %>
+</head>
+<body data-page="<%= body_page_name %>">
+<%= render partial: "layouts/header" %>
+<div id="menu-top">
+  <div style="position:relative">
+    <div id="menu-group" class="title-area">
+      <% if content_for? :left_panel %>
+          <a class="left-off-canvas-toggle show-for-small-only left fa fa-bars medium" href="#"></a>
+      <% end %>
+      <%= yield :menu %>
+    </div>
+
+  </div>
+</div>
+<div class="off-canvas-wrap" data-offcanvas>
+  <div class="inner-wrap">
+    <!-- Off Canvas Menu -->
+    <aside class="left-off-canvas-menu">
+      <div class="menu-left-inner">
+        <%= yield :left_panel %>
+      </div>
+    </aside>
+
+    <div id="main">
+      <div id="main-copy">
+        <% if @noleft %>
+            <div id="centerpanelextended" class="centerpanelextended <%= 'noleft' unless content_for?(:left_panel) %> <%= 'nomargin' if @nomargin %>">
+              <div class="row">
+                <div class="columns large-12">
+                  <%= yield :left_panel %>
+                  <div id="flash_messages">
+                    <%= render partial: 'layouts/flash', locals: { flash: flash } %>
+                  </div>
+                  <%= render partial: 'layouts/tutorials' %>
+                  <%= yield :layout %>
+                </div>
+              </div>
+            </div>
+        <% else %>
+            <% if content_for?(:left_panel) %>
+                <div id="menu-left" class="menu-left show-for-medium-up">
+                  <div class="menu-left-inner">
+                    <%= yield :left_panel %>
+                  </div>
+                </div>
+            <% end %>
+            <div id="centerpanelextended" class="centerpanelextended <%= 'noleft' unless content_for?(:left_panel) %> <%= 'nomargin' if @nomargin %>">
+              <div class="row centerfloat <%= 'extended' if @extend %>">
+                <div id="flash_messages">
+                  <%= render partial: 'layouts/flash', locals: { flash: flash } %>
+                </div>
+                <%= render partial: 'layouts/tutorials' %>
+                <%= yield :layout %>
+              </div>
+              <div class="clearboth"></div>
+              <%= yield :absolute %>
+            </div>
+        <% end %>
+
+      </div>
+    </div>
+    <a class="exit-off-canvas"></a>
+  </div>
+</div>
+<%= render partial: "layouts/footer" %>
+
+<%= render partial: "fragments/loading" %>
+
+</body>
+</html>

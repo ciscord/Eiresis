@@ -1,0 +1,9 @@
+<% @group.participants.includes(:image).order('users.surname asc').each do |participant| %>
+    <div class="members" id="mem<%= participant.id %>">
+      <%= avatar(participant, size: 40) %>
+      <b><%= link_to participant.fullname, participant %></b>
+    </div>
+<% end %>
+
+<div style="clear:both;"></div>
+

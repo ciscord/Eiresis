@@ -1,0 +1,15 @@
+<% if resource.errors.any? %>
+<div id="errorExplanation" class="ui-state-error ui-corner-all">
+	<%
+	title ||= nil
+	if title%>
+	<h3><%=title%></h3>
+	<%end%>
+	<ul>
+  		<% resource.errors.each do |attr,msg| %>
+  			<%=raw "<li> <b>#{resource.class.human_attribute_name(attr)}</b>: #{msg} </li>" if resource.errors[attr].first == msg %>
+  		<% end %>
+  	</ul>
+</div>
+
+<%end%>

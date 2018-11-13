@@ -1,0 +1,62 @@
+@import "foundation/functions";
+@include exports("global") {}
+@import "foundation/components/global";
+
+#notification-portlet {
+  overflow: auto;
+  height: 260px;
+}
+
+#group_portlet {
+  overflow: auto;
+  height: 260px;
+}
+
+.homegroup .portlet_panel {
+  width:  100%;
+}
+
+.homecont, .homegroup {
+  position: relative;
+  padding-right: 0;
+  .portlet_panel {
+    .inner {
+      height: 400px;
+      .scrollable {
+        height: 326px;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+
+      ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 0px rgb(0, 0, 0);
+        &:hover {
+          background-color: #ddd;
+        }
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.4);
+        -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0);
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .title {
+        font-size: 1.2rem;
+        white-space: nowrap;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        .btn {
+          float: right;
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}

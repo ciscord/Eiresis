@@ -1,0 +1,22 @@
+<% @page_title = t('pages.users.left_panel.geographic_borders') %>
+<div class="card">
+  <%= simple_form_for current_user do |f| %>
+      <div id="border_fields">
+        <%= f.label t('pages.users.border_preferences.your_borders') %>
+        <%= f.text_field :interest_borders_tokens, data: {pre: current_user.interest_borders.to_json} %>
+      </div>
+      <div id="loading_borders" style="margin:auto;text-align:center;display:none;">
+        <%= image_tag 'ajax-loader.gif' %>
+        <br/>
+        <b><%= t('pages.users.border_preferences.updating') %></b>
+      </div>
+      <%= f.button :button, id: 'submit_borders', class: 'btn blue', data: {disable_with: t('loading')} do %>
+          <i class="fa fa-save"></i>
+          <%= t('buttons.save') %>
+      <% end %>
+  <% end %>
+</div>
+
+<% content_for :left_panel do %>
+    <%= render 'users/preferences_panel' %>
+<% end %>

@@ -1,0 +1,17 @@
+$('.suggestion_right[data-section_id=<%=params[:section_id]%>]').html('');
+<% if ((can? :participate, @proposal) || (!current_user && !@proposal.private)) && (!@proposal.voting?) && @proposal_comment_search.section%>
+var div_ = $("<div class='blogNewComment'></div>");
+div_.append("<%=j (render partial: 'proposal_comments/right_comment', locals: {section: @proposal_comment_search.section})%>");
+$('.suggestion_right[data-section_id=<%=params[:section_id]%>]').append(div_);
+<% end %>
+$('.suggestion_right[data-section_id=<%=params[:section_id]%>]').append("<%= j render 'proposals/comments'%>");
+$('#loading_contributes').hide();
+
+
+<%if params[:comment_id] %>
+var comment_ = $('[data-comment-id=<%=params[:comment_id]%>]');
+
+scrollToElement($(".proposal_main[data-section_id=<%=params[:section_id]%>]"));
+<%end%>
+
+disegnaCountdown();

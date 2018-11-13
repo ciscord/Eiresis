@@ -1,0 +1,12 @@
+var event_edit = $('<div id="event_edit"  class="reveal-modal medium" data-reveal></div>');
+
+event_edit.html("<%=j render 'edit_form'%>");
+
+eiresis_reveal(event_edit);
+
+$(event_edit).on('opened.fndtn.reveal', function () {
+    EventsEdit.mapManager.refresh();
+});
+<%content_for :after_page_js do %>
+
+<%end%>

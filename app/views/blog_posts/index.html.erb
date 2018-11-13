@@ -1,0 +1,12 @@
+<% javascript 'endless_page' %>
+
+<% if @blog_posts.size == 0  %>
+	<div class="blogPost">
+		<h1><%=t('pages.blogs.show.no_posts')%></h1>
+		<p><%=t('pages.blogs.show.no_posts_long')%></p>
+	</div>
+<% else %>
+    <div id="blogPostContainer">
+	<%= render collection: @blog_posts, partial: 'blog_post' %>
+    </div>
+<% end %>

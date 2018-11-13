@@ -1,0 +1,101 @@
+<%= simple_form_for [@blog, @blog_post], html: { multipart: true } do |f| %>
+    <div class="editBlogPost">
+      <%= f.error_notification %>
+
+      <%= f.input :title, style: 'width:80%' %>
+
+      <%= f.input :body, as: :ckeditor, required: true,
+                  input_html: { ckeditor: { toolbar: 'blog', language: I18n.locale } } %>
+
+      <%= f.input :tags_list, label: t('pages.groups.new.tags.title') %>
+
+      <%= f.label :status %>
+      <%= f.label :status_p, title: t('.published_title') do %>
+          <%= f.radio_button :status, 'P', checked: "checked" %>
+          <%= t('activerecord.attributes.blog_post.published_true') %>
+      <% end %>
+      <%= f.label :status_r, title: t('.reserved_title') do %>
+          <%= f.radio_button :status, 'R' %>
+          <%= t('activerecord.attributes.blog_post.published_reserved') %>
+      <% end %>
+      <%= f.label :status_d, title: t('.draft_title') do %>
+          <%= f.radio_button :status, 'D' %>
+          <%= t('activerecord.attributes.blog_post.published_false') %>
+      <% end %>
+
+      <% if Group.accessible_by(current_ability, :post_to).size > 0 %>
+          <% groups = @blog_post.publishings.map(&:group) %>
+          <p>
+            <%= f.label :group_ids %>
+            <%= f.select :group_ids,
+                         Group.accessible_by(current_ability, :post_to).map { |group|
+                           [group.name, group.id, { 'data-image' => group.image.url,
+                                                    selected: (groups.include? group) }] }, {},
+                         multiple: true %>
+          </p>
+      <% end %>
+
+      <p>
+        <input type="hidden" name="group_id" value="<%= params[:group_id] %>"/>
+        <%= link_to t('buttons.cancel'), :back, class: 'btn', id: 'cancel_button', data: { disable_with: t('loading') } %>
+        <%= f.submit t('buttons.save'), class: 'btn blue', id: 'save_button', data: { disable_with: t('loading') } %>
+      </p>
+
+      <div style="clear: both;"></div>
+    </div>
+<% end %>
+
+
+<% content_for :left_panel do %>
+    <div class="mybox">
+      <div class="mycont">
+        <%= link_to t('buttons.save'), '#', onclick: "$('#save_button').click();return false;", class: 'btn blue' %>
+        <%= link_to t('buttons.cancel'), '#', onclick: "$('#cancel_button').click();return false;", class: 'btn ' %>
+      </div>
+    </div>
+<% end %>
+
+<script type="text/javascript">
+  $(function () {
+    var editor_id = 'blog_post_body';
+    var description_editor = CKEDITOR.instances[editor_id];
+    description_editor.on('change', function () {
+      description_editor.updateElement();
+      $(editor_id).closest('form').formValidation('revalidateField', 'blog_post[body]');
+    });
+
+    $('#blog_post_tags_list').tokenInput("<%=tags_path(format: :json )%>", {
+      theme: "facebook",
+      crossDomain: false,
+      allowFreeTagging: true,
+      minChars: 3,
+      hintText: "<%=t('digit_tags')%>",
+      searchingText: "<%=t('digit_tags')%>",
+      prePopulate: <%=raw @blog_post.tags_data%>,
+      preventDuplicates: true,
+      allowTabOut: true,
+      tokenValue: "name"
+    });
+
+    function format(state) {
+      if (!state.id) {
+        return state.text;
+      }
+      var element_ = state.element;
+      return $('<span><img src="' + $(element_).data('image') + '" style="width:20px;height:20px;margin-right:5px;"/>' + state.text + '</span>');
+    }
+
+    $('#blog_post_group_ids').select2({
+      templateResult: format,
+      templateSelection: format
+    });
+
+    $('label').qtip({
+      position: {
+        my: 'bottom left',
+        at: 'top left'
+      }
+    });
+  });
+</script>  		
+	

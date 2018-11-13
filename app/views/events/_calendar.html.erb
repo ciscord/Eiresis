@@ -1,0 +1,103 @@
+<% if @group ? (can? :create_event, @group) : is_admin? %>
+    <style type="text/css">
+        .fc-widget-content {
+            cursor: pointer;
+        }
+
+        .fc-widget-content:hover {
+            background-color: #f5f8f9;
+        }
+
+        .fc-widget-content:active {
+            background-color: #fbec88;
+        }
+    </style>
+<% end %>
+
+<div class="calendar_container card">
+  <div id='calendar'>
+  </div>
+</div>
+
+<div id="create_event_dialog" class="reveal-modal medium" data-reveal>
+
+</div>
+
+<div class="choose_event_type" style="display:none;">
+  <h2 class="modal_title"><%= t('pages.events.index.choose_type') %></h2>
+
+  <div style="max-width:540px;margin:auto;">
+    <% EventType.active.each do |event_type| %>
+        <div class="event_model_option" data-id="<%= event_type.id %>" style="background-color: <%= event_type.color %>">
+          <div class="model_name">
+            <div class="name"><%= event_type.description.upcase %></div>
+            <div class="icon">
+              <%= image_tag "event_types/#{event_type.name.downcase}.png", align: 'middle', alt: event_type.description, title: event_type.description, style: 'width:160px' %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<%= content_for :left_panel do %>
+    <% if @group %>
+        <div class="mybox">
+          <% if can? :create_any_event, @group %>
+              <%= link_to '#', class: 'btn blue create_event' do %>
+                  <i class="fa fa-plus"></i>
+                  <%= t('pages.calendar.create_event_button') %>
+              <% end %>
+          <% elsif can? :create_event, @group %>
+              <%= link_to new_group_event_url(@group, event_type_id: EventType::MEETING), remote: true, class: 'btn blue', data: {disable_with: t('loading')} do %>
+                  <i class="fa fa-plus"></i>
+                  <%= t('pages.calendar.create_event_button') %>
+              <% end %>
+          <% elsif can? :create_date, @group %>
+              <%= link_to new_group_event_url(@group, event_type_id: EventType::VOTATION), remote: true, class: 'btn blue', data: {disable_with: t('loading')} do %>
+                  <i class="fa fa-plus"></i>
+                  <%= t('pages.calendar.create_event_button') %>
+              <% end %>
+          <% end %>
+
+          <%= link_to '<img src="//www.google.com/calendar/images/ext/gc_button6.gif" border=0>'.html_safe, "http://www.google.com/calendar/render?cid=#{group_events_url(@group, format: :ics)}", target: '_blank', style: 'display: table; margin: 25px auto;' %>
+        </div>
+    <% else %>
+        <% if is_admin? %>
+            <div class="mybox">
+              <%= link_to '#', class: 'btn blue disable create_event' do %>
+                  <i class="fa fa-plus"></i>
+                  <%= t('pages.calendar.create_event_button') %>
+              <% end %>
+            </div>
+        <% end %>
+    <% end %>
+<% end %>
+
+<script type="text/javascript">
+    EventsIndex.newEventUrl = '<%=j raw new_event_url(group_id: @group.try(:id), models: true)%>';
+    EventsIndex.newEventUrlClick = '<%=j raw new_event_url(group_id: @group.try(:id)) %>';
+    EventsIndex.eventsUrl = '<%=@group ? group_events_url(@group) : events_url%>';
+    EventsIndex.autoOpen = <%= params[:new_event] == 'true' %>;
+    EventsIndex.autoOpenUrl = '<%=j raw new_event_url(group_id: @group.try(:id), event_type_id: params[:event_type_id]) %>';
+    EventsIndex.loadingFragment = '<%=j render "fragments/loading"%>';
+    EventsIndex.defaultEventType = <%= EventType::MEETING%>;
+    EventsIndex.calendarI18n = {
+        firstDay: <%=t('calendar.firstDay')%>,
+        monthNames: <%=raw t('calendar.monthNames')%>,
+        monthNamesShort: <%=raw t('calendar.monthNamesShort')%>,
+        dayNames: <%=raw t('calendar.dayNames')%>,
+        dayNamesShort: <%=raw t('calendar.dayNamesShort')%>,
+        timeFormat: '<%=raw t('calendar.eventsFormat') %>',
+        buttonText: {
+            prevYear: "<span class='fc-text-arrow'>&laquo;</span>",
+            nextYear: "<span class='fc-text-arrow'>&raquo;</span>",
+            today: '<%=t('calendar.today')%>',
+            month: '<%=t('calendar.month')%>',
+            week: '<%=t('calendar.week')%>',
+            day: '<%=t('calendar.day')%>'
+        }
+    };
+    EventsIndex.createEvent = <%= @group ? (can? :create_event, @group) : is_admin? %>;
+</script>

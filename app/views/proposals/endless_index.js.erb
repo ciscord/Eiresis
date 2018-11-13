@@ -1,0 +1,10 @@
+$('#proposalsListContainer<%=params[:state] || params[:view]%>').append("<%= escape_javascript(render partial: 'proposals/list', locals: {proposals: @proposals})%>");
+<%if @search.hits.total_pages > @search.hits.current_page%>
+  $('#loading_proposals<%=params[:state] || params[:view]%>').show();
+<%else%>
+  $('#loading_proposals<%=params[:state] || params[:view]%>').hide();
+<%end%>
+$('#loading_proposals<%=params[:state] || params[:view]%>').next().hide();
+//show_cards();
+disegnaProgressBar();
+disegnaCountdown();

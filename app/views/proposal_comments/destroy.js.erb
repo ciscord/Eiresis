@@ -1,0 +1,18 @@
+$('#comment<%=@proposal_comment.id.to_s%>').hide(600);
+$('#replys<%=@proposal_comment.id.to_s%>').hide(600);
+
+<% publish_to proposal_path(@proposal) do %>
+if (eiresis.id != <%=current_user.id%>) {
+    <%if @proposal_comment.paragraph_id %>
+    var data_section_id = "[data-section_id=<%=@proposal_comment.section_id%>]";
+    var contribute_button = $('.contribute-button'+data_section_id);
+    var num_contributes = parseInt(contribute_button.attr('data-contributes_num'));
+    contribute_button.attr('data-contributes_num',num_contributes-1);
+
+    if (contribute_button.attr('data-status') != 1) {
+        $('.text', contribute_button).text('<%=j t('pages.proposals.show.give_contribute')%>').append(" (" + contribute_button.attr('data-unread_contributes_num') + "/" + contribute_button.attr('data-contributes_num') + ")");
+    }
+    <%end%>
+    $('#comment<%=@proposal_comment.id.to_s%>').hide(600);
+}
+<% end rescue nil%>

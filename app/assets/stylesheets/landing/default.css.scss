@@ -1,0 +1,236 @@
+
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    z-index: 99999;
+    height: 100%;
+}
+
+#status {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 64px;
+    height: 64px;
+    margin: -32px 0 0 -32px;
+    padding: 0;
+}
+
+
+blockquote {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    a {
+      color: white;
+      &:hover {
+        color: white;
+        text-decoration: underline;
+      }
+    }
+}
+
+
+blockquote, q {
+    quotes: "& #8220 & #8220";
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+body {
+    background: #fff;
+    font-family: 'opensans-regular', sans-serif;
+    font-weight: normal;
+    color: #838C95;
+    -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
+    -webkit-text-size-adjust: 100%;
+}
+
+/*	Blockquotes */
+blockquote {
+    margin: 30px 0px;
+    padding-left: 40px;
+    position: relative;
+}
+
+blockquote:before {
+    content: "\201C";
+    opacity: 0.45;
+    font-size: 80px;
+    line-height: 0px;
+    margin: 0;
+    font-family: arial, sans-serif;
+
+    position: absolute;
+    top: 30px;
+    left: 0;
+}
+
+blockquote p {
+    font-family: georgia, serif;
+    font-style: italic;
+    padding: 0;
+    font-size: 18px;
+    line-height: 30px;
+}
+
+blockquote cite {
+    display: block;
+    font-size: 12px;
+    font-style: normal;
+    line-height: 18px;
+}
+
+blockquote cite:before {
+    content: "\2014 \0020";
+}
+
+
+/* 5. Media   --------------------------------------------------------- */
+
+img,
+video,
+iframe,
+embed,
+object {
+    max-width: 100%;
+    height: auto;
+}
+
+label,
+legend {
+    font: 16px/24px 'opensans-bold', sans-serif;
+    margin: 12px 0;
+    color: #3d4145;
+    display: block;
+}
+
+label span,
+legend span {
+    color: #8B9798;
+    font: 14px/24px 'opensans-regular', sans-serif;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    font-size: 15px;
+    color: #3d4145;
+}
+
+input[type="checkbox"] {
+    display: inline;
+}
+
+/* block grids
+--------------------------------------------------------------------- */
+.bgrid-sixths [class*="column"] {
+    width: 16.66667%;
+}
+
+.bgrid-quarters [class*="column"] {
+    width: 25%;
+}
+
+.bgrid-thirds [class*="column"] {
+    width: 33.33333%;
+}
+
+.bgrid-halves [class*="column"] {
+    width: 50%;
+}
+
+[class*="bgrid"] [class*="column"] + [class*="column"]:last-child {
+    float: left;
+}
+
+/* Left clearing for block grid columns - columns that changes width in
+different screen sizes. Allows columns with different heights to align
+properly.
+--------------------------------------------------------------------- */
+.first {
+    clear: left;
+}
+
+/* first column in default screen */
+.s-first {
+    clear: none;
+}
+
+/* first column in smaller screens */
+
+/* smaller screens
+--------------------------------------------------------------- */
+@media only screen and (max-width: 900px) {
+
+    /* block grids on small screens */
+    .s-bgrid-sixths [class*="column"] {
+        width: 16.66667%;
+    }
+
+    .s-bgrid-quarters [class*="column"] {
+        width: 25%;
+    }
+
+    .s-bgrid-thirds [class*="column"] {
+        width: 33.33333%;
+    }
+
+    .s-bgrid-halves [class*="column"] {
+        width: 50%;
+    }
+
+    /* block grids left clearing */
+    .first {
+        clear: none;
+    }
+
+    .s-first {
+        clear: left;
+    }
+
+}
+
+/* ------------------------------------------------------------------ */
+/* e. Others
+/* ------------------------------------------------------------------ */
+
+/*  1. Clearing
+    (http://nicolasgallagher.com/micro-clearfix-hack/
+--------------------------------------------------------------------- */
+
+.cf:before,
+.cf:after {
+    content: " ";
+    display: table;
+}
+
+.cf:after {
+    clear: both;
+}
+
+/*  2. Misc -------------------------------------------------------- */
+
+.remove-bottom {
+    margin-bottom: 0 !important;
+}
+
+.half-bottom {
+    margin-bottom: 12px !important;
+}
+
+.add-bottom {
+    margin-bottom: 24px !important;
+}

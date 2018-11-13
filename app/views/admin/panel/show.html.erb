@@ -1,0 +1,21 @@
+<% @page_title = 'Pannello amministrazione' %>
+<% if is_admin? %>
+    <%= link_to 'Ricalcola ranking utenti', calculate_rankings_admin_panel_path, class: 'btn' %>
+    <%= link_to 'Ricalcola stato proposte', change_proposals_state_admin_panel_path, class: 'btn', title: 'Verifica lo stato di tutte le proposte in votazione. Se il temrine è scaduto e non sono state elaborate, le elabora' %>
+    <%= link_to 'Aggiorna sitemap', write_sitemap_admin_panel_path, class: 'btn' %>
+    <%= link_to 'Cancella vecchie notifiche', delete_old_notifications_admin_panel_path, class: 'btn' %>
+    <%= link_to 'Redis Test', test_redis_admin_panel_path, class: 'btn' %>
+    <%= link_to 'Scheduler Test', test_scheduler_admin_panel_path, class: 'btn' %>
+    <%= link_to 'Test exceptions', test_exceptions_admin_panel_path, class: 'btn' %>
+    <%= link_to 'Calcola affinità Utenti-Gruppi', calculate_user_group_affinity_admin_panel_path, class: 'btn' %>
+
+    <div class="card">
+      <h3>Alert Test</h3>
+      <%= form_tag "/admin/test_notification/" do %>
+          <%= label_tag 'Alert ID' %>
+          <%= text_field_tag 'alert_id' %>
+          <%= submit_tag 'Send' %>
+      <% end %>
+    </div>
+    <%= render 'admin/block_users' %>
+<% end %>

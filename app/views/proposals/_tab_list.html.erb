@@ -1,0 +1,57 @@
+<% unless @proposals.empty? || !::Configuration.phases_active %>
+    <%= render '/proposals/orders/order_bar' %>
+<% end %>
+
+<ul id="proposalsListContainer<%= params[:state] || params[:view] %>" class="small-block-grid-1 xlarge-block-grid-2">
+  <%= render 'list', proposals: @proposals %>
+</ul>
+<% unless @search.results.last_page? %>
+    <div id="loading_proposals<%= params[:state] || params[:view] %>" class="loading_proposals card">
+      <span><%= t('pages.proposals.index.show_more') %></span>
+    </div>
+    <div id="loading_proposals<%= params[:state] || params[:view] %>_2" class="loading_proposals card" style="display:none">
+      <div class="waitDiv"><%= image_tag "facebook-loader.gif", alt: "loading..." %> </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            //show_cards();
+            var currentPage = 1;
+            $('#loading_proposals<%=params[:state] || params[:view]%>').click(function () {
+                $(this).hide();
+                $(this).next().show();
+
+                currentPage++;
+                var cat = <%=params[:category] || 'null'%>;
+                var view = <%=params[:view] || 'null'%>;
+                var state = <%=raw "'#{@search.proposal_state_tab}'" || 'null'%>;
+                var group = <%=@search.group_id || 'null'%>;
+                var order = '<%=params[:order] || 'null'%>';
+                var nurl = '/proposals/endless_index?scroll=true';
+                if (cat != null && cat != 'null')
+                    nurl += '&category=' + cat;
+                if (view != null && view != 'null')
+                    nurl += '&view=' + view;
+                if (state != null && state != 'null')
+                    nurl += '&state=' + state;
+                if (group != null && group != 'null')
+                    nurl += '&group_id=' + group;
+                if (order != null && order != 'null')
+                    nurl += '&order=' + order;
+                $.ajax({
+                    url: nurl,
+                    data: {page: currentPage},
+                    type: 'get'});
+            });
+        })
+    </script>
+<% end %>
+
+
+<script type="text/javascript">
+    $(function () {
+        disegnaProgressBar();
+        disegnaCountdown();
+    });
+</script>
+

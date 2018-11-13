@@ -1,0 +1,96 @@
+<% @page_title = "#{@topic.subject} - #{@group.name}" %>
+<% @extend=true %>
+
+<div id="topic" class="<%= @topic.locked? ? 'locked' : 'unlocked' %>">
+  <%= render partial: 'frm/topics/head', locals: {topic: @topic} %>
+
+  <% if @topic.pending_review? %>
+      <div class="moderation alert" id='topic_moderation'>
+        <%= t("frm.topics.show.pending_review") %>
+        <% if forem_admin_or_moderator?(@topic.forum) %>
+            <%= form_for @topic, url: group_frm_moderate_forum_topic_url(@topic.forum, @topic), method: :put do |f| %>
+                <%= render "/frm/moderation/options", f: f %>
+            <% end %>
+        <% end %>
+      </div>
+  <% end %>
+
+  <%= forem_pages_widget(@posts) %>
+  <div class="topic_title">
+    <h2><%= @topic.subject %></h2>
+  </div>
+  <div id='posts' class="posts">
+    <%= render partial: "frm/posts/post", collection: @posts %>
+  </div>
+
+  <%= forem_pages_widget(@posts) %>
+</div>
+
+
+<% content_for :left_panel do %>
+    <div class="mybox">
+      <h4><%= t('frm.forum.topic_tools') %></h4>
+
+      <div class='btn-group'>
+        <%= render 'proposals/new_proposal' %>
+
+
+        <% if @topic.can_be_replied_to? && can?(:reply, @topic) %>
+            <%= link_to new_group_forum_topic_post_url(@group, @forum, @topic), class: "btn disable", data: {disable_with: t('loading')} do %>
+                <i class="fa fa-comments-o"></i>
+                <%= t(".reply") %>
+            <% end %>
+        <% end %>
+        <% if @topic.user == current_user || forem_admin?(@group) %>
+            <%= link_to group_forum_topic_url(@group, @forum, @topic), method: :delete, data: {confirm: t("are_you_sure")}, class: "btn" do %>
+                <i class="fa fa-trash-o"></i>
+                <%= t(".delete") %>
+            <% end %>
+        <% end %>
+        <% if current_user %>
+            <div data-subscribe-container>
+              <%= render partial: 'subscribe_button' %>
+            </div>
+
+        <% end %>
+      </div>
+    </div>
+
+    <% if @topic.proposals.count > 0 %>
+        <div class="mybox">
+          <h4><%= t('.related_proposals') %></h4>
+          <% @topic.proposals.each do |proposal| %>
+              <%= proposal_tag proposal %>
+          <% end %>
+        </div>
+    <% end %>
+
+
+    <% if forem_admin?(@group) %>
+        <div class="mybox">
+          <h4><%= t('frm.forum.admin_tools') %></h4>
+
+          <div class='btn-group'>
+            <%= link_to edit_group_frm_admin_forum_topic_url(@group, @forum, @topic), class: "btn" do %>
+                <i class="fa fa-pencil"></i>
+                <%= t('frm.topic.links.edit') %>
+            <% end %>
+            <%= link_to toggle_hide_group_frm_admin_forum_topic_url(@group, @forum, @topic), method: :put, class: "btn", data: {disable_with: t('loading')} do %>
+                <i class="fa fa-eye-slash"></i>
+                <%= t("frm.topics.show.hide.#{@topic.hidden}") %>
+            <% end %>
+            <%= link_to toggle_lock_group_frm_admin_forum_topic_url(@group, @forum, @topic), method: :put, class: "btn", data: {disable_with: t('loading')} do %>
+                <i class="fa fa-lock"></i>
+                <%= t("frm.topics.show.lock.#{@topic.locked}") %>
+            <% end %>
+            <%= link_to toggle_pin_group_frm_admin_forum_topic_url(@group, @forum, @topic), method: :put, class: "btn", data: {disable_with: t('loading')} do %>
+                <i class="fa fa-thumb-tack"></i>
+                <%= t("frm.topics.show.pin.#{@topic.pinned}") %>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
+<% end %>
+
+
+<%= render partial: '/frm/application/forem_footer' %>

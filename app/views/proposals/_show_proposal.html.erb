@@ -1,0 +1,223 @@
+<% if current_user %>
+    <% @unread = @proposal.contributes.listable.unread(current_user.id, @proposal.id) %>
+    <% if false && @unread.count > 0 #TODO                   %>
+        <%= link_to '#', class: 'read_contributes' do %>
+            <div class="icon-bell medium"></div>
+        <% end %>
+
+        <script type="text/javascript">
+            var unread = <%=raw @unread.joins({paragraph: :section}).select('proposal_comments.id, paragraphs.id as paragraph_id, sections.id as section').to_json%>;
+            $('.read_contributes').css('top', '90px').css('right', '20px');
+            $('.read_contributes').click(function () {
+                var obj_ = unread.pop();
+                $('.contribute-button[data-section_id=' + obj_.section + ']').trigger('click', obj_.id);
+                if (unread.length == 0) {
+                    $(this).remove();
+                }
+                return false;
+            });
+        </script>
+    <% end %>
+<% end %>
+
+<h1 class="proposalTitle">
+  <%= image_tag("proposal_types/#{@proposal.proposal_type.name.downcase}_ico.png", align: 'middle', alt: @proposal.proposal_type.description, title: @proposal.proposal_type.description, style: "width:40px;padding-right:2px;") %>
+  <span itemprop="name"><%= h @proposal.title %></span>
+</h1>
+<div>
+  <% if @proposal.contributes.count > 1 %>
+      <% @removable_count = @proposal.contributes.unintegrated.removable.count %>
+      <% @removed_count = @proposal.contributes.noise.count %>
+      <% if ((is_proprietary? @proposal) || is_admin?) && (@removable_count + @removed_count > 0) %>
+          <%= link_to t('pages.proposals.show.manage_noise_folder', removable: @removable_count, removed: @removed_count), manage_noise_proposal_proposal_comments_url(@proposal), remote: true, class: 'btn' %>
+      <% else %>
+          <% if @proposal.contributes.noise.count > 0 %>
+              <%= link_to t('pages.proposals.show.noise_folder'), noise_proposal_proposal_comments_url(@proposal), remote: true, class: 'btn' %>
+          <% end %>
+      <% end %>
+
+  <% end %>
+  <% if @group %>
+      <%= link_to edit_group_proposal_url(@group, @proposal), class: 'btn' do %>
+          <i class="fa fa-pencil"></i>
+          <%= t('pages.proposals.show.edit_button') %>
+      <% end if can? :update, @proposal %>
+      <%= link_to group_proposal_url(@group, @proposal), method: :delete, data: { confirm: t('pages.proposals.show.delete_proposal_confirmation') }, class: 'btn' do %>
+          <i class="fa fa-trash-o"></i>
+          <%= t('pages.proposals.show.delete_button') %>
+      <% end if can? :destroy, @proposal %>
+  <% else %>
+      <%= link_to edit_proposal_path(@proposal), class: 'btn' do %>
+          <i class="fa fa-pencil"></i>
+          <%= t('pages.proposals.show.edit_button') %>
+      <% end if can? :update, @proposal %>
+      <%= link_to @proposal, method: :delete, data: { confirm: t('pages.proposals.show.delete_proposal_confirmation') }, class: 'btn' do %>
+          <i class="fa fa-trash-o"></i>
+          <%= t('pages.proposals.show.delete_button') %>
+      <% end if can? :destroy, @proposal %>
+  <% end %>
+
+  <% if @proposal.in_valutation? %>
+      <%= link_to @group ? close_debate_group_proposal_url(@group, @proposal) : close_debate_proposal_url(@proposal), method: :post, data: { confirm: t('pages.proposals.show.close_debate_proposal_confirmation') }, class: 'btn' do %>
+          <i class="fa fa-close"></i>
+          <%= t('pages.proposals.show.close_debate_button') %>
+      <% end  if can? :close_debate, @proposal %>
+  <% elsif @proposal.waiting_date? #se bisogna scegliere una data mostra la combobox %>
+      <div id="wait_date_header_container">
+        <%= render partial: 'proposals/wait_date_header' %>
+      </div>
+
+
+  <% elsif @proposal.voting? %>
+      <% unless @proposal.is_petition? %>
+          <b><%= raw t('.vote_here', link: (link_to t('buttons.vote_here'), '#', data: { scroll_to: :vote_panel })) %></b>
+      <% end %>
+  <% elsif @proposal.abandoned? %>
+      <%= render partial: 'proposals/abandoned_header' %>
+  <% elsif @proposal.voted? %>
+      <div class="card hide-for-medium-up">
+        <h2 id="status"><%= @proposal.in_valutation? ? t('pages.proposals.show.during_debate') : @proposal.state.description %></h2>
+        <!--todo wrong url-->
+        <%= link_to vote_results_proposal_url(@proposal), remote: true, class: 'btn disable results-button' do %>
+            <%= t('pages.proposals.show.votation_results') %>
+        <% end %>
+      </div>
+  <% end %>
+</div>
+
+<div id="create_event_dialog" class="reveal-modal medium" data-reveal>
+</div>
+
+<div style="clear: both;"></div>
+
+<% unless can? :participate, @proposal %>
+    <% if @proposal.in_valutation? %>
+        <div data-alert class="alert-box info radius">
+          <% if signed_in? %>
+              <% if @group.participants.include? current_user %>
+                  <%= t('pages.proposals.show.cant_participate.no_permissions') %>
+                  <%= link_to show_message_user_path(@group.portavoce.first), remote: true do %>
+                      <%= t('pages.proposals.show.cant_participate.ask_permissions') %>
+                  <% end if can? :send_message, @group.portavoce.first %>
+              <% else %>
+                  <% if @group.requesting.include? current_user %>
+                      <%= t('pages.proposals.show.cant_participate.request_pending') %>
+                      <%= link_to show_message_user_path(@group.portavoce.first), remote: true do %>
+                          <%= t('pages.proposals.show.cant_participate.send_message') %>
+                      <% end if can? :send_message, @group.portavoce.first %>
+                  <% else %>
+                      <%= t('pages.proposals.show.cant_participate.not_a_member') %>
+                      <%= link_to ask_for_participation_group_url(@group), method: :post, class: "btn blue" do %>
+                          <i class="fa fa-pencil"></i>
+                          <%= t('pages.groups.show.ask_participate_button') %>
+                      <% end %>
+                  <% end %>
+              <% end %>
+          <% else %>
+              <%= t('pages.proposals.show.cant_participate.not_logged_in') %>
+              <%= link_to t('pages.header.login').capitalize, '#', data: { login: '' } %>
+              .
+          <% end %>
+          <a href="#" class="close">&times;</a>
+        </div>
+    <% end %>
+<% end %>
+
+<% unless @proposal.is_petition? %>
+    <% if @proposal.waiting? #waiting for the vote period                         %>
+        <%= link_to @group ? start_votation_group_proposal_url(@group, @proposal) : start_votation_proposal_url(@proposal), method: :post, data: { confirm: t('pages.proposals.show.start_votation_proposal_confirmation') }, class: 'btn' do %>
+            <i class="fa fa-check-square-o"></i>
+            <%= t('pages.proposals.show.start_votation_button') %>
+        <% end  if can? :start_votation, @proposal %>
+        <div class="status_description card">
+          <b><%= t('pages.proposals.show.votation_message', from: l(@proposal.vote_period.starttime), to: l(@proposal.vote_period.endtime)) %></b>
+        </div>
+    <% elsif @proposal.in_valutation? %>
+        <div class="status_description card">
+          <%= @proposal.quorum.explanation %>
+        </div>
+    <% elsif @proposal.abandoned? %>
+        <div class="status_description card">
+          <%= "#{t('pages.proposals.show.abandoned_message', ago: time_ago_in_words(@proposal.updated_at))}: <b>#{l @proposal.updated_at}</b>".html_safe %>
+        </div>
+    <% end %>
+<% end %>
+
+
+<div class="card">
+  <% @proposal.sections.includes(:paragraphs).each do |section| %>
+      <div class="proposal_main" data-section_id="<%= section.id %>">
+        <div class="row">
+          <div class="columns small-7">
+            <h3><%= section.title %></h3>
+          </div>
+          <div class="columns small-5">
+            <% unless @proposal.voting? %>
+                <% contributes_num = section.proposal_comments.listable.count %>
+                <% unread = current_user ? section.proposal_comments.listable.unread(current_user.id, @proposal.id).count : contributes_num %>
+                <div class="suggest">
+                  <a href="#" class="btn green contribute-button contribute-section-button" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>" title="<%= (can? :participate, @proposal) ? t('pages.proposals.show.give_contribute') : t('pages.proposals.show.read_contribute') %>">
+                    <i class="fa fa-pencil"></i>
+                    <span class="contribute-button-text show-for-medium-up"><%= (can? :participate, @proposal) ? t('pages.proposals.show.give_contribute') : t('pages.proposals.show.read_contribute') %></span>
+                    <span class="contribute-button-num"><%= "(#{unread}/#{contributes_num})" %></span>
+                  </a>
+
+                  <div class="suggest_l" style="display: none;">
+                    <%= image_tag 'suggest.png', class: 'tria' %>
+                  </div>
+                </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="proposal_content">
+          <%= parsed_section(section) %>
+        </div>
+      </div>
+  <% end %>
+</div>
+<% @proposal.solutions.includes(sections: :paragraphs).order('sections.seq').each_with_index do |solution, i| %>
+    <div class="solution_main card" data-solution_id="<%= solution.id %>">
+      <h3>
+        <div class="tit1 sol">
+          <div class="tit2">
+            <%= raw t("pages.proposals.edit.new_solution_title.#{@proposal.proposal_type.name.downcase}", num: i+1) %> <%= "#{solution.title}" %>
+          </div>
+        </div>
+      </h3>
+      <div class="sol_content">
+        <% solution.sections.each do |section| %>
+            <div class="proposal_main" data-section_id="<%= section.id %>">
+              <div class="row">
+                <div class="columns small-7">
+                  <h3> <%= section.title %></h3>
+                </div>
+                <div class="columns small-5">
+                  <% unless @proposal.voting? %>
+                      <% contributes_num = section.proposal_comments.listable.count %>
+                      <% unread = current_user ? section.proposal_comments.listable.unread(current_user.id, @proposal.id).count : contributes_num %>
+                      <div class="suggest">
+                        <a href="#" class="btn green contribute-button contribute-section-button" data-status="0" data-section_id="<%= section.id %>" data-contributes_num="<%= contributes_num %>" data-unread_contributes_num="<%= unread %>" title="<%= (can? :participate, @proposal) ? t('pages.proposals.show.give_contribute') : t('pages.proposals.show.read_contribute') %>">
+                          <i class="fa fa-pencil"></i>
+                          <span class="contribute-button-text show-for-medium-up"><%= (can? :participate, @proposal) ? t('pages.proposals.show.give_contribute') : t('pages.proposals.show.read_contribute') %></span>
+                          <span class="contribute-button-num"><%= "(#{unread}/#{contributes_num})" %></span>
+                        </a>
+                        <%= image_tag 'suggest.png', class: 'tria', style: 'display:none' %>
+                      </div>
+                  <% end %>
+                </div>
+              </div>
+
+              <div class="proposal_content" data-id="<%= solution.id %>">
+                <%= parsed_section(section) %>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    </div>
+
+<% end %>
+
+<div id="vote_panel_container">
+  <%= render partial: 'vote_panel' %>
+</div>

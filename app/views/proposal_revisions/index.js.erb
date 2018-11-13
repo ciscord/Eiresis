@@ -1,0 +1,12 @@
+var container_ = $('<%= j (render(partial: 'proposal_revisions/panel'))%>');
+$('body').append(container_);
+
+container_.foundation().foundation('reveal', 'open');
+container_.css('max-height', $('html').height() - 110 + 'px').css('overflow-y','auto');
+$(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
+    $('html').css('overflow', 'hidden');
+});
+
+$(document).on('closed.fndtn.reveal', '[data-reveal]', function () {
+    $('html').css('overflow', '');
+});

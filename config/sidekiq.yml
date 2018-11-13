@@ -1,0 +1,11 @@
+:concurrency: 5
+test:
+  :concurrency: 1
+production:
+  :concurrency: 5
+:queues:
+  - [high_priority,5]
+  - [notifications,3]
+  - [default,2]
+  - [low_priority, 1]
+  - [mailers, 1]

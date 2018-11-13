@@ -1,0 +1,5 @@
+var container_ = $('<div id="category_container" class="reveal-modal" data-reveal ></div>');
+container_.html('<%=j render partial: 'edit', locals: {remote: true} %>');
+$('body').append(container_);
+eiresis_reveal(container_);
+new eiresisFormValidation(container_.find('form'));

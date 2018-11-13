@@ -1,0 +1,202 @@
+<% if @proposal.is_petition? %>
+    <% if @proposal.voting? %>
+        <div class="rankleftpanel mybox">
+          <p class="inpoints">
+            <span class="littleText" id="valutazioni"><%= 'Signs' %></span>
+            <span class="rightAlign"><%= @proposal.vote.number %>/<%= @proposal.signatures %></span>
+          </p>
+
+          <div class="progress success">
+            <span class="meter" style="width:<%=[(@proposal.vote.number.to_f / @proposal.signatures.to_f) * 100, 100].min%>%">
+                <%= @proposal.vote.number %>/<%= @proposal.signatures %>
+            </span>
+          </div>
+
+          <% if can? :vote, @proposal %>
+              <%= form_for 'data', url: votation_vote_path(proposal_id: @proposal.id), remote: true, method: :put do |f| %>
+                  <%= f.text_area 'comment', placeholder: 'Share your thought' %>
+                  <%= f.submit 'Sign the petition', class: 'btn  blue', disable_with: t('loading') %>
+              <% end %>
+          <% elsif current_user && vote = UserVote.find_by_proposal_id_and_user_id(@proposal.id, current_user.id) %>
+              <p>You signed this petition</p>
+          <% end %>
+        </div>
+    <% end %>
+<% else #not a petition   %>
+    <div id="rankleftpanel" class="rankleftpanel mybox">
+      <div class="points">
+        <%= render partial: 'proposals/points_left_panel' %>
+      </div>
+      <div class="rank">
+        <%= render partial: 'proposals/rank_left_panel' %>
+      </div>
+      <div>
+        <% if signed_in? %>
+            <% if @proposal.proposal_revisions.count > 0 || @proposal.abandoned? %>
+                <%= link_to proposal_proposal_revisions_url(@proposal), remote: true, class: 'btn', data: { disable_with: t('loading') }, id: "history" do %>
+                    <i class="fa fa-file-text-o"></i>
+                    <%= t('pages.proposals.show.history_button') %>
+                <% end %>
+            <% end %>
+            <% if params[:action] == 'show' %>
+                <% if @proposal.vote %>
+                    <!--todo wrong url-->
+                    <%= link_to vote_results_proposal_url(@proposal), remote: true, class: 'btn disable results-button' do %>
+                        <%= t('pages.proposals.show.votation_results') %>
+                    <% end %>
+                    <br/><br/>
+                <% end %>
+                <%= link_to url_for_proposal(@proposal, format: :pdf), target: '_blank', class: 'btn disable' do %>
+                    <i class="fa fa-file-pdf-o"></i>
+                    <%= t('pages.proposals.show.export_pdf') %>
+                <% end %>
+            <% else %>
+                <%= link_to t('pages.proposal_histories.index.back_to_proposal'), @group ? group_proposal_url(@group, @proposal) : proposal_url(@proposal), class: 'btn blue' %>
+            <% end %>
+        <% end %>
+      </div>
+
+      <div class="block-alerts">
+        <%= render partial: 'blocked_proposal_alerts/block_alerts_panel' %>
+      </div>
+    </div>
+
+    <div id="dates" class="mybox" style="text-align:center">
+      <%= render partial: 'proposals/dates' %>
+    </div>
+
+<% end %>
+
+<% if ::Configuration.socialnetwork_active %>
+    <div class="mybox socialnetwork">
+      <% @pinurl = if (@group && !@group.image.url.blank?) %>
+          <% @group.image.url %>
+      <% else %>
+          <% "#{request.protocol}#{request.host_with_port}#{asset_path("logo120.png")}" %>
+      <% end %>
+      <a href="https://twitter.com/share"
+         class="twitter-share-button"
+         data-lang="en"
+         data-count="vertical"
+         data-text="Guarda questa proposta su #<%= APP_SHORT_NAME %>">Tweet</a>
+      <g:plusone size="tall"></g:plusone>
+      <div class="fb-like" data-send="false" data-layout="box_count" data-width="100" data-show-faces="false" data-likeable_type="<%= @proposal.class.class_name %>" data-likeable_id="<%= @proposal.id %>"></div>
+    </div>
+<% end %>
+
+<div class="nickname_container">
+  <%= render 'proposals/nickname_panel' %>
+</div>
+
+<% if @proposal.abandoned? %>
+    <div class="mybox">
+      <h4><%= t('pages.proposals.show.old_editors_title') %></h4>
+
+      <div class="mycont">
+        <div id="old_authors_list">
+          <%= render partial: 'proposals/old_authors_list_panel' %>
+        </div>
+      </div>
+    </div>
+<% else %>
+    <div class="mybox authors">
+      <h4><%= t('pages.proposals.show.editors_title') %></h4>
+
+      <div class="mycont">
+        <div class="authors_list">
+          <%= render partial: 'proposals/authors_list_panel' %>
+        </div>
+        <% if signed_in? && @proposal.in_valutation? %>
+            <div class="available-author">
+              <%= render partial: 'proposals/available_author' %>
+            </div>
+            <div class="available_authors_button">
+              <%= render partial: 'proposals/available_authors_button' %>
+            </div>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+
+
+<% if ::Configuration.proposal_support && !@proposal.private %>
+    <div class="support_left_panel_container">
+      <%= render partial: 'proposals/support_left_panel' %>
+    </div>
+<% end %>
+
+<!--
+    <h4><%= t('pages.proposals.show.attached_documents') %></h4>
+    <%= t('pages.proposals.show.no_document_attached') %>
+-->
+
+<% unless @proposal.interest_borders.empty? %>
+    <div class="mybox">
+      <h4><%= t('pages.proposals.show.geographic_boundaries_title') %></h4>
+
+      <div class="mycont">
+        <% @proposal.interest_borders.each do |ib| %>
+            <div class="label"><%= ib.description %></div>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+
+
+<% if ::Configuration.proposal_categories %>
+    <div class="mybox category">
+      <h4><%= t('pages.proposals.show.category_title') %></h4>
+
+      <div class="mycont">
+        <div class="row">
+          <div class="columns large-2">
+            <%= link_to image_tag("proposal_categories/"+@proposal.category.id.to_s + "_s.png", align: 'middle', alt: @proposal.category.description, style: "width:22px;padding-right:2px;"), @group ? group_proposals_url(@group, { category: @proposal.category.id }) : proposals_url(category: @proposal.category.id) %>
+          </div>
+          <div class="columns large-10">
+            <%= link_to @proposal.category.description, @group ? group_proposals_url(@group, { category: @proposal.category.id }) : proposals_url(category: @proposal.category.id) %>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
+<div class="mybox model">
+  <h4><%= t('pages.proposals.show.model_title') %></h4>
+
+  <div class="mycont">
+    <div class="row">
+      <div class="columns large-2">
+        <%= link_to image_tag("proposal_types/#{@proposal.proposal_type.name.downcase}_ico.png", align: 'middle', alt: @proposal.proposal_type.description, title: @proposal.proposal_type.description, style: "width:22px;padding-right:2px;"), @group ? group_proposals_url(@group, { type: @proposal.proposal_type.id }) : proposals_url(type: @proposal.proposal_type.id) %>
+      </div>
+      <div class="columns large-10">
+        <%= link_to @proposal.proposal_type.description, @group ? group_proposals_url(@group, { type: @proposal.proposal_type.id }) : proposals_url(type: @proposal.proposal_type.id) %>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @proposal.in_group_area? %>
+    <div class="mybox group_area_box">
+      <h4><%= t('pages.proposals.show.group_area') %></h4>
+
+      <div class="mycont">
+        <%= link_to @proposal.presentation_areas.first.name, group_proposals_url(@group, { group_area_id: @proposal.presentation_areas.first.id }) %>
+      </div>
+    </div>
+<% end %>
+
+<% unless @proposal.tags.empty? || !::Configuration.folksonomy %>
+    <div class="mybox">
+      <h4><%= t('pages.proposals.show.tags_title') %></h4>
+
+      <div class="mycont">
+        <% @proposal.tags.each do |tag| %>
+            <div class="label round tag">
+              <a href="<%= tag_path tag.text %>"><%= tag.text %></a>
+            </div>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+
+<%= render 'proposals/closest_proposals' %>

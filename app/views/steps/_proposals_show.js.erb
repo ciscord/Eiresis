@@ -1,0 +1,122 @@
+[
+    {
+        element: '#centerpanelextended .centerfloat',
+        intro: "<%=t('tutorial.proposals_show.welcome')%>",
+        position: 'left'
+
+    },
+    {
+        element: '.proposalTitle',
+        intro: "<%=t('tutorial.proposals_show.title')%>",
+        position: 'left'
+
+    },
+    {
+        element: '.status_description',
+        intro: "<%=t('tutorial.proposals_show.status_description')%>",
+        position: 'left'
+
+    },
+    {
+        element: '.proposal_main',
+        intro: "<%=t('tutorial.proposals_show.main')%>",
+        position: 'left'
+
+    },
+    {
+        element: '.solution_main',
+        intro: "<%=t('tutorial.proposals_show.solution_main')%>",
+        position: 'left'
+
+    },
+    {
+        element: '.solution_main .contribute-button',
+        intro: "<%=t('tutorial.proposals_show.contributeButton')%>",
+        position: 'left'
+
+    },
+    {
+        element: '#proposalNewComment',
+        intro: "<%=t('tutorial.proposals_show.newComment')%>",
+        position: 'left'
+
+    },
+    {
+        element: '#menu-left .menu-left-inner',
+        intro: "<%=t('tutorial.proposals_show.menu_left')%>",
+        position: 'right'
+
+    },
+    {
+        element: '.points .inpoints',
+        intro: "<%=t('tutorial.proposals_show.evaluations')%>",
+        position: 'right'
+
+    },
+    {
+        element: '.points .ranking',
+        intro: "<%=t('tutorial.proposals_show.ranking')%>",
+        position: 'right'
+
+    },
+    {
+        element: '#status',
+        intro: "<%=t('tutorial.proposals_show.status')%>",
+        position: 'right'
+
+    },
+    <%if @proposal.proposal_revisions.count > 0%>
+    {
+        element: '#history',
+        intro: "<%=t('tutorial.proposals_show.history')%>",
+        position: 'right'
+
+    },
+    <%end%>
+    {
+        element: '#menu-left #dates',
+        intro: "<%=t('tutorial.proposals_show.dates')%>",
+        position: 'right'
+
+    },
+    {
+        element: '#menu-left #dates #condition_left',
+        intro: "<%=t('tutorial.proposals_show.condition_left')%>",
+        position: 'right'
+
+    },
+    {
+        element: '.socialnetwork',
+        intro: "<%=t('tutorial.proposals_show.socialnetwork')%>",
+        position: 'right'
+
+    },
+    {
+        element: '#menu-left .mybox.authors',
+        intro: "<%=t('tutorial.proposals_show.authors')%>",
+        position: 'right'
+
+    },
+
+    {
+        element: '#menu-left .mybox.category',
+        intro: "<%=t('tutorial.proposals_show.category')%>",
+        position: 'right'
+
+    },
+    {
+        element: '#voteup',
+        intro: "<div style='width:300px'><%=j t('pages.steps.rank_bar_explain.newdescription4')%></div>",
+        position: 'right'
+    },
+    {
+        element: '#votedown',
+        intro: "<div style='width:300px'><%=j t('pages.steps.rank_bar_explain.newdescription5')%></div>",
+        position: 'right'
+    },
+    {
+        element: '.handscontainer',
+        intro: "<div style='width:300px'><%=j t('pages.steps.rank_bar_explain.newdescription6')%></div>",
+        position: 'right'
+    }
+]

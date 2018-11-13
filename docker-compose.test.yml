@@ -1,0 +1,6 @@
+eiresis:
+  image: eiresis_test
+  command: "bash -c 'Xvfb :99 & bundle exec rspec'"
+  environment:
+    - DISPLAY=:99
+    - RAILS_ENV=test

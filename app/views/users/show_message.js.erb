@@ -1,0 +1,4 @@
+var container_ = $('<div id="new_message_container" class="reveal-modal medium" data-reveal></div>');
+$('body').append(container_);
+container_.html("<%= j render 'users/message'%>");
+eiresis_reveal(container_);
