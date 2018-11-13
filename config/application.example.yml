@@ -29,7 +29,7 @@ PARMA_APP_ID: ""
 PARMA_APP_SECRET: ""
 
 # if you want to allow the users to login via Tecnologie Democratiche fill these variables
-# send an email to alessandro.rodi@eiresis.com to ask for credentials
+# send an email to alperenaksoydev@gmail.com to ask for credentials
 TECNOLOGIEDEMOCRATICHE_APP_ID: ''
 TECNOLOGIEDEMOCRATICHE_APP_SECRET: ''
 TECNOLOGIEDEMOCRATICHE_APP_URL: "https://tecnologiedemocratiche.herokuapp.com/"
@@ -85,7 +85,7 @@ DEFAULT_FROM: "App <info@example.com>"
 NOREPLY_EMAIL: "No Reply <noreply@example.com>"
 
 # when we send emails the default protocol to use for urls.
-# eiresis tries not to use the rails default ActionMailer Default Host
+# Eiresis tries not to use the rails default ActionMailer Default Host
 # because it depends on which host the user registered.
 # You still have the MAILER_DEFAULT_HOST for emails which are not directed to registered users.
 # for other users the domain on which they registered counts and this is the protocol used.
@@ -258,8 +258,8 @@ MAILMAN_SERVER: 'pop.server.com'
 MAILMAN_USERNAME: 'email_username'
 MAILMAN_PASSWORD: 'email_password'
 # there must be a %token%
-MAILMAN_EMAIL: 'replytest+%token%@eiresis.com'
-MAILMAN_SENDER: 'eiresis Forum'
+MAILMAN_EMAIL: 'example@gmail.com'
+MAILMAN_SENDER: 'Eiresis Forum'
 
 # if the user does not access the platform for this number of days, his session will be destroyed
 SESSION_DAYS: '14'

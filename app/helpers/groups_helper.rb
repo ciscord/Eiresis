@@ -274,7 +274,7 @@ module GroupsHelper
   # we write them dynamically to avoid writing every single method.
   # that may cause problems but I hope not and sometime WE WILL REWRITE ALSO others
   if Rails.env == 'development'
-    names = eiresis::Application.routes.routes.map(&:name).select { |n| n =~ /(group_frm_|group_forum).*/ }
+    names = Eiresis::Application.routes.routes.map(&:name).select { |n| n =~ /(group_frm_|group_forum).*/ }
     names.each do |name|
       module_eval <<-END_EVAL, __FILE__, __LINE__ + 1
     def #{name}_url(group,*args)
@@ -290,9 +290,9 @@ module GroupsHelper
   # all routes concerning forums
   # we write them dynamically to avoid writing every single method.
   # that may cause problems but I hope not and sometime WE WILL REWRITE ALSO others
-  # eiresis::Application.reload_routes!
+  # Eiresis::Application.reload_routes!
   def self.init
-    names = eiresis::Application.routes.routes.map(&:name).select { |n| n =~ /(group_frm_|group_forum|participation_role|group_event).*/ }
+    names = Eiresis::Application.routes.routes.map(&:name).select { |n| n =~ /(group_frm_|group_forum|participation_role|group_event).*/ }
     names.each do |name|
       define_method("#{name}_url") do |group, *args|
         (group_in_subdomain? group) ?

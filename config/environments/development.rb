@@ -1,4 +1,4 @@
-eiresis::Application.configure do
+Eiresis::Application.configure do
   config.cache_classes = false
 
   config.eager_load = false
@@ -29,4 +29,4 @@ eiresis::Application.configure do
   config.active_record.raise_in_transactional_callbacks = true
 end
 
-eiresis::Application.default_url_options = eiresis::Application.config.action_mailer.default_url_options
+Eiresis::Application.default_url_options = Eiresis::Application.config.action_mailer.default_url_options

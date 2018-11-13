@@ -1,6 +1,6 @@
 require File.expand_path('../application', __FILE__)
 
-eiresis::Application.initialize!
+Eiresis::Application.initialize!
 
 # patch to provide missing translations to rails using existing yml files
 I18n.available_locales.each do |locale|

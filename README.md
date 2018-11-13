@@ -57,7 +57,7 @@ or if you prefer using [Docker containers](#Docker) for a quick and easy setup.
 
 1. Download the project
 ```
-git clone https://github.com/coorasse/eiresis.git
+git clone https://github.com/alperendev98/Eiresis.git
 cd eiresis
 ```
 2. Install the libraries
@@ -138,9 +138,9 @@ Our main goal is to make it even more simple and usable for everybody!
 
 ## The author
 
-![Alessandro Rodi](http://www.gravatar.com/avatar/32d80da41830a6e6c1bb3eb977537e3e)
+![Alperen Aksoy](http://www.gravatar.com/avatar/32d80da41830a6e6c1bb3eb977537e3e)
 
-Alessandro Rodi (coorasse@gmail.com)
+Alperen Aksoy (coorasse@gmail.com)
 
 ## Contributors
 

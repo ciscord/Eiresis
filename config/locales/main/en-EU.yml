@@ -895,7 +895,7 @@ en-EU:
           This short tutorial will help you in the first choices inside the platform.<br/>
           This is your desktop: here you will find all the information you need to keep in touch with your territory.<br/>
           You can manage your proposals and your groups, view the events around you and get in touch with other citizens.<br/>
-          Improve eiresis by sending a feedback to <a href="mailto:info@eiresis.com">info@eiresis.com</a>.<br/>
+          Improve eiresis by sending a feedback to <a href="mailto:alperenaksoydev@gmail.com">alperenaksoydev@gmail.com</a>.<br/>
       choose_follow:
         description_html: |
           Here you are the most active groups in the territories inside your interest borders.<br />
@@ -953,7 +953,7 @@ en-EU:
     footer:
       for_edemocracy: "for e-democracy"
       go_to_main_site: "Go to main site"
-      for_edemocracy_html: "<a href=\"https://github.com/coorasse/eiresis\" target=\"_blank\">Open Source</a> project for e-democracy"
+      for_edemocracy_html: "<a href=\"https://github.com/alperendev98/Eiresis\" target=\"_blank\">Open Source</a> project for e-democracy"
     moderator_panel:
       title: "Moderator panel"
       block_user: "Block user"

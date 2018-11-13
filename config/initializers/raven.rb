@@ -1,4 +1,4 @@
-eiresis_VERSION = '4.4.0'
+EIRESIS_VERSION = '1.0.0'
 
 if Rails.env.production? && SENTRY_ACTIVE
   require 'raven'
@@ -6,6 +6,6 @@ if Rails.env.production? && SENTRY_ACTIVE
     config.dsn = "https://#{ENV['SENTRY_PUBLIC_KEY']}:#{ENV['SENTRY_PRIVATE_KEY']}@app.getsentry.com/#{ENV['SENTRY_PORT']}"
     config.sanitize_fields = Rails.application.config.filter_parameters.map(&:to_s)
     config.environments = ['production']
-    config.release = eiresis_VERSION
+    config.release = EIRESIS_VERSION
   end
 end

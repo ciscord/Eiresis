@@ -349,7 +349,7 @@ en-EU:
         content_html: |
           <p>eiresis was born from the fusion of two projects launched over two years ago as a result of the need to be able to use a
            software platform that could integrate the main features of social networks, event management and mass decision making system.</p>
-          <p>In March, 2012, during the meeting "Cittadini a cinque stelle" (Five Stars Citizen) organized in Rimini, Alessandro Rodi
+          <p>In March, 2012, during the meeting "Cittadini a cinque stelle" (Five Stars Citizen) organized in Rimini, Alperen Aksoy
            with its eiresis project came to know Nicola Giulietti and the Agora 2.0 project: on one side, a good software,
            on the other an excellent analysis of the features that a portal for direct democracy should have had.</p>
           <p>Following this meeting it was decided to collaborate in the development of a common open source application so that it could
@@ -446,7 +446,7 @@ en-EU:
           <ul>
             <li><a href="https://groups.google.com/forum/?fromgroups=#!forum/agora-20" target="_blank">Development group on Google Groups</a></li>
             <li><a href="https://www.facebook.com/groups/eiresis/" target="_blank">Development group on Faceook</a></li>
-            <li><a href="https://github.com/coorasse/eiresis" target="_blank">Source code</a></li>
+            <li><a href="https://github.com/alperendev98/Eiresis" target="_blank">Source code</a></li>
           </ul>
       paragraph2:
         title: "How to contribute"
