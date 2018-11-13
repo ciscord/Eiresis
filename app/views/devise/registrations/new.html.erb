@@ -1,23 +1,7 @@
 <% @extend=true %>
 <% @page_title = t('pages.registration.title') %>
 
-<% if ::Configuration.socialnetwork_active && !in_subdomain? %>
-    <div class="card">
-      <h2><%= t('pages.registration.identity_provviders_title') %></h2>
 
-      <%= link_to t('pages.top_panel.facebook_login'), user_omniauth_authorize_path(:facebook), alt: t('pages.top_panel.facebook_login'), title: t('pages.top_panel.facebook_login'), class: 'zocial icon facebook' %>
-
-      <%= link_to t('pages.top_panel.google_login'), user_omniauth_authorize_path(:google_oauth2), alt: t('pages.top_panel.google_login'), title: t('pages.top_panel.google_login'), class: 'zocial icon googleplus' %>
-
-      <%= link_to t('pages.top_panel.twitter_login'), user_omniauth_authorize_path(:twitter), alt: t('pages.top_panel.twitter_login'), title: t('pages.top_panel.twitter_login'), class: 'zocial icon twitter' %>
-
-      <%= link_to t('pages.top_panel.meetup_login'), user_omniauth_authorize_path(:meetup), alt: t('pages.top_panel.meetup_login'), title: t('pages.top_panel.meetup_login'), class: 'zocial icon meetup' %>
-
-      <%= link_to t('pages.top_panel.linkedin_login'), user_omniauth_authorize_path(:linkedin), alt: t('pages.top_panel.linkedin_login'), title: t('pages.top_panel.linkedin_login'), class: 'zocial icon linkedin' %>
-
-      <%= link_to t('pages.top_panel.tecnologiedemocratiche_login'), user_omniauth_authorize_path(:tecnologiedemocratiche), alt: t('pages.top_panel.tecnologiedemocratiche_login'), title: t('pages.top_panel.tecnologiedemocratiche_login'), class: 'zocial icon tecnologiedemocratiche' %>
-    </div>
-<% end %>
 <div class="card">
   <h2><%= t('pages.registration.title') %></h2>
 
@@ -49,26 +33,6 @@
 
       <%= f.input :surname, required: true %>
 
-      <div class="conditions">
-        <%= render 'devise/registrations/eula' %>
-      </div>
-
-      <%= f.input :accept_conditions,
-                  as: :boolean,
-                  label: t('pages.registration.accept_conditions'),
-                  required: true,
-                  input_html: { data: { row_selector: 'boolean' } } %>
-
-      <div class="conditions">
-        <%= render 'devise/registrations/privacy' %>
-      </div>
-
-      <%= f.input :accept_privacy,
-                  as: :boolean,
-                  label: t('pages.registration.accept_privacy'),
-                  required: true,
-                  input_html: { data: { row_selector: 'boolean' } } %>
-
       <%= f.hidden_field :sys_locale_id %>
 
       <% if ::Configuration.recaptcha %>
@@ -78,7 +42,23 @@
       <div><%= f.submit t('pages.registration.register_button'), class: 'btn blue' %></div>
   <% end %>
 </div>
+<% if ::Configuration.socialnetwork_active && !in_subdomain? %>
+    <div class="card">
+      <h2><%= t('pages.registration.identity_provviders_title') %></h2>
 
+      <%= link_to t('pages.top_panel.facebook_login'), user_omniauth_authorize_path(:facebook), alt: t('pages.top_panel.facebook_login'), title: t('pages.top_panel.facebook_login'), class: 'zocial icon facebook' %>
+
+      <%= link_to t('pages.top_panel.google_login'), user_omniauth_authorize_path(:google_oauth2), alt: t('pages.top_panel.google_login'), title: t('pages.top_panel.google_login'), class: 'zocial icon googleplus' %>
+
+      <%= link_to t('pages.top_panel.twitter_login'), user_omniauth_authorize_path(:twitter), alt: t('pages.top_panel.twitter_login'), title: t('pages.top_panel.twitter_login'), class: 'zocial icon twitter' %>
+
+      <%= link_to t('pages.top_panel.meetup_login'), user_omniauth_authorize_path(:meetup), alt: t('pages.top_panel.meetup_login'), title: t('pages.top_panel.meetup_login'), class: 'zocial icon meetup' %>
+
+      <%= link_to t('pages.top_panel.linkedin_login'), user_omniauth_authorize_path(:linkedin), alt: t('pages.top_panel.linkedin_login'), title: t('pages.top_panel.linkedin_login'), class: 'zocial icon linkedin' %>
+
+      <%= link_to t('pages.top_panel.tecnologiedemocratiche_login'), user_omniauth_authorize_path(:tecnologiedemocratiche), alt: t('pages.top_panel.tecnologiedemocratiche_login'), title: t('pages.top_panel.tecnologiedemocratiche_login'), class: 'zocial icon tecnologiedemocratiche' %>
+    </div>
+<% end %>
 <div id="eula_modal" class="reveal-modal medium" data-reveal>
   <p>
     <%= render partial: 'devise/registrations/eula' %>
