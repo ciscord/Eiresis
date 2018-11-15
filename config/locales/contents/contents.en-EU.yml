@@ -387,10 +387,7 @@ en-EU:
       paragraph3:
         title: "How to donate"
         content_html: |
-          <p> The Association for Social Promotion named
-            <a href="https://www.facebook.com/tecnologiedemocratiche" target="_blank">Tecnologie Democratichez</a>
-            was created in order to support the development of eiresis and allow the project sustenance.
-            Your donation will be entirely addressed to the development and hosting of the platform.
+          <p> Your donation will be entirely addressed to the development and hosting of the platform.
             Financially support us in order to pay an experienced senior programmer and for the maintenance of the server hosting our application:
           </p>
           <center>
