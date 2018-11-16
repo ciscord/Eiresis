@@ -16,10 +16,6 @@
             <span class="show-for-large-up"><%= t('pages.home.index.partecipate') %></span>
         <% end %>
         <span> ⋅ </span>
-        <%= link_to(videoguide_path, class: ((['videoguide'].include? params[:action]) ? 'sel' : '')) do %>
-            <span class="show-for-large-up"><%= t('pages.home.index.videos') %></span>
-        <% end %>
-        <span> ⋅ </span>
         <%= link_to(chisiamo_path, class: ((['whowe', 'story'].include? params[:action]) ? 'sel' : '')) do %>
             <span class="show-for-large-up"><%= t('pages.home.index.whowe') %></span>
         <% end %>

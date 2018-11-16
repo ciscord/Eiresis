@@ -21,7 +21,6 @@ Eiresis::Application.routes.draw do
   get 'partecipa' => 'home#engage'
   get 'chisiamo' => 'home#whowe'
   get 'roadmap' => 'home#roadmap'
-  get 'videoguide' => 'home#videoguide'
   get 'edemocracy' => 'home#intro'
   get 'eparticipation' => 'home#intro'
   get 'story' => 'home#story'

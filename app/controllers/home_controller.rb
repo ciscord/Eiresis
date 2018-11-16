@@ -20,9 +20,6 @@ class HomeController < ApplicationController
     render 'open_space'
   end
 
-  def videoguide
-  end
-
   def engage
   end
 
