@@ -171,7 +171,7 @@ en-EU:
           suggestion_html: |
             <div><b>Example:</b></div>
             <div>Choose an agenda for our meeting.</div>
-            <div>Ordinary co-ordination meeting to exchange experiences with the referents of the local committees for the biological agriculture of Italy.</div>
+            <div>Ordinary co-ordination meeting to exchange experiences with the referents of the local committees for the biological agriculture.</div>
           solution:
             title: "Item"
             priorities: "Item priority"
