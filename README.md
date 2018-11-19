@@ -1,9 +1,5 @@
 # eiresis - The Social Network for eDemocracy
 
-[![Build Status](https://semaphoreci.com/api/v1/coorasse/eiresis/branches/master/badge.svg)](https://semaphoreci.com/coorasse/eiresis)
-[![Dependency Status](https://gemnasium.com/coorasse/eiresis.svg)](https://gemnasium.com/coorasse/eiresis)
-[![Code Climate](https://codeclimate.com/repos/5552681fe30ba02945000686/badges/2885e98c8c20799e22c8/gpa.svg)](https://codeclimate.com/repos/5552681fe30ba02945000686/feed)
-
 The first open source web application for eDemocracy
 
 ## Summary
@@ -38,12 +34,6 @@ Finally, an implementation of the method schulze will always hold genuine electi
 
 Absolutely simple and intuitive interface will allow everyone in a short time, to find all the information they want.
 
-## Reference website
-
-* [www.eiresis.eu](https://www.eiresis.eu)
-* [www.eiresis.com](https://www.eiresis.com)
-
-
 ## Installation and Setup
 
 You can install eiresis to run locally on your machine, 
@@ -57,7 +47,7 @@ or if you prefer using [Docker containers](#Docker) for a quick and easy setup.
 
 1. Download the project
 ```
-git clone https://github.com/alperendev98/Eiresis.git
+git clone https://github.com/ivicamarinkovic/Eiresis.git
 cd eiresis
 ```
 2. Install the libraries
@@ -138,23 +128,6 @@ Our main goal is to make it even more simple and usable for everybody!
 
 ## The author
 
-![Alperen Aksoy](http://www.gravatar.com/avatar/32d80da41830a6e6c1bb3eb977537e3e)
+![Ivica Marinkovic](https://s.gravatar.com/avatar/b7f2c02e4d6f3725b010985578dc354a?s=80)
 
-Alperen Aksoy (coorasse@gmail.com)
-
-## Contributors
-
-[List of Contributors to the project eiresis](https://www.eiresis.com/chisiamo)
-
-[Tecnologie Democratiche Association](https://www.facebook.com/tecnologiedemocratiche)
-
-## License
-
-This software is released under AGPL .
-
-For the terms of the license can be found in the LICENSE file available within the project.
-
-Anyone which installs the application and is required to comply with the terms of the license and to incorporate 
-in the footer of the website the following statement:
-
-    Powered by <a href="https://www.eiresis.eu"> eiresis - The Social Network for eDemocracy </a>
+Ivica Marinkovic (ivicadevelopermarinkovic@gmail.com)
