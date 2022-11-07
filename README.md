@@ -1,44 +1,5 @@
 # eiresis - The Social Network for eDemocracy
 
-The first open source web application for eDemocracy
-
-## Summary
-
-This innovative tool for participatory democracy puts the citizens at the center, as the main actors, 
-and finally allows them to be active in the decisions of their territory.
-
-Users can view their own territory and listen to the voices and messages that come directly 
-from other citizens or groups present.
-
-The groups will be able to get in touch with the citizens, support the proposals and create events 
-in the area.
-
-Everything fully integrated with all major social networks and the ability to communicate through e-mail 
-the proposals.
-
-Users who wish to participate in the activities of groups can also sign up and follow the discussions 
-on the forums.
-
-But what really makes eiresis a platform for edemocracy?
-The first thing is a totally innovative mechanism for the construction of proposals, where finally 
-the contributions and the minds of the users will be able to merge and make it possible to write 
-proposals in a shared way.
-
-eiresis allows users to have a better ranking on the basis of how they work and contribute to the proposals but at the same time allows a true comparison on the topics and content while maintaining the anonymity of users during the construction of the proposals.
-
-Each time a user participates in a proposal will be overshadowed his real name, so as to ensure that the discussions will focus on the texts and the value of what is written rather than who wrote it.
-
-A system for evaluating the contributions and proposals totally new will automatically identify the users who write better and those who write worse by allowing them to write and evaluate better within the system.
-
-Finally, an implementation of the method schulze will always hold genuine elections within groups or to choose the best among the proposals.
-
-Absolutely simple and intuitive interface will allow everyone in a short time, to find all the information they want.
-
-## Installation and Setup
-
-You can install eiresis to run locally on your machine, 
-or if you prefer using [Docker containers](#Docker) for a quick and easy setup.
-
 #### Requirements
 * PostgreSQL 9 with the hstore extension enabled.
 * Redis in order to execute Sidekiq and all background jobs.
@@ -47,7 +8,7 @@ or if you prefer using [Docker containers](#Docker) for a quick and easy setup.
 
 1. Download the project
 ```
-git clone https://github.com/ivicamarinkovic/Eiresis.git
+git clone https://github.com/ciscord/Eiresis.git
 cd eiresis
 ```
 2. Install the libraries
@@ -125,9 +86,3 @@ Contribute on Crowdin to the Translation of the project
 We want to take out everything which is related to our installation and make it easier to install.
 
 Our main goal is to make it even more simple and usable for everybody!
-
-## The author
-
-![Ivica Marinkovic](https://s.gravatar.com/avatar/b7f2c02e4d6f3725b010985578dc354a?s=80)
-
-Ivica Marinkovic (ivicadevelopermarinkovic@gmail.com)
